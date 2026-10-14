@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="도봉구 공공기관의 아이 프로그램을 한눈에 찾아보세요." />
+  <title>우리동네 키즈 — 도봉구</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">우</span><span><b>우리동네 키즈</b><small>동네에서 찾는 오늘의 경험</small></span></a>
+    <nav aria-label="주요 메뉴">
+      <p class="nav-label">둘러보기</p>
+      <button class="nav-item active" data-view="all"><span>⌂</span> 프로그램 찾기</button>
+      <button class="nav-item" data-view="weekend"><span>◫</span> 이번 주말</button>
+      <button class="nav-item" data-view="saved"><span>♡</span> 찜한 프로그램 <em id="savedCount">0</em></button>
+      <p class="nav-label">내 아이</p>
+      <button class="child-card" id="childBtn"><span class="avatar">봄</span><span><b>봄이</b><small>5세 · 관심사 설정</small></span><span>›</span></button>
+    </nav>
+    <div class="sidebar-note"><span>✦</span><b>새 프로그램 알림</b><p>도봉구 새 소식을 놓치지 마세요.</p><button id="notifyBtn">알림 받기</button></div>
+    <div class="sidebar-foot">정보 출처 안내 · 제보하기</div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="mobile-menu" id="menuBtn" aria-label="메뉴 열기">☰</button>
+      <div class="district-tabs" role="tablist">
+        <button class="district active" role="tab">도봉구</button>
+        <button class="district" role="tab">노원구</button>
+        <button class="district" role="tab">강북구</button>
+        <button class="district add" role="tab">＋ 다른 지역</button>
+      </div>
+      <button class="icon-btn" aria-label="알림">♧<i></i></button>
+    </header>
+
+    <section class="content">
+      <div class="hero-row">
+        <div><p class="eyebrow">DOBONG-GU · 2026년 10월</p><h1>이번 주, 아이와<br><span>어디로 가볼까요?</span></h1><p class="subcopy">도봉구의 도서관, 문화재단, 공공시설 프로그램을<br>한곳에서 쉽고 빠르게 찾아보세요.</p></div>
+        <div class="today-card"><span class="weather">☀</span><div><small>오늘의 도봉구</small><b>가벼운 외출에 좋은 날이에요</b><p>아이와 함께 가까운 프로그램을 둘러보세요.</p></div></div>
+      </div>
+
+      <div class="stats" aria-label="프로그램 현황">
+        <div><span class="stat-icon blue">▦</span><p>모아본 프로그램<b>24</b></p><small>이번 달 기준</small></div>
+        <div><span class="stat-icon coral">⌛</span><p>마감 임박<b>6</b></p><small>3일 이내 마감</small></div>
+        <div><span class="stat-icon green">●</span><p>무료 프로그램<b>15</b></p><small>비용 부담 없이</small></div>
+      </div>
+
+      <section class="finder">
+        <div class="search-row"><label><span>⌕</span><input id="search" type="search" placeholder="프로그램명, 기관명으로 검색해보세요" /></label><button class="filter-toggle" id="filterToggle">☷ 필터</button></div>
+        <div class="filters" id="filters">
+          <div class="quick-chips" data-filter="time"><button class="chip active" data-value="all">전체</button><button class="chip" data-value="weekend">이번 주말</button><button class="chip" data-value="soon">마감 임박</button><button class="chip" data-value="free">무료</button></div>
+          <div class="selects"><select id="age"><option value="all">연령 전체</option><option value="유아">유아</option><option value="초등">초등</option><option value="가족">가족</option></select><select id="category"><option value="all">분야 전체</option><option value="독서">독서</option><option value="미술">미술</option><option value="과학">과학</option><option value="체험">체험</option></select><select id="place"><option value="all">기관 전체</option><option value="도서관">도서관</option><option value="문화재단">문화재단</option><option value="공공시설">공공시설</option></select></div>
+        </div>
+      </section>
+
+      <div class="list-head"><div><h2 id="listTitle">도봉구 프로그램</h2><span id="resultCount">6개의 프로그램</span></div><select id="sort"><option value="recommended">추천순</option><option value="deadline">마감 임박순</option><option value="date">날짜순</option></select></div>
+      <div class="program-grid" id="programGrid"></div>
+      <div class="empty" id="empty"><span>⌕</span><h3>조건에 맞는 프로그램이 없어요</h3><p>필터를 조금 넓혀 다시 찾아보세요.</p></div>
+      <p class="disclaimer">현재 화면의 프로그램은 포트폴리오 시연을 위한 예시 데이터입니다. 실제 운영 시 각 기관의 공식 공고와 연동됩니다.</p>
+    </section>
+  </main>
+
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true"><button class="drawer-close" id="drawerClose" aria-label="닫기">×</button><div id="drawerContent"></div></aside>
+  <div class="toast" id="toast">알림 신청이 완료되었어요</div>
+  <script src="./app.js"></script>
+</body>
+</html>
