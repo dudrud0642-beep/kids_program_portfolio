@@ -1,0 +1,199 @@
+{
+  "source": "dbfac",
+  "sourceName": "도봉문화재단",
+  "sourceUrl": "https://www.dbfac.or.kr",
+  "listUrl": "https://www.dbfac.or.kr/front/supportManageReq/supportManageListPage.do",
+  "collectedAt": "2026-10-13",
+  "howToCollect": "[1] 문화프로그램 목록(주 소스): GET https://www.dbfac.or.kr/front/supportManageReq/supportManageListPage.do?miv_pageNo={n}&miv_pageSize={size}&mode=V&searchkey=NAME&search_gb={분야}&search_gb2={시설}&searchType=title&searchtxt= . miv_pageSize는 서버가 그대로 받음(200으로 한 번에 200건 확인, 전체 약 861건). 정렬이 날짜순이 아니므로 최근 seq 200건 정도를 받아 날짜로 거르는 것을 권장. search_gb(분야 탭): All, 01=공연/전시, 02=행사/체험, 03=교육. search_gb2(시설 탭): 01=도봉문화재단, 08=구립도서관, 09=둘리뮤지엄, 06=평화문화진지, 11=서울청년센터 도봉, 03=김수영문학관, 04=함석헌기념관, 05=간송옛집, 12=마을극장 흰고무신, 13=청소년 예술공간 채움. 목록 항목: <a href=\"javascript:supportManageViewPage('{seq}','{gubun}')\"> + span.programType([공연]/[전시]/[행사]/[체험]/[교육]) + span.programTit + span.programDate('기간 YYYY-MM-DD ~ YYYY-MM-DD'). 목록의 날짜는 상세의 '기간'과 같음(일부 게시물은 이 값이 실제 접수기간인 경우도 있어 상세 확인 필요). [2] 상세: GET https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq={seq}&gubun={gubun} (gubun: 01=공연, 02=전시, 03=행사, 04=체험, 05=교육). table.boardViewTable의 th/td 쌍: 구분, 장소, 기간(YYYY.MM.DD ~ YYYY.MM.DD), 시간, 대상, 모집인원('N 명'), 접수기간, 기본비용('N 원'), 부가비용. 빈 값은 ' 명', ' ~ ', ' 원'처럼 나옴 → null 처리. 본문 div.boardViewConP는 포스터 이미지만 있는 경우가 많아(예: seq=1360) 신청방법·요금·상태 문구는 이미지에만 있음 → OCR 또는 수동 확인 필요. [3] 공지사항 게시판(꿈의극단처럼 공지에만 올라오는 아동 프로그램 있음): 페이지 GET https://www.dbfac.or.kr/front/board/boardContentsListPage.do?board_id=1 → 목록은 AJAX POST https://www.dbfac.or.kr/front/board/boardContentsList.do (form: miv_pageNo, miv_pageSize, mode=W, board_id=1, cate_id=) HTML 응답. 항목 링크 javascript:contentsViewAll('{contents_id}','1'). 상세 GET https://www.dbfac.or.kr/front/board/boardContentsView.do?board_id=1&contents_id={contents_id} (세션 없이 GET 동작 확인). [4] 평화문화진지 자체 사이트(재단 운영 시설, dbfac 목록에 없는 아동·가족 프로그램이 올라옴): WordPress. 목록 GET https://culturebunker.or.kr/archives/tax_program/{education|event|concert|exhibition}[/page/{n}], 상세 https://culturebunker.or.kr/archives/program/{slug}. 상세 본문은 '일시:', '대상:', '참여대상:', '신청방법:' 등 텍스트 줄로 제공. 이 파일의 평화문화진지 3건은 이 사이트에서 수집함(url 필드 참고). [5] 시설 주소: GET https://www.dbfac.or.kr/front/cultureplace/{culturebunker|hamsokhon|kimsuyoung|kansong|rubbershoes|youthart}.do 의 th '기관 주소' 옆 td. 재단 본부는 /front/dbfac/dblocation.do(도로명/지번 주소). 제외 기준 메모: 성인·청년·55세 이상·다문화 성인 대상, 대상이 '자유관람/일반인 누구나'로만 된 전시·축제(칠링페스타, 도봉쓰담 전시 등), 도봉구 밖(익산) 개최 행사, 도서관 프로그램은 제외. 같은 날짜 기준 일반 음악회 '제3회 합창 페스티벌'(2026-10-25, 도봉구민회관 하모니홀)은 아동 대상 명시가 없어 제외. 연도 보정: 이 파일의 날짜는 모두 원문에 연도가 적혀 있음. 단, 꿈의극단 일정(2026. 8. 12.(수) ~ 11. 28.(토))의 종료일은 앞의 2026을 이어받은 표기임.",
+  "facilities": [
+    {
+      "name": "평화문화진지",
+      "address": "서울특별시 도봉구 마들로 932 평화문화진지",
+      "area": null,
+      "url": "https://www.dbfac.or.kr/front/cultureplace/culturebunker.do"
+    },
+    {
+      "name": "함석헌기념관",
+      "address": "서울특별시 도봉구 도봉로 123길 33-6 (쌍문동)",
+      "area": "쌍문동",
+      "url": "https://www.dbfac.or.kr/front/cultureplace/hamsokhon.do"
+    },
+    {
+      "name": "김수영문학관",
+      "address": "서울특별시 도봉구 해등로32길 80(방학동)",
+      "area": "방학동",
+      "url": "https://www.dbfac.or.kr/front/cultureplace/kimsuyoung.do"
+    },
+    {
+      "name": "간송옛집",
+      "address": "서울특별시 도봉구 시루봉로 149-18(방학동)",
+      "area": "방학동",
+      "url": "https://www.dbfac.or.kr/front/cultureplace/kansong.do"
+    },
+    {
+      "name": "마을극장 흰고무신",
+      "address": "서울시 도봉구 시루봉로 15마길 13",
+      "area": null,
+      "url": "https://www.dbfac.or.kr/front/cultureplace/rubbershoes.do"
+    },
+    {
+      "name": "청소년 예술공간 채움",
+      "address": "서울특별시 도봉구 도봉로 955 광역환승센터 1층",
+      "area": null,
+      "url": "https://www.dbfac.or.kr/front/cultureplace/youthart.do"
+    },
+    {
+      "name": "도봉구민회관 소공연장",
+      "address": null,
+      "area": null,
+      "url": null
+    }
+  ],
+  "programs": [
+    {
+      "title": "2026 10월 도봉아트극장 <동물원에 간 고양이>",
+      "facility": "도봉구민회관 소공연장",
+      "category": "공연",
+      "target": "도봉구주민누구나(권장연령 36개월이상)",
+      "ageTags": [
+        "preschool",
+        "elem-low",
+        "elem-high",
+        "family"
+      ],
+      "programStart": "2026-10-22",
+      "programEnd": "2026-10-22",
+      "schedule": "2026. 10. 22. (목) 19시",
+      "sessions": null,
+      "applyStart": "2026-10-08",
+      "applyEnd": null,
+      "applyMethod": "도봉문화재단 홈페이지",
+      "capacity": 180,
+      "applied": null,
+      "fee": 0,
+      "feeText": "무료",
+      "statusText": "본 공연 관람 신청이 마감되었습니다.",
+      "url": "https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq=1360&gubun=01",
+      "description": "<동물원에 간 고양이>는 외로운 길고양이 '나비'가 동물친구들을 만나며 서로의 다름을 이해하고 진정한 우정을 발견하는 여정을 그린 어린이 국악뮤지컬이다."
+    },
+    {
+      "title": "[모집] 꿈의극단-도봉 추가 단원(참여자) 모집 공고",
+      "facility": "청소년 예술공간 채움",
+      "category": "공지사항",
+      "target": "도봉구 내 거주 9세~14세 (3명 내외) ※ 사회·문화적 취약계층 우대",
+      "ageTags": [
+        "elem-low",
+        "elem-high"
+      ],
+      "programStart": "2026-08-12",
+      "programEnd": "2026-11-28",
+      "schedule": "채움(A반) 매주 수요일 16:00~19:00 (※ 아래 A, B반 중 1곳 선택)",
+      "sessions": 15,
+      "applyStart": "2026-07-28",
+      "applyEnd": "2026-08-06",
+      "applyMethod": "홈페이지 공지사항에서 첨부파일 다운로드 / 담당자 이메일 (yjh2@dbfac.or.kr) 접수 (우편 및 방문 접수 불가)",
+      "capacity": null,
+      "applied": null,
+      "fee": 0,
+      "feeText": "전액 무료",
+      "statusText": null,
+      "url": "https://www.dbfac.or.kr/front/board/boardContentsView.do?board_id=1&contents_id=9d92bb1df23b4195957b01c238ce6699",
+      "description": "재단법인 도봉문화재단은 지역 아동·청소년의 예술적 성장과 창작 경험 확대를 위해 2026년 「꿈의극단-도봉」 프로그램을 운영합니다. 본 사업은 참여자가 연극의 기획–제작–공연 과정을 단계적으로 경험하며 자기표현과 협업 역량을 키울 수 있도록 구성된 참여형 연극교육 프로그램입니다."
+    },
+    {
+      "title": "[모집] 꿈의극단-도봉 추가 단원(참여자) 모집 공고",
+      "facility": "마을극장 흰고무신",
+      "category": "공지사항",
+      "target": "도봉구 내 거주 9세~14세 (3명 내외) ※ 사회·문화적 취약계층 우대",
+      "ageTags": [
+        "elem-low",
+        "elem-high"
+      ],
+      "programStart": "2026-08-12",
+      "programEnd": "2026-11-28",
+      "schedule": "마극(B반) 매주 금요일 16:00~19:00 (※ 아래 A, B반 중 1곳 선택)",
+      "sessions": 15,
+      "applyStart": "2026-07-28",
+      "applyEnd": "2026-08-06",
+      "applyMethod": "홈페이지 공지사항에서 첨부파일 다운로드 / 담당자 이메일 (yjh2@dbfac.or.kr) 접수 (우편 및 방문 접수 불가)",
+      "capacity": null,
+      "applied": null,
+      "fee": 0,
+      "feeText": "전액 무료",
+      "statusText": null,
+      "url": "https://www.dbfac.or.kr/front/board/boardContentsView.do?board_id=1&contents_id=9d92bb1df23b4195957b01c238ce6699",
+      "description": "재단법인 도봉문화재단은 지역 아동·청소년의 예술적 성장과 창작 경험 확대를 위해 2026년 「꿈의극단-도봉」 프로그램을 운영합니다. 본 사업은 참여자가 연극의 기획–제작–공연 과정을 단계적으로 경험하며 자기표현과 협업 역량을 키울 수 있도록 구성된 참여형 연극교육 프로그램입니다."
+    },
+    {
+      "title": "[공연] 평화문화진지 1인 인형극〈달 달 무슨 달> 🌙",
+      "facility": "평화문화진지",
+      "category": "공연",
+      "target": "전체관람가(*4세 이상 어린이 및 동반 가족 관람 권장)",
+      "ageTags": [
+        "preschool",
+        "elem-low",
+        "elem-high",
+        "family"
+      ],
+      "programStart": "2026-10-17",
+      "programEnd": "2026-10-17",
+      "schedule": "2026. 10. 17.(토) 오후 2시 (러닝타임: 40분)",
+      "sessions": null,
+      "applyStart": null,
+      "applyEnd": null,
+      "applyMethod": "현장 자유관람",
+      "capacity": null,
+      "applied": null,
+      "fee": 0,
+      "feeText": "전석 무료",
+      "statusText": null,
+      "url": "https://culturebunker.or.kr/archives/program/%ea%b3%b5%ec%97%b0-%ed%8f%89%ed%99%94%eb%ac%b8%ed%99%94%ec%a7%84%ec%a7%80-1%ec%9d%b8-%ec%9d%b8%ed%98%95%ea%b7%b9-%e3%80%88%eb%8b%ac-%eb%8b%ac-%eb%ac%b4%ec%8a%a8-%eb%8b%ac%e3%80%89-%f0%9f%8c%99",
+      "description": "“달이 사라진 깜깜한 밤하늘, 과연 우리들은 달을 다시 볼 수 있을까요?” 평화문화진지에서 달을 찾아 떠나는 특별한 이야기 여행을 즐겨보세요."
+    },
+    {
+      "title": "[교육] 평화로운 토요일 북아트 원데이 클래스 프로그램 사전예약 참여자 모집 및 안내",
+      "facility": "평화문화진지",
+      "category": "교육",
+      "target": "10세 이상 어린이 및 성인",
+      "ageTags": [
+        "elem-low",
+        "elem-high"
+      ],
+      "programStart": "2026-10-10",
+      "programEnd": "2026-10-31",
+      "schedule": "2026. 10. 10.(토) ~ 10. 31.(토) 매주 토요일 10:00~12:00 (매주 토요일, 총 4회)",
+      "sessions": 4,
+      "applyStart": null,
+      "applyEnd": null,
+      "applyMethod": "구글폼을 통한 회차별 선착순 접수",
+      "capacity": null,
+      "applied": null,
+      "fee": null,
+      "feeText": null,
+      "statusText": null,
+      "url": "https://culturebunker.or.kr/archives/program/%ea%b5%90%ec%9c%a1-%ed%8f%89%ed%99%94%eb%a1%9c%ec%9a%b4-%ed%86%a0%ec%9a%94%ec%9d%bc-%eb%b6%81%ec%95%84%ed%8a%b8-%ec%9b%90%eb%8d%b0%ec%9d%b4-%ed%81%b4%eb%9e%98%ec%8a%a4-%ed%94%84%eb%a1%9c%ea%b7%b8",
+      "description": "나만의 작은 추억을 다양한 종이에 담아보는 북아트 원데이 클래스 예술교육 프로그램을 운영합니다."
+    },
+    {
+      "title": "[행사]🍂 2026 평화문화진지 주말 문화 쉼터「평화로운 토요일」🍂",
+      "facility": "평화문화진지",
+      "category": "행사",
+      "target": "평화문화진지 방문객 누구나",
+      "ageTags": [],
+      "programStart": "2026-10-17",
+      "programEnd": "2026-11-07",
+      "schedule": "2026. 10. 17.(토) ~ 11. 7.(토) / 매주 토요일 10:00 ~ 17:00 (⚠프로그램별 운영시간 및 일자 상이⚠)",
+      "sessions": null,
+      "applyStart": null,
+      "applyEnd": null,
+      "applyMethod": null,
+      "capacity": null,
+      "applied": null,
+      "fee": 0,
+      "feeText": "참여비: 무료",
+      "statusText": null,
+      "url": "https://culturebunker.or.kr/archives/program/%f0%9f%8d%82-2026-%ed%8f%89%ed%99%94%eb%ac%b8%ed%99%94%ec%a7%84%ec%a7%80-%ec%a3%bc%eb%a7%90-%eb%ac%b8%ed%99%94-%ec%89%bc%ed%84%b0-%e3%80%88%ed%8f%89%ed%99%94%eb%a1%9c%ec%9a%b4-%ed%86%a0%ec%9a%94",
+      "description": "책과 함께 느긋하게 쉬어가는 여유로운 북피크닉부터 누구나 쉽고 재미있게 즐길 수 있는 다채로운 체험존, 가족과 함께 관람하는 인형극, 그리고 북아트 예술교육까지!"
+    }
+  ]
+}

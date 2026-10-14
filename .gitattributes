@@ -1,0 +1,5 @@
+# 줄바꿈은 LF로 통일 (자동 갱신이 도는 리눅스 서버와 같게)
+* text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.jpg binary

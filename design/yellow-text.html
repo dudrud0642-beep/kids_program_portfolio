@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>노란 박스 글자색 비교</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root { --text: #1f2937; --text-2: #4b5563; --text-3: #6b7280; --line: #e8ebf2; --bg: #f4f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
+    h1, h2 { margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    .nw { white-space: nowrap; }
+    .sent { display: block; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+    .opt { display: flex; flex-direction: column; gap: 16px; padding: 20px; border: 1px solid #edf0f6; border-radius: 18px; background: #fff; box-shadow: 0 8px 24px rgba(27, 36, 55, .05); }
+    .opt.is-picked { box-shadow: 0 0 0 2px #ffc233, 0 8px 24px rgba(27, 36, 55, .05); }
+    .opt .day, .opt .tab span, .opt .btn, .opt .label { text-shadow: var(--sh); }
+    .opt h2 { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; }
+    .tag { padding: 0 8px; border-radius: 6px; background: #fff6dc; color: #8a6100; font-size: 12px; font-weight: 600; line-height: 22px; }
+    .ratio { font-size: 13.5px; color: var(--text-2); }
+    .ratio b { font-weight: 700; }
+    .ok { color: #1e7b45; } .bad { color: #c4441f; }
+    .demo-label { font-size: 12px; color: var(--text-3); }
+    .days { display: grid; grid-template-columns: repeat(3, 44px); gap: 6px; }
+    .day { display: flex; flex-direction: column; align-items: center; padding: 7px 0 6px; border-radius: 10px; color: var(--fg); }
+    .day .dw { font-size: 11px; font-weight: 500; } .day .dd { font-size: 14px; font-weight: 700; line-height: 1.2; } .day .dc { font-size: 11px; font-weight: 600; }
+    .tab { display: inline-flex; align-items: center; gap: 6px; font-size: 14.5px; font-weight: 700; }
+    .tab span { min-width: 22px; padding: 0 6px; border-radius: 999px; background: #ffc233; color: var(--fg); font-size: 12px; font-weight: 600; line-height: 20px; text-align: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 42px; padding: 0 16px; border-radius: 12px; background: #ffc233; color: var(--fg); font-size: 14.5px; font-weight: 600; }
+    .label { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 10px; background: #ffc233; color: var(--fg); font-size: 13px; font-weight: 500; }
+    .label b { font-weight: 700; }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .note { margin-top: 16px; padding: 16px 18px; border-radius: 14px; background: #fff; font-size: 14px; color: var(--text-2); box-shadow: 0 8px 24px rgba(27, 36, 55, .05); }
+    @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>노란 박스 글자색 비교</h1>
+      <p><span class="sent">메인 영역의 <span class="nw">노란 박스(<span class="nw">2주 달력</span>,</span> <span class="nw">탭 숫자</span>, 버튼, <span class="nw">지도 말풍선)에</span> <span class="nw">글자색 세 가지를</span> 넣어 봤어요.</span><span class="sent">숫자는 <span class="nw">글자와 바탕의 대비</span>예요. <span class="nw">작은 글자는 4.5:1 이상이면</span> 편하게 읽혀요.</span></p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <p class="note"><b>정리</b> · <span class="nw">흰 글자로 적용했어요.</span> 밝은 노랑에 묻히지 않게 <span class="nw">2주 달력 칸 색을</span> <span class="nw">한 단계 진하게 하고,</span> 글자에 <span class="nw">옅은 그림자를</span> 넣었어요.</p>
+  </div>
+
+  <script>
+    const L = (hex) => { const c = hex.replace('#', '').match(/../g).map((h) => parseInt(h, 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4))); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+    const cr = (a, b) => { const x = L(a), y = L(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+    const opts = [
+      { name: '흰색', fg: '#ffffff', picked: true, shadow: '0 1px 2px rgba(138, 88, 0, .38)' },
+      { name: '진한 갈색', fg: '#4a3500' },
+      { name: '남색(검정 계열)', fg: '#1f2937' }
+    ];
+    const bgs = ['#ffc233', '#f2aa19', '#e69200'];
+    document.getElementById('grid').innerHTML = opts.map((o) => {
+      const r = bgs.map((b) => cr(b, o.fg));
+      const min = Math.min(...r).toFixed(1), max = Math.max(...r).toFixed(1);
+      const good = Math.min(...r) >= 4.5;
+      return `
+        <section class="opt${o.picked ? ' is-picked' : ''}" style="--fg:${o.fg};--sh:${o.shadow || 'none'}">
+          <h2>${o.name}${o.picked ? '<span class="tag">지금 적용</span>' : ''}</h2>
+          <p class="ratio">대비 <b class="${good ? 'ok' : 'bad'}">${min}~${max} : 1</b> ${good ? '· 잘 읽혀요' : '· 읽기 어려워요'}</p>
+          <div><p class="demo-label">2주 달력</p><div class="days">${bgs.map((b, i) => `<span class="day" style="background:${b}"><span class="dw">${['목', '금', '토'][i]}</span><span class="dd">${15 + i}</span><span class="dc">${[3, 9, 1][i]}건</span></span>`).join('')}</div></div>
+          <div class="row"><span class="tab">전체 <span>41</span></span><span class="label">창동 <b>25</b></span></div>
+          <div><span class="btn">기관 사이트에서 보기</span></div>
+        </section>`;
+    }).join('');
+  </script>
+</body>
+</html>

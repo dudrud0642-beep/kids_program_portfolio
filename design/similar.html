@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>비슷한 프로그램 추천 시안</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: var(--bg); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .box { margin-top: 20px; padding: 20px 22px; border-radius: 18px; background: #fff; box-shadow: var(--shadow); }
+    .box h2 { font-size: 17px; font-weight: 700; }
+    .rules { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; padding: 0; list-style: none; counter-reset: r; }
+    .rules li { padding: 14px 16px; border-radius: 14px; background: var(--bg); font-size: 14px; color: var(--text-2); counter-increment: r; }
+    .rules li::before { content: counter(r); display: grid; place-items: center; width: 22px; height: 22px; margin-bottom: 8px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 12px; font-weight: 700; text-shadow: var(--on-primary-shadow); }
+    .rules b { display: block; margin-bottom: 2px; color: var(--text); font-size: 14.5px; }
+    .pts { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 6px; background: var(--primary-soft); color: var(--primary-ink); font-size: 12px; font-weight: 700; line-height: 20px; }
+    .picker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+    .picker-label { margin-right: 4px; font-size: 13.5px; color: var(--text-3); }
+    .pick { height: 34px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 999px; background: #fff; cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 500; color: var(--text-2); }
+    .pick[aria-pressed="true"] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); font-weight: 700; }
+
+    .variants { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 20px; align-items: start; }
+    .variant { padding: 18px; border-radius: 18px; background: #fff; box-shadow: var(--shadow); }
+    .v-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .v-head h2 { font-size: 16.5px; font-weight: 700; }
+    .v-tag { padding: 0 8px; border-radius: 6px; background: var(--primary-soft); color: var(--primary-ink); font-size: 12px; font-weight: 700; line-height: 22px; }
+    .v-desc { margin-top: 6px; font-size: 13.5px; color: var(--text-3); }
+    .v-pros { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--bg); font-size: 13px; color: var(--text-2); list-style: none; }
+    .v-pros li + li { margin-top: 4px; }
+    .v-pros li::before { content: "· "; color: var(--text-3); }
+
+    /* 상세 팝업 축소 모형 */
+    .phone { margin-top: 14px; padding: 16px 16px 18px; border: 1px solid var(--line); border-radius: 20px; background: #fff; }
+    .m-status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); }
+    .m-title { margin-top: 8px; font-size: 17px; font-weight: 700; line-height: 1.4; }
+    .m-rows { display: grid; grid-template-columns: 64px minmax(0, 1fr); margin: 12px 0 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .m-rows dt, .m-rows dd { margin: 0; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .m-rows dt { color: var(--text-3); }
+    .m-fade { position: relative; }
+    .m-fade::after { content: "…"; display: block; padding: 6px 0 0; color: var(--text-3); font-size: 13px; text-align: center; }
+
+    .sim { margin-top: 16px; }
+    .sim h3 { display: flex; align-items: baseline; gap: 6px; font-size: 14.5px; font-weight: 700; }
+    .sim h3 small { font-size: 12px; font-weight: 500; color: var(--text-3); }
+    .sim-list { margin: 8px 0 0; padding: 0; list-style: none; }
+    .sim-item { display: block; width: 100%; padding: 10px 0; border: 0; border-top: 1px solid var(--line); background: none; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+    .sim-item:hover .sim-title { text-decoration: underline; text-underline-offset: 3px; }
+    .sim-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .sim-title { font-size: 14px; font-weight: 600; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sim-meta { display: block; margin-top: 2px; font-size: 12.5px; color: var(--text-3); }
+    .sim-item, .mini { white-space: normal; }
+    .why { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .why span { padding: 0 7px; border-radius: 6px; background: var(--gray-soft); color: var(--gray-ink); font-size: 11.5px; font-weight: 600; line-height: 20px; white-space: nowrap; }
+    .why .w-age { background: var(--primary-soft); color: var(--primary-ink); }
+    .sim-item .badge { height: 22px; font-size: 11.5px; }
+
+    /* B안: 마감 안내 */
+    .closed-banner { margin-top: 12px; padding: 12px 12px 4px; border-radius: 14px; background: var(--coral-soft); }
+    .closed-banner p { font-size: 13.5px; font-weight: 700; color: var(--coral-ink); }
+    .closed-banner .sim-item { border-top-color: rgba(196, 68, 31, .15); }
+    .dim { opacity: .45; }
+
+    /* C안: 저장한 프로그램 */
+    .saved-row { padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; }
+    .saved-row .sim-title { font-size: 14.5px; }
+    .cards { display: flex; gap: 10px; margin: 8px 0 0; padding: 2px 0 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .cards::-webkit-scrollbar { display: none; }
+    .mini { flex: 0 0 78%; scroll-snap-align: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+    .mini .badge { height: 22px; font-size: 11.5px; }
+    .mini .sim-title { margin-top: 6px; }
+    .empty-sim { margin-top: 8px; padding: 12px; border-radius: 12px; background: var(--bg); font-size: 13px; color: var(--text-3); }
+
+    .foot-note { margin-top: 16px; font-size: 13px; color: var(--text-3); }
+    @media (max-width: 1080px) { .variants { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .rules { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+    @media (max-width: 720px) { .variants, .rules { grid-template-columns: minmax(0, 1fr); } .wrap { padding: 28px 16px 40px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>비슷한 프로그램 추천 시안</h1>
+      <p><span class="sent">상세 팝업을 본 뒤 <span class="nw">"이거 말고 또 뭐가 있지?"를</span> 바로 이어서 보여 주는 기능이에요.</span><span class="sent">아래 결과는 <span class="nw">실제로 모은 117건으로</span> 계산했어요.</span></p>
+    </div>
+
+    <section class="box" aria-labelledby="rule-title">
+      <h2 id="rule-title">어떻게 골라요</h2>
+      <ol class="rules">
+        <li><b>나이가 겹치는 것만</b>우리 아이 나이 칸이 겹쳐야 해요. <span class="nw">가족 프로그램은</span> 가족 프로그램끼리 묶어요.</li>
+        <li><b>주제가 같으면<span class="pts">+3</span></b><span class="nw">책·독서,</span> <span class="nw">과학·메이커,</span> <span class="nw">만들기·미술,</span> <span class="nw">공연·음악,</span> <span class="nw">몸놀이,</span> <span class="nw">자연·숲,</span> 요리로 나눠요.</li>
+        <li><b>가까우면 더<span class="pts">+2</span></b>같은 동네 +2, <span class="nw">같은 기관 종류 +1,</span> <span class="nw">무료 +0.5를 더해요.</span></li>
+        <li><b>빼는 것</b><span class="sent">접수가 끝난 것과 <span class="nw">같은 프로그램의</span> <span class="nw">다른 회차는 빼요.</span></span><span class="sent">점수가 높은 <span class="nw">3개만 보여 줘요.</span></span></li>
+      </ol>
+      <div class="picker" role="group" aria-label="예시 프로그램">
+        <span class="picker-label">예시 프로그램</span>
+        <span id="picks"></span>
+      </div>
+    </section>
+
+    <div class="variants">
+      <section class="variant" aria-labelledby="va">
+        <div class="v-head"><h2 id="va">A안 · 상세 팝업 맨 아래</h2><span class="v-tag">추천</span></div>
+        <p class="v-desc">설명을 다 읽은 자리에서 <span class="nw">자연스럽게 이어 봐요.</span></p>
+        <div class="phone" id="mock-a"></div>
+        <ul class="v-pros">
+          <li>모든 프로그램에 같은 자리라 <span class="nw">찾기 쉬워요.</span></li>
+          <li>누르면 그 프로그램 상세로 <span class="nw">바로 바뀌어요.</span></li>
+        </ul>
+      </section>
+
+      <section class="variant" aria-labelledby="vb">
+        <div class="v-head"><h2 id="vb">B안 · 마감된 프로그램일 때 맨 위</h2></div>
+        <p class="v-desc">이미 마감된 걸 열면 <span class="nw">대신 갈 곳부터</span> 보여 줘요.</p>
+        <div class="phone" id="mock-b"></div>
+        <ul class="v-pros">
+          <li>"아 마감이네" 하고 <span class="nw">나가 버리는 걸</span> 줄여요.</li>
+          <li>A안과 함께 쓰면 좋아요. <span class="nw">(접수 중일 땐 A안,</span> <span class="nw">마감이면 B안)</span></li>
+        </ul>
+      </section>
+
+      <section class="variant" aria-labelledby="vc">
+        <div class="v-head"><h2 id="vc">C안 · 저장한 프로그램 페이지</h2></div>
+        <p class="v-desc">저장해 둔 것과 <span class="nw">비슷한 걸 모아</span> 옆으로 넘겨 봐요.</p>
+        <div class="phone" id="mock-c"></div>
+        <ul class="v-pros">
+          <li>저장을 많이 할수록 <span class="nw">추천이 정확해져요.</span></li>
+          <li>저장한 게 없으면 <span class="nw">보이지 않아요.</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="foot-note">시안 안의 프로그램은 모두 실제로 모은 프로그램이에요. 항목을 누르면 <span class="nw">그 프로그램 기준으로</span> 다시 계산해요.</p>
+  </div>
+
+  <script src="../data/programs.js"></script>
+  <script>
+  (function () {
+    const D = window.KIDS_DATA;
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const DOW = ['일', '월', '화', '수', '목', '금', '토'];
+    const day = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const TODAY = day(new Date());
+    const pd = (s) => { if (!s) return null; const [y, m, d] = s.slice(0, 10).split('-').map(Number); return new Date(y, m - 1, d); };
+    const fmt = (d) => `${d.getMonth() + 1}.${d.getDate()}(${DOW[d.getDay()]})`;
+    const ORG = Object.fromEntries(D.orgs.map((o) => [o.key, o]));
+    const TYPE_LABEL = Object.fromEntries(D.types.map((t) => [t.key, t.label]));
+    const AGE = { infant: '영아', preschool: '유아', 'elem-low': '초등 저학년', 'elem-high': '초등 고학년', family: '가족' };
+    const CHILD = ['infant', 'preschool', 'elem-low', 'elem-high'];
+    const STATUS = { closing: '마감 임박', open: '접수 중', wait: '대기 접수', walkin: '자유 참여', soon: '접수 예정', unknown: '기관 확인', closed: '접수 마감', ended: '종료' };
+
+    // 사이트와 같은 접수 상태 계산
+    function status(p) {
+      const st = p.statusText || '';
+      if (p._end && p._end < TODAY) return 'ended';
+      if (p._applyStart && TODAY < p._applyStart) return 'soon';
+      if (p._applyEnd && TODAY > p._applyEnd) return 'closed';
+      if (/예약\s*불가/.test(st)) return 'unknown';
+      if (/마감|종료|완료/.test(st) && !/임박|미종료/.test(st)) return 'closed';
+      if (/대기/.test(st)) return 'wait';
+      if (/예정|준비/.test(st) && !p._applyStart) return 'soon';
+      if (p._applyEnd) return Math.round((p._applyEnd - TODAY) / 864e5) <= 2 ? 'closing' : 'open';
+      if (/접수\s*중|신청\s*중|모집\s*중|신청\s*가능|예약\s*가능/.test(st)) return 'open';
+      if (/현장|자유|신청\s*없이/.test(p.applyMethod || '')) return 'walkin';
+      return 'unknown';
+    }
+    // 주제: 제목·분류의 낱말로 나눈다
+    const TOPICS = [
+      ['책·독서', /책|독서|문해|그림책|동화|낭독|북스타트|[Ss]tory|하브루타|디베이트|작가/],
+      ['과학·메이커', /과학|메이커|코딩|로봇|AI|아두이노|드론|발명|실험|브레인/],
+      ['만들기·미술', /만들기|미술|그리기|공예|아트|클레이|화관|북아트|드로잉|가랜드|키링|도예|스텐실|페인트/],
+      ['공연·음악', /공연|음악|연극|서커스|뮤지컬|인형극|노래|악기|기타|드럼|극단/],
+      ['몸놀이', /몸놀이|신체|체육|운동|댄스|요가|발레|스포츠|축구|줄넘기|놀이터|비트점프/],
+      ['자연·숲', /숲|자연|가드닝|정원|생태|식물|산림|텃밭|씨드볼|허브|삽목|낙엽|단풍|열매|추수|논/],
+      ['요리', /요리|쿠킹|베이킹|파티쉐|셰프|라면/]
+    ];
+    // 사이트와 같은 제목 묶음: 괄호·따옴표 구절은 한 덩어리로
+    const UNIT_RE = /(?:\S*?\([^)]*\)|〈[^〉>]*[〉>]|<[^>]*>|「[^」]*」|『[^』]*』|‘[^’]*’|'[^']*'|“[^”]*”|"[^"]*"|\{[^}]*\}|\[[^\]]*\])[^\s가-힣A-Za-z0-9]*/g;
+    function unitize(raw) {
+      const s = raw.replace(/(\S)\s*_\s*(?=\S)/g, '$1 · ').replace(/ ([A-Za-z0-9]{1,2})(?= |$)/g, ' $1').replace(/원데이 클래스/g, '원데이 클래스');
+      let out = '', last = 0;
+      for (const m of s.matchAll(UNIT_RE)) { out += esc(s.slice(last, m.index)) + `<span class="unit">${esc(m[0])}</span>`; last = m.index + m[0].length; }
+      return out + esc(s.slice(last));
+    }
+    const mainTitle = (t) => t.replace(/^\s*(\[[^\]]*\]\s*|\([^)]*\)\s*)+/, '').trim();
+    const P = D.programs.map((p) => {
+      const q = { ...p };
+      q._type = (ORG[p.org] || {}).type;
+      q._start = pd(p.programStart); q._end = pd(p.programEnd);
+      q._applyStart = pd(p.applyStart); q._applyEnd = pd(p.applyEnd);
+      q._status = status(q);
+      q._topics = TOPICS.filter(([, re]) => re.test(`${p.title} ${p.category || ''}`)).map(([k]) => k);
+      q._main = mainTitle(p.title);
+      return q;
+    });
+    const BY_ID = Object.fromEntries(P.map((p) => [p.id, p]));
+
+    function similar(p, n = 3) {
+      const childAges = p.ageTags.filter((t) => CHILD.includes(t));
+      const series = p._main.slice(0, 6);
+      const scored = P.filter((q) => q.id !== p.id && !['closed', 'ended'].includes(q._status) && q._main.slice(0, 6) !== series)
+        .map((q) => {
+          const ages = childAges.length ? q.ageTags.filter((t) => childAges.includes(t)) : (p.ageTags.includes('family') && q.ageTags.includes('family') ? ['family'] : []);
+          const topics = q._topics.filter((t) => p._topics.includes(t));
+          let score = topics.length ? 3 : 0;
+          const near = !!q.area && q.area === p.area;
+          if (near) score += 2;
+          if (q._type === p._type) score += 1;
+          if (q.fee === 0) score += 0.5;
+          return { q, ages, topics, near, score };
+        })
+        .filter((x) => x.ages.length && x.score >= 2)
+        .sort((a, b) => b.score - a.score || (a.q._applyEnd || 9e15) - (b.q._applyEnd || 9e15));
+      // 같은 시리즈는 하나만, 같은 장소는 둘까지
+      const out = [], seen = new Set(), fac = {};
+      for (const x of scored) {
+        const key = x.q._main.slice(0, 6);
+        if (seen.has(key) || (fac[x.q.facility] || 0) >= 2) continue;
+        seen.add(key); fac[x.q.facility] = (fac[x.q.facility] || 0) + 1;
+        out.push(x);
+        if (out.length === n) break;
+      }
+      return out;
+    }
+
+    const badge = (q) => `<span class="badge s-${q._status}">${STATUS[q._status]}</span>`;
+    const when = (q) => (q._start ? (q._end && +q._end !== +q._start ? `${fmt(q._start)}~${fmt(q._end)}` : fmt(q._start)) : '일정 기관 확인');
+    const why = (x) => `<span class="why">${[
+      `<span class="w-age">${esc(AGE[x.ages[0]])}${x.ages.length > 1 ? ` 외` : ''}</span>`,
+      x.topics.length ? `<span>${esc(x.topics[0])}</span>` : '',
+      x.near ? `<span>같은 동네 · ${esc(x.q.area)}</span>` : '',
+      x.q.fee === 0 ? '<span>무료</span>' : ''
+    ].join('')}</span>`;
+    const item = (x) => `
+      <li><button class="sim-item" type="button" data-pick="${x.q.id}">
+        <span class="sim-top"><span class="sim-title">${unitize(x.q._main)}</span>${badge(x.q)}</span>
+        <span class="sim-meta">${esc(x.q.facility)} · ${when(x.q)}</span>
+        ${why(x)}
+      </button></li>`;
+    const head = (p) => `
+      <div class="m-status">${badge(p)}<span class="type-tag t-${p._type}">${esc(TYPE_LABEL[p._type])}</span></div>
+      <p class="m-title">${unitize(p._main)}</p>
+      <dl class="m-rows m-fade">
+        <dt>대상</dt><dd>${esc(p.target || '기관 확인')}</dd>
+        <dt>장소</dt><dd>${esc(p.facility)}</dd>
+      </dl>`;
+    const none = '<p class="empty-sim">조건에 맞는 프로그램이 아직 없어요. 이럴 땐 이 칸을 숨겨요.</p>';
+
+    // B안 예시: 실제로 마감된 프로그램 가운데 대신 볼 게 있는 것
+    const CLOSED = P.find((p) => p._status === 'closed' && similar(p, 2).length === 2);
+
+    const SAMPLES = ['cdyouth-4', 'unilib-24', 'childcare-10', 'dbfac-4', 'yeyak-20'].filter((id) => BY_ID[id]);
+    let current = SAMPLES[0];
+
+    function render() {
+      const p = BY_ID[current];
+      document.getElementById('picks').innerHTML = [...new Set([...SAMPLES, current])].map((id) =>
+        `<button class="pick" type="button" data-pick="${id}" aria-pressed="${id === current}">${esc(BY_ID[id]._main.slice(0, 16))}${BY_ID[id]._main.length > 16 ? '…' : ''}</button>`).join(' ');
+
+      const a = similar(p);
+      document.getElementById('mock-a').innerHTML = `${head(p)}
+        <section class="sim"><h3>이런 프로그램도 있어요<small>${esc(AGE[p.ageTags.find((t) => CHILD.includes(t))] || '가족')} 기준</small></h3>
+        ${a.length ? `<ul class="sim-list">${a.map(item).join('')}</ul>` : none}</section>`;
+
+      if (CLOSED) {
+        const b = similar(CLOSED, 2);
+        document.getElementById('mock-b').innerHTML = `
+          <div class="m-status">${badge(CLOSED)}<span class="type-tag t-${CLOSED._type}">${esc(TYPE_LABEL[CLOSED._type])}</span></div>
+          <p class="m-title">${unitize(CLOSED._main)}</p>
+          <div class="closed-banner"><p>접수가 끝났어요. 대신 이건 어때요?</p><ul class="sim-list">${b.map(item).join('')}</ul></div>
+          <dl class="m-rows m-fade dim"><dt>대상</dt><dd>${esc(CLOSED.target || '기관 확인')}</dd><dt>장소</dt><dd>${esc(CLOSED.facility)}</dd></dl>`;
+      }
+
+      const c = similar(p, 4);
+      document.getElementById('mock-c').innerHTML = `
+        <p class="picker-label">저장한 프로그램</p>
+        <div class="saved-row"><span class="sim-top"><span class="sim-title">${unitize(p._main)}</span>${badge(p)}</span><span class="sim-meta">${esc(p.facility)} · ${when(p)}</span></div>
+        <section class="sim"><h3>저장한 것과 비슷해요</h3>
+        ${c.length ? `<div class="cards">${c.map((x) => `<button class="mini" type="button" data-pick="${x.q.id}">${badge(x.q)}<span class="sim-title">${unitize(x.q._main)}</span><span class="sim-meta">${esc(x.q.facility)}</span>${why(x)}</button>`).join('')}</div>` : none}</section>`;
+    }
+
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-pick]');
+      if (!el) return;
+      current = el.dataset.pick;
+      render();
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>

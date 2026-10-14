@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모아놀자 로고 시안 2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&family=Bagel+Fat+One&family=Single+Day&family=Cute+Font&display=swap">
+  <style>
+    /* 구글 폰트에 없는 무료 글꼴은 jsDelivr(눈누 공유 저장소)에서 불러온다 */
+    @font-face { font-family: 'Cafe24Ssurround'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff'); font-display: swap; }
+    @font-face { font-family: 'Jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-display: swap; }
+
+    :root { --text: #1f2937; --text-2: #4b5563; --text-3: #6b7280; --line: #e8ebf2; --bg: #f4f6fb; --mint: #13c296; --mint-ink: #087f62; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
+    h1, h2 { margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    .nw { white-space: nowrap; }
+    .sent { display: block; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+    .opt { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #edf0f6; border-radius: 18px; background: #fff; box-shadow: 0 8px 24px rgba(27, 36, 55, .05); }
+    .opt.is-ref { background: #fbfcfe; }
+    .stage { display: grid; place-items: center; height: 150px; padding: 0 16px; background: #fff; border-bottom: 1px solid var(--line); }
+    .stage.dark { height: 84px; background: #1f2937; }
+    .logo { display: inline-flex; align-items: center; gap: 12px; white-space: nowrap; }
+    .logo svg { width: 50px; height: 50px; flex: none; }
+    .dark .logo svg { width: 34px; height: 34px; }
+    .title-demo { display: flex; align-items: center; gap: 8px; padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--bg); }
+    .title-demo small { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+    .title-demo span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .info { padding: 16px 20px 20px; }
+    .name { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+    .ref { padding: 0 8px; border-radius: 6px; background: #eef0f4; color: var(--text-2); font-size: 12px; font-weight: 500; line-height: 22px; }
+    .info p { margin-top: 6px; font-size: 14px; color: var(--text-3); }
+    .info dl { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 4px 10px; margin: 12px 0 0; font-size: 13.5px; }
+    .info dt { color: var(--text-3); }
+    .info dd { margin: 0; }
+    .warn { color: #c4441f; }
+
+    /* 각 안의 글꼴 */
+    .f-dongle { font-family: "Dongle", sans-serif; font-weight: 700; }
+    .f-bagel  { font-family: "Bagel Fat One", sans-serif; }
+    .f-ssur   { font-family: "Cafe24Ssurround", sans-serif; }
+    .f-single { font-family: "Single Day", sans-serif; }
+    .f-cute   { font-family: "Cute Font", sans-serif; }
+    .f-jalnan { font-family: "Jalnan", sans-serif; }
+
+    .w { line-height: 1; letter-spacing: -0.01em; }
+    .w b { font-weight: inherit; color: var(--text); }
+    .dark .w b { color: #fff; }
+    /* 크기는 글꼴마다 눈으로 보이는 크기를 맞춘 값 */
+    .w.f-dongle { font-size: 60px; } .dark .w.f-dongle { font-size: 42px; }
+    .w.f-bagel  { font-size: 38px; } .dark .w.f-bagel  { font-size: 27px; }
+    .w.f-ssur   { font-size: 38px; } .dark .w.f-ssur   { font-size: 27px; }
+    .w.f-single { font-size: 42px; } .dark .w.f-single { font-size: 30px; }
+    .w.f-cute   { font-size: 54px; } .dark .w.f-cute   { font-size: 38px; }
+    .w.f-jalnan { font-size: 36px; } .dark .w.f-jalnan { font-size: 26px; }
+    .title-demo .f-dongle { font-size: 34px; line-height: 1; }
+    .title-demo .f-bagel, .title-demo .f-ssur, .title-demo .f-jalnan { font-size: 21px; }
+    .title-demo .f-single { font-size: 23px; }
+    .title-demo .f-cute { font-size: 30px; line-height: 1; }
+
+    .c-purple { color: #5848d6; } .dark .c-purple { color: #a99dff; }
+    .c-mint   { color: var(--mint-ink); } .dark .c-mint { color: #4fe0b5; }
+    .c-coral  { color: #d4532f; } .dark .c-coral { color: #ff9b7f; }
+    .c-amber  { color: #b26f00; } .dark .c-amber { color: #ffc233; }
+
+    @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+      .wrap { padding: 28px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- C: 소식 말풍선 (지난 시안) -->
+    <symbol id="m-c" viewBox="0 0 40 40">
+      <rect x="3" y="6" width="34" height="25" rx="10" fill="#6c5ce7"/>
+      <path d="M12 30l-2 7 8-6z" fill="#6c5ce7"/>
+      <circle cx="13" cy="18.5" r="2.6" fill="#ffc233"/><circle cx="20" cy="18.5" r="2.6" fill="#13c296"/><circle cx="27" cy="18.5" r="2.6" fill="#ff7a59"/>
+    </symbol>
+    <!-- D: 말랑 젤리 -->
+    <symbol id="m-d" viewBox="0 0 40 40">
+      <path d="M7 23c0-9.5 5.6-16 13-16s13 6.5 13 16c0 7.5-5.8 12-13 12S7 30.5 7 23Z" fill="#13c296"/>
+      <ellipse cx="14" cy="15" rx="3.2" ry="2" fill="#fff" opacity=".5" transform="rotate(-30 14 15)"/>
+      <circle cx="16" cy="22.5" r="1.8" fill="#06352a"/><circle cx="24" cy="22.5" r="1.8" fill="#06352a"/>
+      <path d="M17.5 27q2.5 2.2 5 0" fill="none" stroke="#06352a" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M33.5 4.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" fill="#ffc233"/>
+    </symbol>
+    <!-- E: 동네 지붕 -->
+    <symbol id="m-e" viewBox="0 0 40 40">
+      <path d="M7.5 19 20 8l12.5 11v13a2.5 2.5 0 0 1-2.5 2.5H10A2.5 2.5 0 0 1 7.5 32Z" fill="#ff7a59" stroke="#ff7a59" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M20 30s-6-3.6-6-7.6a3.1 3.1 0 0 1 6-1.5 3.1 3.1 0 0 1 6 1.5c0 4-6 7.6-6 7.6Z" fill="#fff"/>
+      <circle cx="32" cy="8" r="4" fill="#ffc233"/>
+    </symbol>
+    <!-- F: 하트 말풍선 -->
+    <symbol id="m-f" viewBox="0 0 40 40">
+      <path d="M9 5h22a6 6 0 0 1 6 6v13a6 6 0 0 1-6 6H18.5L11 36v-6H9a6 6 0 0 1-6-6V11a6 6 0 0 1 6-6Z" fill="#6c5ce7"/>
+      <path d="M20 25s-6.5-3.8-6.5-8a3.4 3.4 0 0 1 6.5-1.7 3.4 3.4 0 0 1 6.5 1.7c0 4.2-6.5 8-6.5 8Z" fill="#ffb3c8"/>
+    </symbol>
+    <!-- G: 꼬마 별 -->
+    <symbol id="m-g" viewBox="0 0 40 40">
+      <path d="M20 4.5l4.4 9.2 10.1 1.4-7.4 7 1.8 10L20 27.3l-8.9 4.8 1.8-10-7.4-7 10.1-1.4Z" fill="#ffc233" stroke="#ffc233" stroke-width="3.2" stroke-linejoin="round"/>
+      <circle cx="16.6" cy="18" r="1.6" fill="#1f2937"/><circle cx="23.4" cy="18" r="1.6" fill="#1f2937"/>
+      <path d="M17.6 21.6q2.4 2 4.8 0" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="13.8" cy="21.2" r="1.6" fill="#ff8a6a" opacity=".8"/><circle cx="26.2" cy="21.2" r="1.6" fill="#ff8a6a" opacity=".8"/>
+    </symbol>
+    <!-- H: 모아 도장 -->
+    <symbol id="m-h" viewBox="0 0 40 40">
+      <circle cx="20" cy="21" r="14.5" fill="#13c296"/>
+      <circle cx="20" cy="21" r="10.5" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2.4 2.8" opacity=".85"/>
+      <circle cx="20" cy="5.5" r="3.5" fill="#ffc233"/><circle cx="34.5" cy="27" r="3" fill="#ff7a59"/><circle cx="6" cy="30.5" r="3" fill="#6c5ce7"/>
+      <circle cx="16.8" cy="19.5" r="1.7" fill="#fff"/><circle cx="23.2" cy="19.5" r="1.7" fill="#fff"/>
+      <path d="M16.5 23.5q3.5 3 7 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <div class="wrap">
+    <div class="head">
+      <h1>모아놀자 로고 시안 2</h1>
+      <p><span class="sent">지난 C안(동글체)처럼 <span class="nw">둥글고 말랑한</span> <span class="nw">무료 글꼴 5가지로</span> 만들었어요.</span><span class="sent">카드 가운데 줄은 <span class="nw">사이트 제목에 썼을 때</span> 예시예요.</span></p>
+    </div>
+
+    <div class="grid">
+      <article class="opt is-ref">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-c"/></svg><span class="w f-dongle c-purple"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-c"/></svg><span class="w f-dongle c-purple"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-dongle"><span class="c-purple">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">C. 소식 말풍선 <span class="ref">지난 시안 · 기준</span></h2>
+          <p>말풍선 안에 색 점 세 개. <span class="nw">"여러 기관 소식을 모아 준다"는</span> 뜻이에요.</p>
+          <dl><dt>글꼴</dt><dd>동글체 Bold (Dongle) · 구글 폰트</dd><dt>라이선스</dt><dd>SIL OFL 1.1 · 상업적 사용 가능</dd></dl>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-d"/></svg><span class="w f-bagel c-mint"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-d"/></svg><span class="w f-bagel c-mint"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-bagel"><span class="c-mint">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">D. 말랑 젤리</h2>
+          <p>웃는 젤리 한 알과 반짝이 별이에요. <span class="nw">통통한 글자가</span> <span class="nw">가장 귀엽고</span> <span class="nw">눈에 띄어요.</span></p>
+          <dl><dt>글꼴</dt><dd>Bagel Fat One · 구글 폰트</dd><dt>라이선스</dt><dd>SIL OFL · 상업적 사용 가능</dd></dl>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-e"/></svg><span class="w f-ssur c-coral"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-e"/></svg><span class="w f-ssur c-coral"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-ssur"><span class="c-coral">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">E. 동네 지붕</h2>
+          <p>하트 문이 달린 둥근 집과 해예요. <span class="nw">글자는 단정하게 둥글고,</span> <span class="nw">"우리 동네"가 바로 떠올라요.</span></p>
+          <dl><dt>글꼴</dt><dd>카페24 써라운드 · jsDelivr</dd><dt>라이선스</dt><dd>OFL · 상업적 사용 가능 <span class="nw">(폰트 파일 판매만 금지)</span></dd></dl>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-f"/></svg><span class="w f-single c-purple"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-f"/></svg><span class="w f-single c-purple"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-single"><span class="c-purple">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">F. 하트 말풍선</h2>
+          <p>C안 말풍선을 하트로 바꿨어요. <span class="nw">이응(ㅇ)이 하트 모양이라</span> <span class="nw">말랑한 느낌이</span> <span class="nw">가장 강해요.</span></p>
+          <dl><dt>글꼴</dt><dd>Single Day · 구글 폰트</dd><dt>라이선스</dt><dd>SIL OFL · 상업적 사용 가능</dd></dl>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-g"/></svg><span class="w f-cute c-amber"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-g"/></svg><span class="w f-cute c-amber"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-cute"><span class="c-amber">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">G. 꼬마 별</h2>
+          <p>볼이 빨간 별 캐릭터예요. <span class="nw">글자 모양이</span> <span class="nw">동글체와 가장 닮았고,</span> <span class="nw">제목의 ✨ 아이콘과도</span> 어울려요.</p>
+          <dl><dt>글꼴</dt><dd>Cute Font · 구글 폰트</dd><dt>라이선스</dt><dd>SIL OFL · 상업적 사용 가능</dd></dl>
+        </div>
+      </article>
+
+      <article class="opt">
+        <div class="stage"><span class="logo"><svg aria-hidden="true"><use href="#m-h"/></svg><span class="w f-jalnan c-mint"><b>모아</b>놀자</span></span></div>
+        <div class="stage dark"><span class="logo"><svg aria-hidden="true"><use href="#m-h"/></svg><span class="w f-jalnan c-mint"><b>모아</b>놀자</span></span></div>
+        <div class="title-demo"><small>제목 예시</small><span class="f-jalnan"><span class="c-mint">도봉구</span> 아이랑 프로그램</span></div>
+        <div class="info">
+          <h2 class="name">H. 모아 도장</h2>
+          <p>웃는 도장 둘레에 <span class="nw">색 공이 모여 있어요.</span> <span class="nw">글자가 가장 굵고 또렷해서</span> <span class="nw">작은 크기에서도</span> <span class="nw">잘 보여요.</span></p>
+          <dl><dt>글꼴</dt><dd>여기어때 잘난체 · jsDelivr</dd><dt>라이선스</dt><dd>상업적 사용 가능 · <span class="warn"><span class="nw">로고(CI/BI)로 써도</span> <span class="nw">상표 등록은 불가</span></span></dd></dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

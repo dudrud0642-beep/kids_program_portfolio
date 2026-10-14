@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모아놀자 주색 시안</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root { --text: #1f2937; --text-2: #4b5563; --text-3: #6b7280; --line: #e8ebf2; --bg: #f4f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
+    h1, h2 { margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    .nw { white-space: nowrap; }
+    .sent { display: block; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .opt { margin-top: 28px; padding: 20px; border: 1px solid #edf0f6; border-radius: 20px; background: #fff; box-shadow: 0 8px 24px rgba(27, 36, 55, .05); }
+    .opt-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 14px; }
+    .opt-head h2 { font-size: 18px; font-weight: 700; }
+    .tag { padding: 0 8px; border-radius: 6px; background: #efedff; color: #5848d6; font-size: 12px; font-weight: 600; line-height: 22px; }
+    .swatches { display: flex; gap: 6px; }
+    .swatches i { width: 22px; height: 22px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); }
+    .opt-head p { flex: 1 1 320px; font-size: 14px; color: var(--text-2); }
+    .opt-head a { font-size: 13.5px; color: #1f6fd1; white-space: nowrap; }
+    /* 실제 사이트(1536×864)를 카드 폭에 맞춰 줄여서 보여 준다 */
+    .frame { position: relative; overflow: hidden; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); }
+    .frame iframe { position: absolute; left: 0; top: 0; width: 1536px; height: 864px; border: 0; transform-origin: 0 0; }
+    @media (max-width: 640px) { .wrap { padding: 28px 16px 40px; } .opt { padding: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>모아놀자 주색 시안</h1>
+      <p><span class="sent">로고에 쓰인 세 가지 색을 <span class="nw">사이트 주색으로</span> 바꿔 본 화면이에요.</span><span class="sent">실제 사이트를 그대로 불러와 줄인 것이라 <span class="nw">눌러 볼 수도 있어요.</span></span></p>
+    </div>
+
+    <section class="opt">
+      <div class="opt-head">
+        <h2>보라</h2>
+        <span class="swatches" aria-hidden="true"><i style="background:#efedff"></i><i style="background:#c2b9fb"></i><i style="background:#6c5ce7"></i><i style="background:#5848d6"></i></span>
+        <p>버튼·탭에 흰 글자를 올려도 잘 읽혀요(대비 4.9:1). <span class="nw">로고의 "놀자" 색과</span> 같아요.</p>
+        <a href="../index.html?theme=purple" target="_blank" rel="noopener">새 창으로 열기</a>
+      </div>
+      <div class="frame"><iframe src="../index.html?theme=purple" title="보라 주색 화면" loading="lazy"></iframe></div>
+    </section>
+
+    <section class="opt">
+      <div class="opt-head">
+        <h2>노랑</h2><span class="tag">지금 적용</span>
+        <span class="swatches" aria-hidden="true"><i style="background:#fff6dc"></i><i style="background:#ffdf85"></i><i style="background:#ffc233"></i><i style="background:#8a6100"></i></span>
+        <p>가장 밝고 아이 느낌이 강해요. 버튼·탭 숫자는 <span class="nw">흰 글자에 옅은 그림자를</span> 넣었고, <span class="nw">제목의 지역 이름은</span> 형광펜처럼 칠했어요.</p>
+        <a href="../index.html" target="_blank" rel="noopener">새 창으로 열기</a>
+      </div>
+      <div class="frame"><iframe src="../index.html" title="노랑 주색 화면" loading="lazy"></iframe></div>
+    </section>
+
+    <section class="opt">
+      <div class="opt-head">
+        <h2>다홍</h2>
+        <span class="swatches" aria-hidden="true"><i style="background:#fff0eb"></i><i style="background:#ffc0ad"></i><i style="background:#ff7a59"></i><i style="background:#c4441f"></i></span>
+        <p>따뜻하고 활기찬 느낌이에요. <span class="nw">흰 글자 대비가 낮아서</span> 버튼 글자는 진한 남색이에요. <span class="nw">"마감 임박" 표시와</span> 색이 비슷한 점은 고려해야 해요.</p>
+        <a href="../index.html?theme=coral" target="_blank" rel="noopener">새 창으로 열기</a>
+      </div>
+      <div class="frame"><iframe src="../index.html?theme=coral" title="다홍 주색 화면" loading="lazy"></iframe></div>
+    </section>
+  </div>
+
+  <script>
+    // 카드 폭에 맞춰 1536×864 화면을 줄인다
+    function fit() {
+      document.querySelectorAll('.frame').forEach((f) => {
+        const k = f.clientWidth / 1536;
+        f.style.height = `${Math.round(864 * k)}px`;
+        f.querySelector('iframe').style.transform = `scale(${k})`;
+      });
+    }
+    window.addEventListener('resize', fit);
+    fit();
+  </script>
+</body>
+</html>

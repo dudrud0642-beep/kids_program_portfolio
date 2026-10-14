@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>지도 말풍선 배치 비교</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root { --text: #1f2937; --text-2: #4b5563; --text-3: #6b7280; --line: #e8ebf2; --bg: #f4f6fb; --mint: #13c296; --mint-ink: #087f62; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif; font-size: 15px; line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
+    h1, h2 { margin: 0; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    .nw { white-space: nowrap; }
+    .sent { display: block; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; align-items: start; }
+    .opt { display: flex; flex-direction: column; gap: 14px; }
+    /* 대시보드의 지도 카드와 같은 크기 */
+    .card { width: 100%; max-width: 300px; padding: 18px 20px; border: 1px solid #edf0f6; border-radius: 18px; background: #fff; box-shadow: 0 8px 24px rgba(27, 36, 55, .05); }
+    .card h2 { margin-bottom: 12px; font-size: 16px; font-weight: 700; }
+    .map-wrap { position: relative; height: 260px; container-type: size; }
+    .stage { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(100cqw, calc(100cqh * var(--ratio))); aspect-ratio: var(--ratio); }
+    .stage svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .dong { stroke: #fff; stroke-width: 1.4; }
+    .lead { stroke: var(--text); stroke-width: 1.5; fill: none; }
+    .label { position: absolute; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 10px; background: var(--text); color: #fff; font-size: 13px; font-weight: 500; white-space: nowrap; box-shadow: 0 6px 14px rgba(27, 36, 55, .18); }
+    .label.left { transform: translate(-100%, -50%); }
+    .label b { font-size: 14px; font-weight: 700; color: var(--mint); }
+    .pin { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 1px; }
+    .pin b { display: grid; place-items: center; min-width: 30px; height: 30px; padding: 0 6px; border-radius: 999px; background: var(--text); color: #fff; font-size: 13.5px; font-weight: 700; box-shadow: 0 4px 10px rgba(27, 36, 55, .2); }
+    .pin span { padding: 0 5px; border-radius: 6px; background: rgba(255, 255, 255, .9); font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+    .desc-box h3 { margin: 0; font-size: 16px; font-weight: 700; }
+    .desc-box .tag { display: inline-block; margin-left: 6px; padding: 0 8px; border-radius: 6px; background: #e6f8f2; color: var(--mint-ink); font-size: 12px; font-weight: 600; line-height: 22px; vertical-align: 2px; }
+    .desc-box p { margin-top: 4px; font-size: 14px; color: var(--text-2); }
+    .desc-box ul { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-3); }
+    .desc-box li + li { margin-top: 2px; }
+    @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); } .wrap { padding: 28px 16px 40px; } .card { max-width: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>지도 말풍선 배치 비교</h1>
+      <p><span class="sent">대시보드의 지도 카드와 <span class="nw">같은 크기(300px)로</span> 그렸어요.</span><span class="sent">숫자는 <span class="nw">지금 데이터의</span> <span class="nw">권역별 프로그램 수예요.</span></span></p>
+    </div>
+    <div class="grid">
+      <div class="opt">
+        <div class="card"><h2>동네 지도</h2><div class="map-wrap" id="map-a"></div></div>
+        <div class="desc-box"><h3>A. 오른쪽 한 줄<span class="tag">적용 중</span></h3>
+          <p>지도를 왼쪽 60%에 두고, <span class="nw">말풍선은 지도 바깥</span> 오른쪽에 모았어요.</p>
+          <ul><li>숫자를 위아래로 훑어보기 쉬워요.</li><li>왼쪽 권역은 화살표가 지도를 가로질러요.</li></ul></div>
+      </div>
+      <div class="opt">
+        <div class="card"><h2>동네 지도</h2><div class="map-wrap" id="map-b"></div></div>
+        <div class="desc-box"><h3>B. 양쪽 배치</h3>
+          <p>지도 왼쪽에 있는 권역은 <span class="nw">말풍선도 왼쪽에</span> 띄웠어요.</p>
+          <ul><li>화살표가 짧고 지도를 가로지르지 않아요.</li><li>양옆에 자리가 필요해서 지도가 가장 작아요.</li></ul></div>
+      </div>
+      <div class="opt">
+        <div class="card"><h2>동네 지도</h2><div class="map-wrap" id="map-c"></div></div>
+        <div class="desc-box"><h3>C. 지도 위 숫자</h3>
+          <p>말풍선 대신 <span class="nw">권역 위에 숫자를</span> 바로 얹었어요.</p>
+          <ul><li>지도를 가장 크게 쓸 수 있어요.</li><li>권역이 붙어 있는 곳은 숫자끼리 가까워요.</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../data/geo.js"></script>
+  <script src="../data/programs.js"></script>
+  <script>
+    (function () {
+      const g = window.KIDS_GEO.dobong;
+      const programs = window.KIDS_DATA.programs;
+      const count = (area) => programs.filter((p) => p.area === area).length;
+      const max = Math.max(1, ...g.areas.map((a) => count(a.name)));
+      const fill = (n) => (n ? `rgba(19, 194, 150, ${(0.22 + 0.68 * (n / max)).toFixed(2)})` : '#eef1f6');
+      const dongs = (dx) => g.areas.map((a) => g.dongs.filter((d) => d.area === a.name)
+        .map((d) => `<path class="dong" d="${d.d}" fill="${fill(count(a.name))}" transform="translate(${dx} 0)"/>`).join('')).join('');
+      const arrow = '<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="22" markerHeight="22" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1f2937"/></marker></defs>';
+      // 말풍선끼리 겹치지 않게 세로 간격 벌리기
+      const spread = (list, gap) => {
+        const s = [...list].sort((a, b) => a.cy - b.cy).map((a) => ({ ...a, ly: a.cy }));
+        for (let i = 1; i < s.length; i++) s[i].ly = Math.max(s[i].ly, s[i - 1].ly + gap);
+        const over = s.length ? s[s.length - 1].ly - (g.height - 30) : 0;
+        if (over > 0) s.forEach((a) => { a.ly -= over; });
+        return s;
+      };
+      const put = (id, vbW, svg, html) => {
+        document.getElementById(id).innerHTML = `<div class="stage" style="--ratio:${vbW / g.height}"><svg viewBox="0 0 ${vbW} ${g.height}">${arrow}${svg}</svg>${html}</div>`;
+      };
+      const pct = (x, w) => `${(x / w) * 100}%`;
+
+      // A: 오른쪽 한 줄 (대시보드 적용안)
+      (function () {
+        const vbW = Math.round(g.width / 0.6);
+        const lx = g.width + 24;
+        const s = spread(g.areas, 100);
+        put('map-a', vbW, dongs(0) + s.map((a) => `<polyline class="lead" points="${lx - 6},${a.ly} ${g.width + 8},${a.ly} ${a.cx},${a.cy}" marker-end="url(#ar)" vector-effect="non-scaling-stroke"/>`).join(''),
+          s.map((a) => `<span class="label" style="left:${pct(lx, vbW)};top:${pct(a.ly, g.height)}">${a.name}<b>${count(a.name)}</b></span>`).join(''));
+      })();
+
+      // B: 양쪽 배치 — 지도 가운데, 왼쪽 권역은 왼쪽 말풍선
+      (function () {
+        const side = Math.round(g.width * 0.55);
+        const vbW = g.width + side * 2;
+        const mid = g.width / 2;
+        const left = spread(g.areas.filter((a) => a.cx < mid + 10), 100);
+        const right = spread(g.areas.filter((a) => a.cx >= mid + 10), 100);
+        const lxL = side - 18;
+        const lxR = side + g.width + 18;
+        const leads = left.map((a) => `<polyline class="lead" points="${lxL + 6},${a.ly} ${side - 4},${a.ly} ${a.cx + side},${a.cy}" marker-end="url(#ar)" vector-effect="non-scaling-stroke"/>`).join('')
+          + right.map((a) => `<polyline class="lead" points="${lxR - 6},${a.ly} ${side + g.width + 4},${a.ly} ${a.cx + side},${a.cy}" marker-end="url(#ar)" vector-effect="non-scaling-stroke"/>`).join('');
+        put('map-b', vbW, dongs(side) + leads,
+          left.map((a) => `<span class="label left" style="left:${pct(lxL, vbW)};top:${pct(a.ly, g.height)}">${a.name}<b>${count(a.name)}</b></span>`).join('')
+          + right.map((a) => `<span class="label" style="left:${pct(lxR, vbW)};top:${pct(a.ly, g.height)}">${a.name}<b>${count(a.name)}</b></span>`).join(''));
+      })();
+
+      // C: 지도 위 숫자 — 권역 중심에 배지
+      (function () {
+        const vbW = g.width;
+        put('map-c', vbW, dongs(0), g.areas.map((a) => `<span class="pin" style="left:${pct(a.cx, vbW)};top:${pct(a.cy, g.height)}"><b>${count(a.name)}</b><span>${a.name}</span></span>`).join(''));
+      })();
+    })();
+  </script>
+</body>
+</html>

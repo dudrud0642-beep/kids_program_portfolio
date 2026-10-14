@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>자동 수집 · NEW 시안</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: var(--bg); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .box { margin-top: 20px; padding: 22px; border-radius: 18px; background: #fff; box-shadow: var(--shadow); }
+    .box > h2 { font-size: 18px; font-weight: 700; }
+    .box > .desc { margin-top: 4px; font-size: 14px; color: var(--text-3); }
+
+    /* 1. 흐름 */
+    .flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; counter-reset: s; }
+    .flow li { position: relative; padding: 16px; border-radius: 14px; background: var(--bg); counter-increment: s; }
+    .flow li:not(:last-child)::after { content: ""; position: absolute; top: 28px; right: -10px; z-index: 1; width: 8px; height: 8px; border-top: 2px solid var(--line-strong); border-right: 2px solid var(--line-strong); transform: rotate(45deg); }
+    .step-no { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--text-3); }
+    .step-no::before { content: counter(s); display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-size: 12px; font-weight: 700; }
+    .flow b { display: block; margin-top: 10px; font-size: 15px; font-weight: 700; }
+    .flow p { margin-top: 4px; font-size: 13.5px; color: var(--text-2); }
+    .flow small { display: block; margin-top: 8px; font-size: 12px; color: var(--text-3); }
+    .code { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: #1f2937; color: #e5e7eb; font: 12.5px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-x: auto; white-space: pre; }
+    .code .c { color: #9ca3af; }
+
+    /* 2. 화면 시안 */
+    .mocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .mock { padding: 18px; border: 1px solid var(--line); border-radius: 16px; }
+    .mock h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+    .mock > p { margin-top: 4px; font-size: 13px; color: var(--text-3); }
+    .ex { padding: 0 7px; border-radius: 6px; background: var(--gray-soft); color: var(--gray-ink); font-size: 11.5px; font-weight: 600; line-height: 20px; }
+    .stage { margin-top: 12px; padding: 16px; border-radius: 14px; background: var(--bg); }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .status-pill { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 13.5px; color: var(--text-2); white-space: nowrap; }
+    .status-pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 3px var(--mint-soft); }
+    .status-pill.is-warn i { background: var(--coral); box-shadow: 0 0 0 3px var(--coral-soft); }
+    .status-pill b { font-weight: 700; color: var(--text); }
+    .status-pill.is-warn b { color: var(--coral-ink); }
+
+    .side { width: 100%; max-width: 260px; padding: 12px 8px; border-radius: 14px; background: #fff; }
+    .side-label2 { padding: 0 12px 6px; font-size: 12px; color: var(--text-3); }
+    .side-row { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 10px; font-size: 13.5px; color: var(--text-2); }
+    .side-row svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .side-row .num { margin-left: auto; font-size: 12px; color: var(--text-3); }
+    .side-row.is-new { background: var(--primary-soft); color: var(--text); font-weight: 600; }
+    .new-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 5px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-size: 10.5px; font-weight: 800; letter-spacing: .02em; }
+    .side-row.is-new .num { margin-left: 0; color: var(--primary-ink); font-weight: 700; }
+    .side-row.is-new .new-badge { margin-left: auto; }
+
+    .rows { margin: 0; padding: 0; list-style: none; background: #fff; border-radius: 14px; }
+    .rows li { padding: 12px 14px; }
+    .rows li + li { border-top: 1px solid var(--line); }
+    .row-top { display: flex; align-items: center; gap: 6px; }
+    .row-kicker { margin-top: 6px; font-size: 12px; color: var(--text-3); }
+    .row-kicker + .row-title { margin-top: 0; }
+    .row-title { margin-top: 4px; font-size: 14.5px; font-weight: 600; line-height: 1.45; }
+    .row-meta { margin-top: 2px; font-size: 12.5px; color: var(--text-3); }
+    .row-top .when { margin-left: auto; font-size: 12px; color: var(--text-3); white-space: nowrap; }
+
+    .src { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; font-size: 13px; }
+    .src th, .src td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+    .src th { font-size: 12px; font-weight: 600; color: var(--text-3); background: #fafbfd; white-space: nowrap; }
+    .src td.n { text-align: right; white-space: nowrap; }
+    .src td.n0 { white-space: nowrap; }
+    .ok, .fail, .none { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-weight: 600; }
+    .ok { color: var(--mint-ink); } .fail { color: var(--coral-ink); } .none { color: var(--text-3); font-weight: 500; }
+    .ok::before, .fail::before, .none::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .src-wrap { overflow-x: auto; }
+
+    /* 3·4. 규칙 · 확인할 것 */
+    .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .list { margin: 12px 0 0; padding: 0; list-style: none; }
+    .list li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 14px; color: var(--text-2); }
+    .list li:first-child { border-top: 0; }
+    .list li::before { content: ""; position: absolute; left: 4px; top: 17px; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+    .list b { display: block; color: var(--text); font-weight: 700; }
+    .list .opt { margin-left: 4px; padding: 0 6px; border-radius: 6px; background: var(--gray-soft); color: var(--gray-ink); font-size: 11.5px; font-weight: 600; }
+
+    @media (max-width: 1080px) { .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); } .flow li:nth-child(3)::after { display: none; } }
+    @media (max-width: 860px) { .mocks, .two { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 640px) {
+      .wrap { padding: 28px 16px 40px; }
+      .box { padding: 18px 16px; }
+      .flow { grid-template-columns: minmax(0, 1fr); }
+      .flow li::after { display: none; }
+      .side { max-width: none; }
+      .mock { padding: 14px; }
+      .stage { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>자동 수집 · NEW 표시 시안</h1>
+      <p><span class="sent">지금은 프로그램을 <span class="nw">한 번 모아 둔 상태라,</span> <span class="nw">기관이 새로 올리면</span> <span class="nw">사이트가 따라가지 못해요.</span></span><span class="sent">매일 새벽 자동으로 다시 모으고, <span class="nw">새로 올라온 프로그램에</span> NEW를 붙이는 구조예요.</span></p>
+    </div>
+
+    <section class="box" aria-labelledby="t-flow">
+      <h2 id="t-flow">매일 이렇게 돌아가요</h2>
+      <p class="desc">서버를 따로 두지 않고 <span class="nw">GitHub에서 무료로</span> <span class="nw">돌릴 수 있어요.</span> <span class="nw">(공개 저장소 기준)</span></p>
+      <ol class="flow">
+        <li><span class="step-no">새벽 6시</span><b>자동으로 시작</b><p>정해 둔 시간에 <span class="nw">수집 프로그램이</span> 저절로 실행돼요.</p><small>GitHub Actions</small></li>
+        <li><span class="step-no">약 3분</span><b><span id="org-count">기관</span>에서 모으기</b><p>공공예약은 <span class="nw">공식 API로,</span> 나머지는 <span class="nw">기관 게시판을</span> 읽어요.</p><small>기관마다 몇 초씩 쉬면서 천천히</small></li>
+        <li><span class="step-no">비교</span><b>어제와 비교하기</b><p><span class="nw">새로 생긴 것,</span> <span class="nw">바뀐 것(마감·일정),</span> <span class="nw">사라진 것을</span> 나눠요.</p><small>처음 본 날짜를 기록</small></li>
+        <li><span class="step-no">저장</span><b>데이터 파일 갱신</b><p>사이트가 읽는 <span class="nw">programs.js를</span> 새로 만들어요.</p><small>실패한 기관은 어제 자료 유지</small></li>
+        <li><span class="step-no">1~2분 뒤</span><b>사이트에 반영</b><p>바뀐 파일이 올라가면 <span class="nw">사이트가 자동으로</span> 새로 배포돼요.</p><small>GitHub Pages</small></li>
+      </ol>
+      <div class="code" role="img" aria-label="자동 실행 설정 예시"><span class="c"># .github/workflows/collect.yml (요약)</span>
+on:
+  schedule:
+    - cron: "0 21 * * *"   <span class="c"># 매일 06:00 (한국 시간)</span>
+jobs:
+  collect:
+    steps:
+      - run: node scripts/collect.js      <span class="c"># 기관별 수집</span>
+      - run: node scripts/build-data.js   <span class="c"># 비교 + programs.js 만들기</span>
+      - run: git commit -am "data" &amp;&amp; git push   <span class="c"># 올리면 자동 배포</span></div>
+    </section>
+
+    <section class="box" aria-labelledby="t-ui">
+      <h2 id="t-ui">화면에서는 이렇게 보여요</h2>
+      <p class="desc">기관 이름·건수·프로그램은 <span class="nw">실제 데이터예요.</span> <span class="nw">NEW가 붙은 자리와</span> <span class="nw">수집 성공·실패는</span> 예시예요.</p>
+      <div class="mocks">
+        <article class="mock">
+          <h3>① 맨 위 수집 상태</h3>
+          <p>지금 오른쪽 위 <span class="nw">"10.13(화) 수집"</span> 자리를 바꿔요.</p>
+          <div class="stage pill-row" id="mock-status"></div>
+        </article>
+        <article class="mock">
+          <h3>② 왼쪽 메뉴에 모아 보기</h3>
+          <p>바로 보기에 <span class="nw">"새로 올라온 프로그램"을</span> <span class="nw">하나 더 둬요.</span></p>
+          <div class="stage"><div class="side" id="mock-side"></div></div>
+        </article>
+        <article class="mock">
+          <h3>③ 목록에 NEW 표시 <span class="ex">예시</span></h3>
+          <p>처음 모은 날부터 <span class="nw">7일 동안 붙어요.</span></p>
+          <div class="stage"><ul class="rows" id="mock-rows"></ul></div>
+        </article>
+        <article class="mock">
+          <h3>④ 데이터 출처 페이지 <span class="ex">상태는 예시</span></h3>
+          <p>기관마다 <span class="nw">언제 모았는지,</span> <span class="nw">잘 모였는지</span> 보여 줘요.</p>
+          <div class="stage src-wrap"><table class="src" id="mock-src"></table></div>
+        </article>
+      </div>
+    </section>
+
+    <div class="two">
+      <section class="box" aria-labelledby="t-rule">
+        <h2 id="t-rule">NEW는 이렇게 붙어요</h2>
+        <ul class="list">
+          <li><b>7일 동안</b>처음 모은 날부터 <span class="nw">7일 동안</span> NEW가 붙어요.</li>
+          <li><b>열어 보면 사라져요</b>한 번 열어 본 프로그램은 <span class="nw">NEW를 떼요.</span> <span class="nw">(이 브라우저 기준)</span></li>
+          <li><b>메뉴에 모아 보기</b>새로 올라온 것만 <span class="nw">왼쪽 메뉴</span> <span class="nw">"새로 올라온 프로그램"에</span> 모여요.</li>
+          <li><b>내용 바뀜 표시 <span class="opt">선택</span></b>마감·일정이 바뀌면 <span class="nw">"내용 바뀜"을</span> <span class="nw">작게 표시해요.</span></li>
+        </ul>
+      </section>
+      <section class="box" aria-labelledby="t-check">
+        <h2 id="t-check">시작 전에 확인할 것</h2>
+        <ul class="list">
+          <li><b>기관 이용약관·robots.txt</b> <span class="nw">게시판을 읽어 가도 되는지</span> 기관마다 확인해요.</li>
+          <li><b>공공예약 API 인증키</b> <span class="nw">서울 열린데이터광장에서</span> 무료로 신청해요.</li>
+          <li><b>하루 한 번, 천천히</b> 기관 서버에 <span class="nw">부담을 주지 않게 해요.</span></li>
+          <li><b>기관 사이트가 바뀌면</b> 그 기관만 실패해요. <span class="nw">어제 자료를 유지하고</span> <span class="nw">메일로 알려 줘요.</span></li>
+          <li><b>원문 링크는 꼭</b> 신청은 늘 <span class="nw">기관 사이트에서</span> <span class="nw">하도록 이어 줘요.</span></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="../data/programs.js"></script>
+  <script>
+  (function () {
+    const D = window.KIDS_DATA;
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const DOW = ['일', '월', '화', '수', '목', '금', '토'];
+    const pd = (s) => { const [y, m, d] = s.slice(0, 10).split('-').map(Number); return new Date(y, m - 1, d); };
+    const fmt = (d) => `${d.getMonth() + 1}.${d.getDate()}(${DOW[d.getDay()]})`;
+    const collected = pd(D.collectedAt);
+    const TYPE_LABEL = Object.fromEntries(D.types.map((t) => [t.key, t.label]));
+    const ORG = Object.fromEntries(D.orgs.map((o) => [o.key, o]));
+    const withPrograms = D.orgs.filter((o) => D.programs.some((p) => p.org === o.key));
+    document.getElementById('org-count').textContent = `기관 ${D.orgs.length}곳`;
+
+    // 예시: 수집일 기준 최근 사흘 안에 접수를 연 프로그램을 "새로 올라온" 것으로 가정
+    const recent = D.programs
+      .filter((p) => p.applyStart && (collected - pd(p.applyStart)) / 864e5 >= 0 && (collected - pd(p.applyStart)) / 864e5 <= 2)
+      .filter((p, i, arr) => arr.findIndex((q) => q.title.slice(0, 10) === p.title.slice(0, 10)) === i);
+    const shown = recent.slice().sort((a, b) => a.title.length - b.title.length).slice(0, 3);
+
+    document.getElementById('mock-status').innerHTML = `
+      <span class="status-pill"><i></i>오늘 06:00 자동 수집 · <b>새 프로그램 ${recent.length}건</b></span>
+      <span class="status-pill is-warn"><i></i>어제 자료예요 · <b>1곳 수집 실패</b></span>`;
+
+    const ic = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+    document.getElementById('mock-side').innerHTML = `
+      <p class="side-label2">바로 보기</p>
+      <div class="side-row is-new">${ic('<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>')}새로 올라온 프로그램<span class="new-badge">NEW</span><span class="num">${recent.length}</span></div>
+      <div class="side-row">${ic('<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1Z"/>')}저장한 프로그램<span class="num">0</span></div>
+      <div class="side-row">${ic('<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/>')}이번 주 일정</div>
+      <div class="side-row">${ic('<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4Z"/>')}무료 프로그램</div>`;
+
+    const main = (t) => t.replace(/^\s*(\[[^\]]*\]\s*)+/, '').trim();
+    // 맨 앞 [말머리]는 사이트처럼 작은 윗줄로
+    const kicker = (t) => [...(t.match(/^\s*((?:\[[^\]]*\]\s*)+)/) || ['', ''])[1].matchAll(/\[([^\]]*)\]/g)].map((x) => x[1].trim()).join(' · ');
+    const UNIT_RE = /(?:\S*?\([^)]*\)|〈[^〉>]*[〉>]|<[^>]*>|「[^」]*」|『[^』]*』|‘[^’]*’|'[^']*'|“[^”]*”|"[^"]*"|\{[^}]*\}|\[[^\]]*\])[^\s가-힣A-Za-z0-9]*/g;
+    function unitize(raw) {
+      const t = raw.replace(/(\S)\s*_\s*(?=\S)/g, '$1 · ');
+      let out = '', last = 0;
+      for (const m of t.matchAll(UNIT_RE)) { out += esc(t.slice(last, m.index)) + '<span class="unit">' + esc(m[0]) + '</span>'; last = m.index + m[0].length; }
+      return out + esc(t.slice(last));
+    }
+    document.getElementById('mock-rows').innerHTML = shown.map((p) => {
+      const type = (ORG[p.org] || {}).type;
+      return `<li><div class="row-top"><span class="new-badge">NEW</span><span class="type-tag t-${type}">${esc(TYPE_LABEL[type])}</span><span class="when">${fmt(pd(p.applyStart))} 올라옴</span></div>
+        ${kicker(p.title) ? `<p class="row-kicker">${esc(kicker(p.title))}</p>` : ''}<p class="row-title">${unitize(main(p.title))}</p><p class="row-meta">${esc(p.facility)}</p></li>`;
+    }).join('');
+
+    const failKey = 'smy'; // 예시로 한 곳만 실패 표시
+    document.getElementById('mock-src').innerHTML = `
+      <thead><tr><th scope="col">기관</th><th scope="col">방식</th><th scope="col" class="n">프로그램</th><th scope="col">오늘 수집</th></tr></thead>
+      <tbody>${D.orgs.map((o) => {
+        const n = D.programs.filter((p) => p.org === o.key).length;
+        const st = o.key === failKey ? '<span class="fail">실패 · 어제 자료</span>' : (n ? '<span class="ok">정상</span>' : '<span class="none">올라온 것 없음</span>');
+        return `<tr><td>${esc(o.name)}</td><td class="n0">${o.method === 'public' ? '공식 API' : '게시판'}</td><td class="n">${n}건</td><td>${st}</td></tr>`;
+      }).join('')}</tbody>`;
+  })();
+  </script>
+</body>
+</html>

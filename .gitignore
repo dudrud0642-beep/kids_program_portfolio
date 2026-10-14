@@ -1,0 +1,8 @@
+# 개발 도구
+node_modules/
+*.log
+
+# 운영체제
+.DS_Store
+Thumbs.db
+desktop.ini
