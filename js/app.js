@@ -320,9 +320,9 @@
     kid: KID_OPTIONS.some((o) => o.key === load(KID_KEY, 'all')) ? load(KID_KEY, 'all') : 'all',
     dayMode: 'deadline',
     sort: 'deadline',
-    limit: 10,
     freeType: 'all',
     freeFolded: { closed: true },
+    more: {}, // 목록별로 [더 보기]로 늘린 개수 (좁은 화면)
     loading: null, // 데이터를 불러오는 중인 지역
     weekSavedOnly: false,
     ...FILTER_DEFAULTS
@@ -380,6 +380,7 @@
     let out = '';
     let last = 0;
     for (const m of s.matchAll(UNIT_RE)) {
+      if (m[0].length > 14) continue; // 긴 구절은 묶지 않는다 (줄이 일찍 끊겨 빈칸이 생기지 않게)
       out += esc(s.slice(last, m.index)) + `<span class="unit">${esc(m[0])}</span>`;
       last = m.index + m[0].length;
     }
@@ -426,6 +427,14 @@
         ${favButton(p)}
       </li>`;
   }
+
+  // 휴대폰처럼 좁은 화면(본문 700px 미만)에서는 긴 목록을 6개씩 보여 주고 [더 보기]로 6개씩 더
+  const STEP = 6;
+  const isNarrow = () => $('#main-wrap').clientWidth < 700;
+  const shownOf = (key) => (isNarrow() ? (state.more[key] || STEP) : Infinity);
+  const moreHTML = (key, rest, tag = 'li') => (rest > 0
+    ? `<${tag} class="more-li"><button class="btn btn-ghost more-btn" type="button" data-more="${esc(key)}">더 보기 <span class="more-n">${rest}건 남음</span></button></${tag}>`
+    : '');
 
   function emptyHTML({ title, desc, action, iconName = 'inbox' }) {
     return `<li class="empty"><span class="empty-icon">${icon(iconName)}</span><p class="empty-title">${title}</p><p class="empty-desc desc">${desc}</p>${action || ''}</li>`;
@@ -667,15 +676,16 @@
     });
     rows.sort((a, b) => (a.d - b.d) || (firstTime(a.p) || '99').localeCompare(firstTime(b.p) || '99'));
     $('#weekend-note').textContent = hasData() ? weekendLabel : '';
-    // 한 화면 대시보드에서는 카드 안에서 스크롤, 좁은 화면에서는 8건만 보이고 '모두 보기'로
-    const limit = $('#main-wrap').clientWidth < 1040 ? 8 : 30;
+    // 한 화면 대시보드: 카드 안에서 스크롤 / 중간 폭: 8건 + '모두 보기'(목록 거르기) / 휴대폰: 6건 + [더 보기]
+    const narrow = isNarrow();
+    const limit = narrow ? shownOf('weekend') : $('#main-wrap').clientWidth < 1040 ? 8 : 30;
     $('#weekend-list').innerHTML = rows.length
       ? rows.slice(0, limit).map(({ p, d }) => `
         <li><button class="mini-item" type="button" data-open="${p.id}">
           <span class="wk-day${d.getDay() === 0 ? ' is-sun' : ''}">${DOW[d.getDay()]}<small>${firstTime(p) || '시간 확인'}</small></span>
           <span><span class="mini-title" title="${esc(p.title)}">${esc(splitTitle(p.title).main)}</span><span class="mini-sub">${esc(p.facility || '')}</span></span>
         </button></li>`).join('')
-        + (rows.length > limit ? `<li><button class="mini-more" type="button" data-kpi="weekend">이번 주말 ${new Set(rows.map((r) => r.p.id)).size}건 모두 보기</button></li>` : '')
+        + (narrow ? moreHTML('weekend', rows.length - limit) : rows.length > limit ? `<li><button class="mini-more" type="button" data-kpi="weekend">이번 주말 ${new Set(rows.map((r) => r.p.id)).size}건 모두 보기</button></li>` : '')
       : `<li class="mini-empty">${hasData() ? '이번 주말에 진행하는 프로그램이 없어요.' : '수집 전이에요.'}</li>`;
   }
 
@@ -714,8 +724,8 @@
 
   /* ---------- 목록 ---------- */
   function renderTabs() {
-    // 데이터가 없는 지역에서는 탭·필터를 숨긴다. 기관 종류가 하나뿐인 구(공공예약만)는 탭도 숨긴다
-    document.querySelector('.tabs-wrap').hidden = !hasData() || TYPES.length < 2;
+    // 데이터가 없는 지역에서는 탭·필터를 숨긴다
+    document.querySelector('.tabs-wrap').hidden = !hasData();
     document.querySelector('.list-tools').hidden = !hasData();
     const list = pool().filter((p) => matches(p, { tab: true }));
     const tabs = [{ key: 'all', label: '전체' }, ...TYPES];
@@ -769,12 +779,8 @@
     } else if (!items.length) {
       html = emptyHTML({ title: '조건에 맞는 프로그램이 없어요', desc: '나이나 신청 상태 조건을 바꿔 보세요.', action: `<button class="btn btn-ghost" type="button" data-action="reset">조건 모두 지우기</button>` });
     } else {
-      const paged = $('#main-wrap').clientWidth < 700;
-      const shown = paged ? items.slice(0, state.limit) : items;
-      html = shown.map(rowHTML).join('');
-      if (paged && items.length > shown.length) {
-        html += `<li><button class="btn btn-ghost more-btn" type="button" data-action="more">더 보기 (${items.length - shown.length}건 남음)</button></li>`;
-      }
+      const shown = items.slice(0, shownOf('list'));
+      html = shown.map(rowHTML).join('') + moreHTML('list', items.length - shown.length);
     }
     $('#plist').innerHTML = html;
   }
@@ -811,11 +817,11 @@
       return `
         <section class="card week-day${dow === 0 ? ' is-sun' : ''}${dow === 6 ? ' is-sat' : ''}" aria-label="${fmt(d)} 일정 ${items.length}건">
           <div class="week-head"><b>${d.getMonth() + 1}.${d.getDate()}</b><span>${DOW[dow]}요일</span>${i === 0 ? '<span class="today">오늘</span>' : ''}</div>
-          <div class="week-list">${items.length ? items.map((p) => `
+          <div class="week-list">${items.length ? items.slice(0, shownOf(`week:${iso(d)}`)).map((p) => `
             <button class="week-item t-${p._type}${favs.has(p.id) ? ' is-saved' : ''}" type="button" data-open="${p.id}">
               <span class="week-meta">${firstTime(p) ? `<span class="week-time">${firstTime(p)}</span>` : ''}${p.facility ? `<span class="week-place">${esc(p.facility)}</span>` : ''}${favs.has(p.id) ? `<span class="week-saved" role="img" aria-label="저장함">${icon('bookmark')}</span>` : ''}</span>
               <span class="week-title">${unitize(splitTitle(p.title).main)}</span>
-            </button>`).join('') : `<p class="week-none">${state.weekSavedOnly ? '저장한 프로그램이 없어요' : '진행하는 프로그램이 없어요'}</p>`}</div>
+            </button>`).join('') + moreHTML(`week:${iso(d)}`, items.length - shownOf(`week:${iso(d)}`), 'div') : `<p class="week-none">${state.weekSavedOnly ? '저장한 프로그램이 없어요' : '진행하는 프로그램이 없어요'}</p>`}</div>
         </section>`;
     }).join('');
   }
@@ -860,7 +866,7 @@
                 <h2>${g.title}</h2><span class="card-note">${g.items.length}건</span>
                 <button class="fold-btn" type="button" data-fold="${g.key}" aria-expanded="${!folded}">${folded ? '펼쳐 보기' : '접기'}${icon(folded ? 'chevron-down' : 'chevron-up')}</button>
               </div>
-              ${folded ? '' : `<ul class="pgrid">${g.items.sort(SORTERS.deadline).map(cardHTML).join('')}</ul>`}
+              ${folded ? '' : (() => { const all = g.items.sort(SORTERS.deadline); const shown = all.slice(0, shownOf(`free:${g.key}`)); return `<ul class="pgrid">${shown.map(cardHTML).join('')}${moreHTML(`free:${g.key}`, all.length - shown.length)}</ul>`; })()}
             </section>`;
         }).join('')
       : `<ul class="pgrid">${emptyHTML({ iconName: 'ticket', title: '조건에 맞는 무료 프로그램이 없어요', desc: '우리 아이 나이나 기관을 바꿔 보세요.' })}</ul>`;
@@ -876,8 +882,9 @@
     }
     const items = [...favs].map((id) => ALL_BY_ID[id]).filter(Boolean).sort(SORTERS.deadline);
     const manyRegions = new Set(items.map((p) => p._region)).size > 1;
+    const savedShown = items.slice(0, shownOf('saved'));
     $('#saved-list').innerHTML = items.length
-      ? items.map((p) => rowHTML(p, { region: manyRegions })).join('')
+      ? savedShown.map((p) => rowHTML(p, { region: manyRegions })).join('') + moreHTML('saved', items.length - savedShown.length)
       : emptyHTML({ iconName: 'bookmark', title: '아직 저장한 프로그램이 없어요', desc: '목록에서 북마크를 누르면 여기에 모여요.', action: `<button class="btn btn-primary" type="button" data-view="dashboard">프로그램 보러 가기</button>` });
   }
 
@@ -905,7 +912,7 @@
             ${o.listUrl ? `<dt>${o.key === 'seoul' ? '공개 자료' : '목록 주소'}</dt><dd>${link(o.listUrl, o.key === 'seoul' ? '열린데이터광장에서 보기' : '프로그램 목록 열기')}</dd>` : ''}
             ${o.note ? `<dt>참고</dt><dd>${esc(o.note)}</dd>` : ''}
           </dl>
-          ${facs.length ? `<ul class="fac-list">${facs.map((f) => `<li><span>${esc(f.name)}</span>${f.area ? `<span class="tag">${esc(f.area)}</span>` : ''}</li>`).join('')}</ul>` : ''}
+          ${facs.length ? `<ul class="fac-list">${facs.slice(0, shownOf(`fac:${o.key}`)).map((f) => `<li><span>${esc(f.name)}</span>${f.area ? `<span class="tag">${esc(f.area)}</span>` : ''}</li>`).join('')}${moreHTML(`fac:${o.key}`, facs.length - shownOf(`fac:${o.key}`))}</ul>` : ''}
         </article>`;
     }).join('') || `<div class="card">${emptyHTML({ title: '아직 모은 데이터가 없어요', desc: '수집이 끝나면 여기에 기관 목록이 보여요.' }).replace(/<\/?li[^>]*>/g, '')}</div>`;
   }
@@ -1218,7 +1225,7 @@
   function setRegion(name) {
     state.region = name;
     save(REGION_KEY, name);
-    Object.assign(state, FILTER_DEFAULTS, { limit: 10 });
+    Object.assign(state, FILTER_DEFAULTS, { more: {} });
     $('#q').value = '';
     state.view = 'dashboard';
     showRegion();
@@ -1333,7 +1340,8 @@
     state.free = next === 'free';
   }
 
-  const rerender = () => { state.limit = 10; renderDashboard(); renderRegions(); renderMenu(); };
+  // 조건이 바뀌면 목록은 다시 6개부터
+  const rerender = () => { delete state.more.list; delete state.more.weekend; renderDashboard(); renderRegions(); renderMenu(); };
 
   // 요약 카드를 누르면 목록이 바뀌었다는 걸 알리기: 목록 카드를 잠깐 강조하고,
   // 목록이 화면 밖이면(태블릿·모바일) 목록으로 스크롤
@@ -1361,6 +1369,18 @@
     if ((el = hit('[data-pick]'))) { addRegion(el.dataset.pick); return; }
     if ((el = hit('[data-region]'))) { setRegion(el.dataset.region); closeSidebarIfOverlay(); return; }
     if (hit('[data-region-home]')) { goHome(); return; }
+    if ((el = hit('[data-more]'))) {
+      const k = el.dataset.more;
+      state.more[k] = (state.more[k] || STEP) + STEP;
+      const kind = k.split(':')[0];
+      if (kind === 'list') renderList();
+      if (kind === 'weekend') renderWeekend();
+      if (kind === 'saved') renderSaved();
+      if (kind === 'free') renderFree();
+      if (kind === 'week') renderWeek();
+      if (kind === 'fac') renderSources();
+      return;
+    }
     if ((el = hit('[data-fold]'))) { const k = el.dataset.fold; state.freeFolded[k] = !state.freeFolded[k]; renderFree(); return; }
     if ((el = hit('[data-freetype]'))) { state.freeType = el.dataset.freetype; renderFree(); return; }
     if ((el = hit('[data-share-to]'))) { const [to, id] = el.dataset.shareTo.split(':'); shareTo(to, ALL_BY_ID[id]); return; }
@@ -1373,14 +1393,13 @@
       if (a === 'close-sidebar') setSidebar(false);
       if (a === 'open-region-modal') { closeSidebarIfOverlay(); openRegionModal(); }
       if (a === 'close-region-modal') closeRegionModal();
-      if (a === 'more') { state.limit += 10; renderList(); }
       if (a === 'week-saved') { state.weekSavedOnly = !state.weekSavedOnly; renderWeek(); }
       if (a === 'toast-undo') { const act = $('#toast')._action; $('#toast').hidden = true; if (act) act.run(); }
       if (a === 'reset') { Object.assign(state, FILTER_DEFAULTS); $('#q').value = ''; rerender(); }
       return;
     }
 
-    if ((el = hit('[data-view]'))) { state.view = el.dataset.view; render(); closeSidebarIfOverlay(); window.scrollTo({ top: 0 }); return; }
+    if ((el = hit('[data-view]'))) { state.more = {}; state.view = el.dataset.view; render(); closeSidebarIfOverlay(); window.scrollTo({ top: 0 }); return; }
     if ((el = hit('[data-open]'))) { openDrawer(el.dataset.open); return; }
     if ((el = hit('[data-tab]'))) { state.tab = el.dataset.tab; rerender(); return; }
     if ((el = hit('[data-area]'))) { state.area = state.area === el.dataset.area ? null : el.dataset.area; rerender(); return; }
@@ -1411,7 +1430,7 @@
   $('#kid').addEventListener('change', (e) => {
     state.kid = KID_OPTIONS.some((o) => o.key === e.target.value) ? e.target.value : 'all';
     save(KID_KEY, state.kid);
-    state.limit = 10;
+    state.more = {};
     render();
     const label = KID_OPTIONS.find((o) => o.key === state.kid).label;
     showToast(state.kid === 'all' ? '모든 나이의 프로그램을 보여 드려요' : `${label} 기준으로 보여 드려요. 다음에 와도 그대로예요`);

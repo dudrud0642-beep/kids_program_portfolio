@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모바일 목록 시안</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    body { background: var(--bg); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 56px; }
+    .head h1 { font-size: 26px; font-weight: 700; }
+    .head p { margin-top: 6px; color: var(--text-3); }
+    .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px; align-items: start; }
+    .opt-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+    .v-tag { padding: 0 8px; border-radius: 6px; background: var(--primary-soft); color: var(--primary-ink); font-size: 12px; font-weight: 700; line-height: 22px; }
+    .opt-desc { margin-top: 4px; font-size: 14px; color: var(--text-3); }
+
+    /* 휴대폰 틀 (390 × 760) — 안에서 스크롤 */
+    .phone { width: min(390px, 100%); margin: 14px auto 0; border: 10px solid #1f2937; border-radius: 40px; background: var(--bg); overflow: hidden; box-shadow: 0 20px 40px rgba(27, 36, 55, .18); }
+    .screen { height: 760px; overflow-y: auto; padding: 16px 14px 24px; scrollbar-width: none; }
+    .screen::-webkit-scrollbar { display: none; }
+    .screen .card { padding: 16px; }
+    .screen .card + .card { margin-top: 12px; }
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .sec-head h2 { font-size: 16px; font-weight: 700; white-space: nowrap; }
+    .sec-head .card-note { font-size: 13px; color: var(--text-3); }
+    .list-box { container: list / inline-size; }
+
+    /* A안: 옆으로 넘기기 — 다음 카드가 살짝 보이고, 점·숫자·화살표로 '넘길 수 있다'를 알려 준다 */
+    .sw { position: relative; }
+    .sw-track { display: flex; gap: 10px; margin: 0 -16px; padding: 2px 16px 6px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 16px; scrollbar-width: none; overscroll-behavior-x: contain; }
+    .sw-track::-webkit-scrollbar { display: none; }
+    .sw-track > .pcard { flex: 0 0 84%; scroll-snap-align: start; list-style: none; }
+    .sw-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+    .sw-dots { display: flex; gap: 5px; }
+    .sw-dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--line-strong); transition: width .2s, background .2s; }
+    .sw-dots i.on { width: 18px; background: var(--primary); }
+    .sw-count { font-size: 12.5px; font-weight: 600; color: var(--text-3); font-variant-numeric: tabular-nums; }
+    .sw-arrows { display: flex; gap: 6px; }
+    .sw-arrows button { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: #fff; color: var(--text-2); cursor: pointer; }
+    .sw-arrows button:disabled { opacity: .35; cursor: default; }
+    .sw-arrows svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sw-all { display: block; margin-top: 10px; font-size: 13px; color: var(--text-2); text-align: center; }
+
+    .pros { margin: 14px 0 0; padding: 14px 16px; border-radius: 14px; background: #fff; box-shadow: var(--shadow); font-size: 14px; color: var(--text-2); list-style: none; }
+    .pros li + li { margin-top: 6px; }
+    .pros b { color: var(--text); }
+    .pros .good::before { content: "＋ "; color: var(--mint-ink); font-weight: 700; }
+    .pros .bad::before { content: "－ "; color: var(--coral-ink); font-weight: 700; }
+    .rec { margin-top: 24px; padding: 18px 20px; border-radius: 16px; background: #fff; box-shadow: var(--shadow); font-size: 14.5px; color: var(--text-2); }
+    .rec b { color: var(--text); }
+    @media (max-width: 860px) { .opts { grid-template-columns: minmax(0, 1fr); } .wrap { padding: 28px 16px 40px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>모바일 목록 시안</h1>
+      <p><span class="sent">휴대폰에서 프로그램처럼 긴 목록을 <span class="nw">어떻게 보여 줄지</span> 두 가지로 만들었어요.</span><span class="sent">실제 도봉구 자료이고, <span class="nw">휴대폰 틀 안에서</span> 직접 넘기고 눌러 볼 수 있어요.</span></p>
+    </div>
+
+    <div class="opts">
+      <section aria-labelledby="ta">
+        <h2 class="opt-title" id="ta">A안 · 옆으로 넘기기</h2>
+        <p class="opt-desc">카드를 옆으로 넘겨 봐요. <span class="nw">다음 카드가 살짝 보이고,</span> 점·숫자·화살표로 <span class="nw">넘길 수 있다는 걸</span> 알려 줘요.</p>
+        <div class="phone"><div class="screen" id="screen-a"></div></div>
+        <ul class="pros">
+          <li class="good"><b>세로 길이가 짧아요.</b> 지도·주말 같은 <span class="nw">다른 칸이 금방 보여요.</span></li>
+          <li class="good">카드가 커서 <span class="nw">하나씩 보기 좋아요.</span></li>
+          <li class="bad"><b>한 번에 1개만</b> 보여서 <span class="nw">여러 개를 비교하기 어려워요.</span></li>
+          <li class="bad">100건이 넘으면 <span class="nw">끝까지 넘기기 힘들어요.</span> <span class="nw">컴퓨터에서는 화살표를 눌러야 해요.</span></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="tb">
+        <h2 class="opt-title" id="tb">B안 · 6개 + 더 보기 <span class="v-tag">지금 사이트</span></h2>
+        <p class="opt-desc">6개를 세로로 보여 주고, <span class="nw">[더 보기]를 누를 때마다</span> 6개씩 더 나와요.</p>
+        <div class="phone"><div class="screen" id="screen-b"></div></div>
+        <ul class="pros">
+          <li class="good"><b>여러 개를 한눈에</b> 비교할 수 있어요. <span class="nw">마감 순서가 잘 보여요.</span></li>
+          <li class="good">검색·나이·상태로 거른 결과와 <span class="nw">잘 어울려요.</span></li>
+          <li class="bad">[더 보기]를 여러 번 누르면 <span class="nw">다시 길어져요.</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="rec"><b>추천</b> · 메인의 <b>프로그램 목록은 B안</b>이 좋아요. 마감 순으로 비교하며 고르는 곳이라 <span class="nw">여러 개가 한눈에</span> 보여야 해요. 대신 <b>무료 페이지의 상태별 묶음</b>처럼 <span class="nw">짧은 묶음이 여러 개</span> 이어지는 곳은 <b>A안</b>도 잘 어울려요.</p>
+  </div>
+
+  <script src="../data/programs.js"></script>
+  <script>
+  (function () {
+    const D = window.KIDS_DATA;
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const DOW = ['일', '월', '화', '수', '목', '금', '토'];
+    const day = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const TODAY = day(new Date());
+    const pd = (s) => { if (!s) return null; const [y, m, d] = s.slice(0, 10).split('-').map(Number); return new Date(y, m - 1, d); };
+    const fmt = (d) => `${d.getMonth() + 1}.${d.getDate()}(${DOW[d.getDay()]})`;
+    const ORG = Object.fromEntries(D.orgs.map((o) => [o.key, o]));
+    const TYPE_LABEL = Object.fromEntries(D.types.map((t) => [t.key, t.label]));
+    const STATUS = { closing: '마감 임박', open: '접수 중', wait: '대기 접수', walkin: '자유 참여', soon: '접수 예정', unknown: '기관 확인', closed: '접수 마감', ended: '종료' };
+    const RANK = { closing: 0, open: 1, wait: 2, walkin: 3, soon: 4, unknown: 5, closed: 6, ended: 7 };
+    function status(p) {
+      const st = p.statusText || '';
+      if (p._end && p._end < TODAY) return 'ended';
+      if (p._applyStart && TODAY < p._applyStart) return 'soon';
+      if (p._applyEnd && TODAY > p._applyEnd) return 'closed';
+      if (/예약\s*불가|안내\s*중|일시\s*중지/.test(st)) return 'unknown';
+      if (/마감|종료|완료/.test(st) && !/임박|미종료/.test(st)) return 'closed';
+      if (/대기/.test(st)) return 'wait';
+      if (/예정|준비/.test(st) && !p._applyStart) return 'soon';
+      if (p._applyEnd) return Math.round((p._applyEnd - TODAY) / 864e5) <= 2 ? 'closing' : 'open';
+      if (/접수\s*중|신청\s*중|모집\s*중|신청\s*가능|예약\s*가능/.test(st)) return 'open';
+      if (/현장|자유|신청\s*없이/.test(p.applyMethod || '')) return 'walkin';
+      return 'unknown';
+    }
+    const due = (p) => {
+      const d = p._applyEnd ? Math.round((p._applyEnd - TODAY) / 864e5) : null;
+      if (p._status === 'closing') return { t: ['오늘 마감', '내일 마감', '모레 마감'][d] || '', u: true };
+      if (p._status === 'open') return { t: p._applyEnd ? `~${fmt(p._applyEnd)}` : '접수 중' };
+      if (p._status === 'soon') return { t: p._applyStart ? `${fmt(p._applyStart)}부터` : '접수 예정' };
+      return { t: '기관에서 확인' };
+    };
+    const when = (p) => (p._start ? (p._end && +p._end !== +p._start ? `${fmt(p._start)}~${fmt(p._end)}` : fmt(p._start)) : '일정 기관 확인');
+    const main = (t) => t.replace(/^\s*(\[[^\]]*\]\s*)+/, '').trim().replace(/(\S)\s*_\s*(?=\S)/g, '$1 · ');
+    const P = D.programs.map((p) => {
+      const q = { ...p, _type: (ORG[p.org] || {}).type, _start: pd(p.programStart), _end: pd(p.programEnd), _applyStart: pd(p.applyStart), _applyEnd: pd(p.applyEnd) };
+      q._status = status(q);
+      return q;
+    }).filter((p) => !['closed', 'ended'].includes(p._status))
+      .sort((a, b) => RANK[a._status] - RANK[b._status] || (a._applyEnd || 9e15) - (b._applyEnd || 9e15));
+    const badge = (p) => `<span class="badge s-${p._status}">${STATUS[p._status]}</span>`;
+    const tag = (p) => `<span class="type-tag t-${p._type}">${esc(TYPE_LABEL[p._type])}</span>`;
+    const fee = (p) => (p.fee === 0 ? '<span class="fee-free">무료</span>' : typeof p.fee === 'number' ? `${p.fee.toLocaleString('ko-KR')}원` : '비용 기관 확인');
+    const card = (p) => { const d = due(p); return `
+      <li class="pcard"><button class="pcard-main" type="button">
+        <span class="pcard-top">${badge(p)}<span class="prog-due${d.u ? ' is-urgent' : ''}">${esc(d.t)}</span></span>
+        <span class="pcard-title">${esc(main(p.title))}</span>
+        <span class="pcard-meta">${tag(p)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}</span>
+        <span class="pcard-foot"><b>${when(p)}</b>${p.target ? `<span>${esc(p.target)}</span>` : ''}</span>
+      </button></li>`; };
+    const row = (p) => { const d = due(p); return `
+      <li class="prog"><button class="prog-main" type="button">
+        <span class="prog-status">${badge(p)}<span class="prog-due${d.u ? ' is-urgent' : ''}">${esc(d.t)}</span></span>
+        <span class="prog-body"><span class="prog-title">${esc(main(p.title))}</span>
+          <span class="prog-meta">${tag(p)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${esc(p.target)}</span>` : ''}</span></span>
+        <span class="prog-when"><b>${when(p)}</b><span>${fee(p)}</span></span>
+      </button></li>`; };
+    const icon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+    const mapCard = '<section class="card"><div class="sec-head"><h2>동네 지도</h2></div><p class="card-note" style="font-size:13px;color:var(--text-3)">(지도 자리)</p></section>';
+
+    // A안: 상태별로 묶어 옆으로 넘기기
+    const groups = [
+      ['지금 신청할 수 있어요', P.filter((p) => ['closing', 'open', 'wait', 'walkin'].includes(p._status))],
+      ['곧 접수를 시작해요', P.filter((p) => p._status === 'soon')],
+      ['접수 일정은 기관에서 확인해요', P.filter((p) => p._status === 'unknown')]
+    ].filter(([, l]) => l.length);
+    document.getElementById('screen-a').innerHTML = groups.map(([title, list], gi) => `
+      <section class="card sw" data-sw="${gi}">
+        <div class="sec-head"><h2>${title}</h2><span class="card-note">${list.length}건</span></div>
+        <ul class="sw-track">${list.map(card).join('')}</ul>
+        <div class="sw-bar">
+          ${list.length <= 8 ? `<span class="sw-dots">${list.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</span>` : `<span class="sw-count"><span class="sw-now">1</span> / ${list.length}</span>`}
+          <span class="sw-arrows"><button type="button" data-dir="-1" aria-label="이전" disabled>${icon('m15 18-6-6 6-6')}</button><button type="button" data-dir="1" aria-label="다음">${icon('m9 18 6-6-6-6')}</button></span>
+        </div>
+      </section>`).join('') + mapCard;
+    document.querySelectorAll('.sw').forEach((sw) => {
+      const track = sw.querySelector('.sw-track');
+      const cards = [...track.children];
+      const update = () => {
+        const i = Math.round(track.scrollLeft / (cards[0].getBoundingClientRect().width + 10));
+        sw.querySelectorAll('.sw-dots i').forEach((d, k) => d.classList.toggle('on', k === i));
+        const now = sw.querySelector('.sw-now'); if (now) now.textContent = Math.min(i + 1, cards.length);
+        const [prev, next] = sw.querySelectorAll('.sw-arrows button');
+        prev.disabled = i <= 0; next.disabled = i >= cards.length - 1;
+      };
+      track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      sw.querySelectorAll('.sw-arrows button').forEach((b) => b.addEventListener('click', () => track.scrollBy({ left: +b.dataset.dir * (cards[0].getBoundingClientRect().width + 10), behavior: 'smooth' })));
+    });
+
+    // B안: 6개 + 더 보기
+    let shown = 6;
+    const renderB = () => {
+      document.getElementById('screen-b').innerHTML = `
+        <section class="card list-box"><div class="sec-head"><h2>프로그램</h2><span class="card-note">${P.length}건</span></div>
+          <ul class="plist">${P.slice(0, shown).map(row).join('')}${shown < P.length ? `<li class="more-li"><button class="btn btn-ghost more-btn" type="button" id="more-b">더 보기 <span class="more-n">${P.length - shown}건 남음</span></button></li>` : ''}</ul>
+        </section>` + mapCard;
+      const m = document.getElementById('more-b');
+      if (m) m.addEventListener('click', () => { shown += 6; renderB(); });
+    };
+    renderB();
+  })();
+  </script>
+</body>
+</html>

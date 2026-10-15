@@ -35,9 +35,8 @@
               <g class="lm-face"><circle cx="17.4" cy="11.4" r="1.3" fill="#1f2937"/><circle cx="22.6" cy="11.4" r="1.3" fill="#1f2937"/><path d="M17.6 14.6q2.4 2 4.8 0" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round"/></g>
             </g></g>
           </svg>
-      <span class="logo-word"><b>모아</b>놀자</span>
+      <span class="logo-text"><span class="logo-word"><b>모아</b>놀자</span><span class="intro-sub">우리 동네 아이랑 프로그램</span></span>
     </div>
-    <p class="intro-sub">우리 동네 아이랑 프로그램</p>
   </div>
   <script>
     // 인트로 진행: 글꼴(로고·안내 문구)이 준비되면 글자가 나타나고 로고가 굴러와 웃는다(1.3초).
@@ -62,7 +61,7 @@
         setTimeout(finish, 1700);
       }
       var fonts = document.fonts && document.fonts.load
-        ? Promise.all([document.fonts.load('60px MoaPoint', '모아놀자'), document.fonts.load('15px "Pretendard Variable"', '우리 동네 아이랑 프로그램')])
+        ? Promise.all([document.fonts.load('60px MoaPoint', '모아놀자'), document.fonts.load('22px "Pretendard Variable"', '우리 동네 아이랑 프로그램')])
         : Promise.resolve();
       fonts.then(start, start);
       setTimeout(start, 1500);
