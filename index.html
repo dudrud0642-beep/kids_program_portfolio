@@ -110,6 +110,7 @@
       <nav class="side-section" aria-labelledby="side-quick">
         <h2 class="side-label" id="side-quick">바로 보기</h2>
         <ul class="side-list">
+          <li><button class="side-item" type="button" data-view="new"><i data-icon="sparkle"></i><span class="side-text">새로 올라온 프로그램</span><span class="side-num" id="num-new">0</span></button></li>
           <li><button class="side-item" type="button" data-view="saved"><i data-icon="bookmark"></i><span class="side-text">저장한 프로그램</span><span class="side-num" id="num-saved">0</span></button></li>
           <li><button class="side-item" type="button" data-view="week"><i data-icon="calendar"></i><span class="side-text">이번 주 일정</span><span class="side-num" id="num-week">0</span></button></li>
           <li><button class="side-item" type="button" data-view="free"><i data-icon="ticket"></i><span class="side-text">무료 프로그램</span><span class="side-num" id="num-free">0</span></button></li>
@@ -152,6 +153,7 @@
               <i data-icon="search"></i>
               <input type="search" id="q" placeholder="프로그램, 장소 검색" aria-label="프로그램 검색" autocomplete="off">
             </label>
+            <button class="pill new-pill" type="button" id="new-chip" data-view="new" hidden></button>
             <span class="pill" id="collected"></span>
           </div>
         </div>
@@ -219,6 +221,13 @@
           </div>
         </section>
 
+        <!-- 새로 올라온 프로그램 (자동 수집에서 처음 본 지 7일 안) -->
+        <section class="view" id="view-new" aria-label="새로 올라온 프로그램" hidden>
+          <div class="card card-full">
+            <ul class="plist" id="new-list"></ul>
+          </div>
+        </section>
+
         <!-- 무료 프로그램 -->
         <section class="view" id="view-free" aria-label="무료 프로그램" hidden>
           <div class="free-bar">
@@ -279,6 +288,7 @@
   <script src="data/geo.js"></script>
   <script src="data/programs.js"></script>
   <script src="data/regions/index.js"></script>
+  <script src="data/status.js"></script>
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
 </body>

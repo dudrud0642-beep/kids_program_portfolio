@@ -265,6 +265,17 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 
 .pill { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 12px; background: #fff; box-shadow: var(--shadow); font-size: 13.5px; font-weight: 500; color: var(--text-2); white-space: nowrap; }
 .pill svg.ic { width: 16px; height: 16px; color: var(--primary-ink); }
+/* 일부 출처 수집 실패: 작은 점 (자세한 건 데이터 출처 페이지) */
+.pill-warn { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+/* 새로 올라온 것 바로 가기 */
+.new-pill { border: 0; cursor: pointer; font: inherit; font-size: 13.5px; font-weight: 600; color: var(--text); gap: 7px; }
+.new-pill:hover { box-shadow: 0 0 0 1.5px var(--primary-line), var(--shadow); }
+
+/* NEW: 자동 수집에서 처음 본 지 7일 안 (열어 보면 사라짐) */
+.new-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 5px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-size: 10.5px; font-weight: 700; letter-spacing: .03em; line-height: 1; white-space: nowrap; vertical-align: 2px; }
+.prog-title .new-badge { margin-right: 6px; }
+.side-num.is-new { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-weight: 700; line-height: 20px; text-align: center; }
+.side-item.is-active .side-num.is-new { color: var(--on-primary); }
 
 .chip {
   display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px;
@@ -462,7 +473,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .mini-empty { padding: 8px; font-size: 13.5px; color: var(--text-3); }
 
 /* ===== 프로그램 목록 ===== */
-.card-list, #view-saved .card-full { container: list / inline-size; }
+.card-list, #view-saved .card-full, #view-new .card-full { container: list / inline-size; }
 .tabs-wrap { margin: 0 -20px; padding: 0 20px; border-bottom: 1px solid var(--line); }
 .tabs { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
 /* 탭이 넘치면 마우스로 끌어서(스와이프) 넘긴다 */
@@ -647,6 +658,9 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .source-meta dt { color: var(--text-3); }
 .source-meta dd { margin: 0; overflow-wrap: anywhere; }
 .source-meta a { color: var(--sky-ink); text-underline-offset: 2px; }
+.source-meta .sub { display: block; margin-top: 2px; font-size: 12.5px; color: var(--text-3); }
+.upd-ok { color: var(--mint-ink); font-weight: 600; }
+.upd-fail { color: var(--coral-ink); font-weight: 600; }
 .fac-list { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; }
 .fac-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; color: var(--text-2); }
 .fac-list .tag { height: 22px; font-size: 12px; }
@@ -739,6 +753,20 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .sim-why { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
 .sim-why span { padding: 0 7px; border-radius: 6px; background: var(--gray-soft); color: var(--gray-ink); font-size: 12px; font-weight: 600; line-height: 21px; white-space: nowrap; }
 .sim-why .w-age { background: var(--primary-soft); color: var(--primary-ink); }
+.sim-title .new-badge { margin-right: 6px; }
+/* 휴대폰: 추천은 위 정보와 다른 색 띠 위에서 카드를 옆으로 넘긴다 (상세 칸 끝까지 띠를 넓힘) */
+.d-sim.is-swipe { margin: 24px -24px 0; padding: 18px 24px 14px; border-top: 0; background: var(--primary-soft); }
+.d-sim.is-swipe .d-sim-icon { background: #fff; }
+.sw-sim .sw-track { gap: 10px; margin: 10px -24px 0; padding: 2px 24px 8px; scroll-padding: 0 24px; }
+.sw-sim .sim-card { display: flex; flex: 0 0 min(250px, 78%); scroll-snap-align: start; }
+.sw-sim .sim-card .sim-item { display: flex; flex-direction: column; gap: 6px; padding: 14px; border: 1px solid var(--primary-line); border-radius: 14px; background: #fff; }
+.sw-sim .sim-top { justify-content: flex-start; gap: 6px; }
+.sw-sim .sim-title { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.sw-sim .sim-meta { margin-top: 0; }
+.sw-sim .sim-why { margin-top: auto; padding-top: 2px; }
+.sw-sim .sw-btn { background: #fff; }
+.sw-sim .sw-dots i { background: var(--primary-line); }
+.sw-sim .sw-dots i.on { background: var(--primary); }
 .d-note svg.ic { width: 16px; height: 16px; margin-top: 2px; color: var(--text-3); }
 
 /* ===== 지역 추가 ===== */
@@ -858,6 +886,8 @@ html.intro-on .intro {
   .kid-pill { flex: 1 1 auto; }
   #collected { flex: none; }
   .search { order: 3; flex: 1 1 100%; width: auto; }
+  /* 새로 올라온 것 바로 가기가 있으면: 우리 아이는 한 줄을 다 쓰고, 바로 가기·수집 표시를 다음 줄에 나란히 */
+  .page-tools:has(#new-chip:not([hidden])) .kid-pill { flex-basis: 100%; }
   .kid-pill select { flex: 1; }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "l" "m" "r"; grid-template-rows: none; }
@@ -921,6 +951,8 @@ html.intro-on .intro {
   .drawer-head { padding: 12px 10px 6px 20px; }
   .drawer-body { padding: 4px 20px 20px; }
   .drawer-foot { padding: 12px 20px 16px; }
+  .d-sim.is-swipe { margin: 24px -20px 0; padding: 18px 20px 14px; }
+  .sw-sim .sw-track { margin: 10px -20px 0; padding: 2px 20px 8px; scroll-padding: 0 20px; }
   .d-media { height: 170px; }
   .picker { grid-template-columns: minmax(0, 1fr); }
   .modal { align-items: end; padding: 0; }

@@ -6,6 +6,8 @@
   const DOW = ['일', '월', '화', '수', '목', '금', '토'];
   const FAV_KEY = 'moa-favs-v1';
   const KID_KEY = 'moa-kid-v1';
+  const SEEN_KEY = 'moa-opened-v1'; // 열어 본 NEW 프로그램
+  const STATUS_DATA = window.KIDS_STATUS || { sources: {} }; // data/status.js (scripts/update.js)
 
   // 색 시안 비교용: 기본은 노랑, index.html?theme=purple / coral
   const THEME = new URLSearchParams(location.search).get('theme');
@@ -200,7 +202,8 @@
       q._region = raw.region;
       q._org = orgs[p.org] || {};
       q._fac = facilities.find((f) => f.org === p.org && f.name === p.facility) || null;
-      q._collected = collected;
+      q._collected = parseDate(q._org.collectedAt) || collected; // 기관마다 모은 날이 다를 수 있다
+      q._firstSeen = parseDate(p.firstSeen);
       q._type = q._org.type || 'public';
       q._start = parseDate(p.programStart);
       q._end = parseDate(p.programEnd);
@@ -402,6 +405,21 @@
   /* ---------- 공통 조각 ---------- */
   const typeTag = (type, text) => `<span class="type-tag t-${type}">${esc(text ?? TYPE_LABEL[type] ?? '')}</span>`;
   const badge = (p) => `<span class="badge s-${p._status}">${STATUS[p._status].label}</span>`;
+  // NEW: 자동 수집에서 처음 본 날부터 7일 동안. 한 번 열어 본 프로그램은 이 브라우저에서 NEW를 뗀다
+  const NEW_DAYS = 7;
+  const opened = new Set(load(SEEN_KEY, []).filter((id) => typeof id === 'string'));
+  const isRecent = (p) => !!p._firstSeen && (TODAY - p._firstSeen) / 864e5 < NEW_DAYS;
+  const isNew = (p) => isRecent(p) && !opened.has(p.id);
+  const newBadge = (p) => (isNew(p) ? '<span class="new-badge" aria-label="새로 올라옴">NEW</span>' : '');
+  function markOpened(id) {
+    if (opened.has(id) || !isRecent(ALL_BY_ID[id] || {})) return;
+    opened.add(id);
+    save(SEEN_KEY, [...opened].slice(-500));
+    // 목록·카드에 붙은 NEW를 바로 뗀다
+    document.querySelectorAll(`[data-open="${CSS.escape(id)}"] .new-badge`).forEach((el) => el.remove());
+    renderMenu();
+    renderHead();
+  }
   function feeText(p) {
     if (p.fee === 0) return '<span class="fee-free">무료</span>';
     if (typeof p.fee === 'number') return `${p.fee.toLocaleString('ko-KR')}원`;
@@ -428,7 +446,7 @@
           <span class="prog-status">${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
           <span class="prog-body">
             ${t.kicker ? `<span class="prog-kicker">${esc(t.kicker)}</span>` : ''}
-            <span class="prog-title">${unitize(t.main)}</span>
+            <span class="prog-title">${newBadge(p)}${unitize(t.main)}</span>
             <span class="prog-meta">${typeTag(p._type)}${opts.region ? `<span class="prog-region">${esc(p._region)}</span>` : ''}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
           </span>
           <span class="prog-when"><b>${dateText(p)}</b><span>${feeText(p)}</span></span>
@@ -440,6 +458,9 @@
   // 큰 PC 화면(본문 1040px 이상, 한 화면 대시보드)이 아니면 — 휴대폰·태블릿 — 긴 목록은 6개씩 보여 주고 [더 보기]로 6개씩 더
   const STEP = 6;
   const isNarrow = () => $('#main-wrap').clientWidth < 1040;
+  // 화면 구분: 휴대폰(본문 700px 미만) · 태블릿 · 큰 PC — 옆으로 넘기기는 휴대폰에서만
+  const isPhone = () => $('#main-wrap').clientWidth < 700;
+  const screenMode = () => (isPhone() ? 'phone' : isNarrow() ? 'tablet' : 'pc');
   const shownOf = (key) => (isNarrow() ? (state.more[key] || STEP) : Infinity);
   const moreHTML = (key, rest, tag = 'li') => (rest > 0
     ? `<${tag} class="more-li"><button class="btn btn-ghost more-btn" type="button" data-more="${esc(key)}">더 보기 <span class="more-n">${rest}건 남음</span></button></${tag}>`
@@ -474,10 +495,24 @@
     $('#num-saved').textContent = favs.size;
     $('#num-week').textContent = weekPrograms().length;
     $('#num-free').textContent = kidPrograms().filter((p) => p.fee === 0).length;
+    const recent = kidPrograms().filter(isRecent);
+    $('#num-new').textContent = recent.length;
+    // 아직 안 열어 본 새 프로그램이 있으면 숫자를 노란 배지로
+    $('#num-new').classList.toggle('is-new', recent.some(isNew));
+    $('#num-new').title = recent.some(isNew) ? '안 열어 본 새 프로그램이 있어요' : '';
   }
 
   /* ---------- 페이지 머리 ---------- */
-  const VIEW_TITLE = { saved: '저장한 프로그램', week: '이번 주 일정', free: '무료 프로그램', sources: '데이터 출처' };
+  // 지금 지역 자료의 수집 상태: 마지막으로 잘 모은 때, 실패한 출처 (기관마다 statusKey로 data/status.js와 잇는다)
+  const ymd = (d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+  const hhmm = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  const statusOf = (o) => (o && o.statusKey && STATUS_DATA.sources[o.statusKey]) || null;
+  function regionStatus() {
+    const list = [...new Set((CUR ? CUR.orgs : []).map(statusOf).filter(Boolean))];
+    const last = list.map((s) => s.lastSuccess).filter(Boolean).sort().pop();
+    return { last: last ? new Date(last) : null, failed: list.filter((s) => s.ok === false) };
+  }
+  const VIEW_TITLE = { new: '새로 올라온 프로그램', saved: '저장한 프로그램', week: '이번 주 일정', free: '무료 프로그램', sources: '데이터 출처' };
   function renderHead() {
     const region = state.region;
     const dash = state.view === 'dashboard';
@@ -492,12 +527,16 @@
           ? `${esc(region)}는 아직 프로그램을 모으지 않았어요.`
           : CUR.scope === 'public'
             ? `서울시 공공서비스예약에 올라온 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="unit"><span class="nw">구 도서관·문화재단 소식은</span> <span class="nw">아직 준비 중이에요.</span></span>`
+            : CUR.scope === 'mixed'
+              // 기관 사이트를 일부만 모은 구: 실제로 모은 기관 종류만 적는다
+              ? `서울시 공공서비스예약과 <span class="nw">${CUR.types.filter((t) => t.key !== 'public').map((t) => t.label).join('·')}</span> <span class="nw">소식을 모았어요.</span> <span class="unit"><span class="nw">다른 기관 소식은</span> <span class="nw">아직 준비 중이에요.</span></span>`
             : `흩어진 <span class="nw">구청·도서관·문화재단</span> 소식을 <span class="nw">한눈에 모았어요.</span> <span class="unit"><span class="nw">일정과 모집 상태는</span> <span class="nw">${when} 기관 공식 공지</span> 기준이에요.</span>`;
     } else {
       $('#page-h1').textContent = VIEW_TITLE[state.view];
       const w0 = WEEK_DAYS[0];
       const w1 = WEEK_DAYS[WEEK_DAYS.length - 1];
       $('#page-sub').innerHTML = {
+        new: `최근 7일 동안 새로 올라온 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="nw">한 번 열어 보면</span> <span class="nw">NEW 표시가 사라져요.</span>`,
         saved: '<span class="sent">북마크를 누른 프로그램이 <span class="nw">이 브라우저에 저장돼요.</span></span><span class="sent"><span class="nw">여러 지역 것을</span> <span class="nw">함께 보여 줘요.</span></span>',
         week: `<span class="nw">${fmt(w0)}${WEEK_DAYS.length > 1 ? `~${fmt(w1)}` : ''}</span> 진행하는 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="nw">날짜가 확실한 것만</span> 보여요.`,
         free: `참가비 없이 참여할 수 있는 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="nw">재료비나 입장료는</span> <span class="nw">따로 있을 수 있어요.</span>`,
@@ -505,13 +544,22 @@
       }[state.view];
     }
     // 우리 아이 나이는 대시보드·무료·주간 일정에서 보이고, 검색은 대시보드에서만
-    $('#page-tools').hidden = !['dashboard', 'free', 'week'].includes(state.view);
+    $('#page-tools').hidden = !['dashboard', 'new', 'free', 'week'].includes(state.view);
     $('#search-box').hidden = !dash;
     $('#kid').innerHTML = KID_OPTIONS.map((o) => `<option value="${o.key}">${o.label}</option>`).join('');
     $('#kid').value = state.kid;
     $('#kid-pill').classList.toggle('is-set', state.kid !== 'all');
-    $('#collected').innerHTML = COLLECTED ? `${icon('refresh')}${fmt(COLLECTED)} 수집` : '';
-    $('#collected').hidden = !COLLECTED || !hasData();
+    // 이 지역 자료를 마지막으로 모은 때 (자동 갱신, data/status.js) — 실패한 출처가 있으면 노란 점
+    const rs = regionStatus();
+    const at = rs.last || COLLECTED;
+    const when = !at ? '' : rs.last && ymd(rs.last) === ymd(TODAY) ? `오늘 ${hhmm(rs.last)}` : fmt(new Date(at.getFullYear(), at.getMonth(), at.getDate()));
+    $('#collected').innerHTML = when ? `${icon('refresh')}${when} 수집${rs.failed.length ? `<span class="pill-warn" title="${rs.failed.length}곳은 이전 자료예요"><span class="sr-only">, ${rs.failed.length}곳은 이전 자료</span></span>` : ''}` : '';
+    $('#collected').hidden = !when || !hasData();
+    // 새로 올라온 것 바로 가기 (아직 안 열어 본 것이 있을 때)
+    const fresh = state.view === 'new' ? 0 : kidPrograms().filter(isNew).length;
+    $('#new-chip').innerHTML = `<span class="new-badge">NEW</span>${fresh}건`;
+    $('#new-chip').setAttribute('aria-label', `새로 올라온 프로그램 ${fresh}건 보기`);
+    $('#new-chip').hidden = !fresh || !hasData();
     document.title = `${dash ? region + ' 아이랑 프로그램' : VIEW_TITLE[state.view]} · 모아놀자`;
   }
 
@@ -842,7 +890,7 @@
     return `
       <li class="pcard${isClosed(p) ? ' is-closed' : ''}">
         <button class="pcard-main" type="button" data-open="${p.id}">
-          <span class="pcard-top">${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
+          <span class="pcard-top">${newBadge(p)}${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
           <span class="pcard-title">${unitize(t.main)}</span>
           <span class="pcard-meta">${typeTag(p._type)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}</span>
           <span class="pcard-foot"><b>${dateText(p)}</b>${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
@@ -851,15 +899,20 @@
       </li>`;
   }
 
-  // 옆으로 넘기기: 다음 카드가 살짝 보이고, 점(8개 이하)이나 "3 / 20"으로 위치를,
-  // 화살표로 한 장씩 넘긴다. 손가락으로 밀거나 마우스로 끌어도 넘어간다
-  function swiperHTML(key, items) {
+  // 태블릿·PC: 카드 격자 (태블릿은 6개 + 더 보기)
+  function gridHTML(key, items) {
+    const shown = items.slice(0, shownOf(key));
+    return `<ul class="pgrid">${shown.map(cardHTML).join('')}${moreHTML(key, items.length - shown.length)}</ul>`;
+  }
+  // 휴대폰: 옆으로 넘기기 — 다음 카드가 살짝 보이고, 점(8개 이하)이나 "3 / 20"으로 위치를,
+  // 화살표로 한 장씩 넘긴다. 손가락으로 밀어도 넘어간다
+  function swiperHTML(key, items, itemHTML, cls = '') {
     const pos = items.length <= 8
       ? `<span class="sw-dots" aria-hidden="true">${items.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</span>`
       : `<span class="sw-count"><b class="sw-now">1</b> / ${items.length}</span>`;
     return `
-      <div class="sw" data-sw="${esc(key)}">
-        <ul class="sw-track">${items.map(cardHTML).join('')}</ul>
+      <div class="sw${cls ? ` ${cls}` : ''}" data-sw="${esc(key)}">
+        <ul class="sw-track">${items.map(itemHTML).join('')}</ul>
         <div class="sw-bar">
           ${pos}
           <span class="sw-arrows">
@@ -870,7 +923,7 @@
       </div>`;
   }
   function swiperStep(track) {
-    const first = track.querySelector('.pcard');
+    const first = track.firstElementChild;
     return first ? first.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 12) : track.clientWidth;
   }
   function updateSwiper(sw) {
@@ -918,11 +971,20 @@
                 <h2>${g.title}</h2><span class="card-note">${g.items.length}건</span>
                 <button class="fold-btn" type="button" data-fold="${g.key}" aria-expanded="${!folded}">${folded ? '펼쳐 보기' : '접기'}${icon(folded ? 'chevron-down' : 'chevron-up')}</button>
               </div>
-              ${folded ? '' : swiperHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline))}
+              ${folded ? '' : isPhone() ? swiperHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline), cardHTML) : gridHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline))}
             </section>`;
         }).join('')
       : `<ul class="pgrid">${emptyHTML({ iconName: 'ticket', title: '조건에 맞는 무료 프로그램이 없어요', desc: '우리 아이 나이나 기관을 바꿔 보세요.' })}</ul>`;
     initSwipers($('#free-sections'));
+  }
+
+  // 새로 올라온 프로그램: 자동 수집에서 처음 본 지 7일 안 — 최근에 올라온 순
+  function renderNew() {
+    const items = kidPrograms().filter(isRecent).sort((a, b) => b._firstSeen - a._firstSeen || SORTERS.deadline(a, b));
+    const shown = items.slice(0, shownOf('new'));
+    $('#new-list').innerHTML = items.length
+      ? shown.map((p) => rowHTML(p)).join('') + moreHTML('new', items.length - shown.length)
+      : emptyHTML({ iconName: 'sparkle', title: '최근 7일 동안 새로 올라온 프로그램이 없어요', desc: '매일 아침 6시에 기관 소식을 새로 모아요. 새 프로그램이 올라오면 여기에 모여요.' });
   }
 
   // 저장한 프로그램: 여러 지역에 걸쳐 있으면 필요한 지역 파일을 받은 뒤 함께 보여 준다
@@ -941,6 +1003,23 @@
       : emptyHTML({ iconName: 'bookmark', title: '아직 저장한 프로그램이 없어요', desc: '목록에서 북마크를 누르면 여기에 모여요.', action: `<button class="btn btn-primary" type="button" data-view="dashboard">프로그램 보러 가기</button>` });
   }
 
+  // 출처마다 언제·얼마나 자주 모으는지, 마지막 수집이 잘 됐는지
+  function updateText(o) {
+    const st = statusOf(o);
+    const at = (iso) => { const d = new Date(iso); return `${fmt(new Date(d.getFullYear(), d.getMonth(), d.getDate()))} ${hhmm(d)}`; };
+    if (!st) {
+      const d = parseDate(o.collectedAt);
+      return `<span class="nw">한 번 모은 자료</span>${d ? ` <span class="nw">(${fmt(d)})</span>` : ''}<span class="sub">자동 갱신 대상이 아니에요</span>`;
+    }
+    const how = st.schedule === 'daily' ? '매일 아침 자동' : '주 2회 자동 (월·목)';
+    const result = st.waiting
+      ? `<span class="upd-fail">자동 갱신 준비 중</span> · <span class="nw">${st.lastSuccess ? `${at(st.lastSuccess)} 자료를 보여 줘요` : '처음 모은 자료를 보여 줘요'}</span>`
+      : st.ok
+      ? `<span class="upd-ok">정상</span> · <span class="nw">${at(st.lastSuccess)} 수집</span>`
+      : `<span class="upd-fail">이번 수집 실패</span> · <span class="nw">${st.lastSuccess ? `${at(st.lastSuccess)} 자료를 보여 줘요` : '이전 자료를 보여 줘요'}</span>`;
+    return `${how}<span class="sub">${result}</span>`;
+  }
+
   function renderSources() {
     // 분포 통계: 메인에서 빼고 이곳으로 (어떤 기관·나이대 프로그램이 많은지)
     $('#source-stats').innerHTML = PROGRAMS.length ? `
@@ -953,16 +1032,18 @@
       const facs = CUR.facilities.filter((f) => f.org === o.key);
       // 링크 글자는 도메인만 (긴 주소가 어색하게 끊기지 않게), 실제 링크는 전체 주소
       const host = (url) => { try { return new URL(url).host.replace(/^www\./, ''); } catch (e) { return url; } };
-      const link = (url, text) => (url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text || host(url))}<span class="sr-only"> (새 창)</span></a>` : '확인 중');
+      // 좁은 칸에서 도메인은 점 뒤에서만 줄을 바꾼다 ("nowon.familynet." / "or.kr")
+      const link = (url, text) => (url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${text ? esc(text) : esc(host(url)).replace(/\./g, '.<wbr>')}<span class="sr-only"> (새 창)</span></a>` : '확인 중');
       return `
         <article class="card source-card t-${o.type}">
           ${typeTag(o.type)}
           <h2>${esc(o.name)}</h2>
           <dl class="source-meta">
             <dt>모은 프로그램</dt><dd>${n}건</dd>
-            <dt>수집 방식</dt><dd>${o.method === 'public' ? '<span class="method-public">서울시 공공서비스예약</span>' : '홈페이지 게시판'}</dd>
+            <dt>수집 방식</dt><dd>${o.method === 'public' ? '<span class="method-public">서울시 공공서비스예약</span> <span class="nw">(공식 공개 자료)</span>' : '홈페이지 게시판'}</dd>
+            <dt>갱신</dt><dd>${updateText(o)}</dd>
             <dt>홈페이지</dt><dd>${link(o.url)}</dd>
-            ${o.listUrl ? `<dt>${o.key === 'seoul' ? '공개 자료' : '목록 주소'}</dt><dd>${link(o.listUrl, o.key === 'seoul' ? '열린데이터광장에서 보기' : '프로그램 목록 열기')}</dd>` : ''}
+            ${o.listUrl ? `<dt>${o.method === 'public' ? '공개 자료' : '목록 주소'}</dt><dd>${link(o.listUrl, o.method === 'public' ? '열린데이터광장에서 보기' : '프로그램 목록 열기')}</dd>` : ''}
             ${o.note ? `<dt>참고</dt><dd>${esc(o.note)}</dd>` : ''}
           </dl>
           ${facs.length ? `<ul class="fac-list">${facs.slice(0, shownOf(`fac:${o.key}`)).map((f) => `<li><span>${esc(f.name)}</span>${f.area ? `<span class="tag">${esc(f.area)}</span>` : ''}</li>`).join('')}${moreHTML(`fac:${o.key}`, facs.length - shownOf(`fac:${o.key}`))}</ul>` : ''}
@@ -971,8 +1052,8 @@
   }
 
   /* ---------- 주소(#)로 화면 기억: 새로고침·뒤로 가기·공유 링크 ---------- */
-  // #free, #saved, #week, #sources = 각 페이지 / #program=아이디 = 대시보드에서 그 프로그램 상세 열기
-  const VIEWS = ['dashboard', 'saved', 'week', 'free', 'sources'];
+  // #new, #free, #saved, #week, #sources = 각 페이지 / #program=아이디 = 대시보드에서 그 프로그램 상세 열기
+  const VIEWS = ['dashboard', 'new', 'saved', 'week', 'free', 'sources'];
   function readHash() {
     let h = '';
     try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { /* 잘못된 주소는 대시보드로 */ }
@@ -990,8 +1071,9 @@
     renderRegions();
     renderMenu();
     renderHead();
-    ['dashboard', 'saved', 'week', 'free', 'sources'].forEach((v) => { $(`#view-${v}`).hidden = v !== state.view; });
+    VIEWS.forEach((v) => { $(`#view-${v}`).hidden = v !== state.view; });
     if (state.view === 'dashboard') renderDashboard();
+    if (state.view === 'new') renderNew();
     if (state.view === 'saved') renderSaved();
     if (state.view === 'week') renderWeek();
     if (state.view === 'free') renderFree();
@@ -1146,21 +1228,41 @@
       x.near ? `<span>같은 동네 · ${esc(x.q.area)}</span>` : '',
       x.q.fee === 0 ? '<span>무료</span>' : ''
     ].join('');
+    const title = `<h3 id="d-sim-title"><span class="d-sim-icon">${icon('sparkle')}</span>이런 프로그램도 있어요${basis ? `<small>${esc(basis)} 기준</small>` : ''}</h3>`;
+    // 휴대폰: 위 정보와 다른 색 띠 위에서 카드를 옆으로 넘긴다
+    if (isPhone()) {
+      const card = (x) => `
+        <li class="sim-card"><button class="sim-item" type="button" data-open="${x.q.id}">
+          <span class="sim-top">${badge(x.q)}${newBadge(x.q)}</span>
+          <span class="sim-title">${unitize(splitTitle(x.q.title).main)}</span>
+          <span class="sim-meta">${esc(x.q.facility)} · ${dateText(x.q)}</span>
+          <span class="sim-why">${chips(x)}</span>
+        </button></li>`;
+      return `<section class="d-sim is-swipe" aria-labelledby="d-sim-title">${title}${swiperHTML('sim', list, card, 'sw-sim')}</section>`;
+    }
     return `
       <section class="d-sim" aria-labelledby="d-sim-title">
-        <h3 id="d-sim-title"><span class="d-sim-icon">${icon('sparkle')}</span>이런 프로그램도 있어요${basis ? `<small>${esc(basis)} 기준</small>` : ''}</h3>
+        ${title}
         <ul>${list.map((x) => `
           <li><button class="sim-item" type="button" data-open="${x.q.id}">
-            <span class="sim-top"><span class="sim-title">${unitize(splitTitle(x.q.title).main)}</span>${badge(x.q)}</span>
+            <span class="sim-top"><span class="sim-title">${newBadge(x.q)}${unitize(splitTitle(x.q.title).main)}</span>${badge(x.q)}</span>
             <span class="sim-meta">${esc(x.q.facility)} · ${dateText(x.q)}</span>
             <span class="sim-why">${chips(x)}</span>
           </button></li>`).join('')}
         </ul>
       </section>`;
   }
+  // 창 크기가 휴대폰 ↔ 그보다 큰 화면으로 바뀌면 열린 상세의 추천 칸만 다시 그린다
+  function refreshDrawerSimilar() {
+    const box = $('#drawer-body .d-sim');
+    if ($('#drawer').hidden || !box || !drawerId) return;
+    box.outerHTML = similarHTML(ALL_BY_ID[drawerId]);
+    initSwipers($('#drawer-body'));
+  }
 
   /* ---------- 상세 패널 ---------- */
   let lastFocus = null;
+  let drawerId = null; // 지금 열린 상세
 
   function openDrawer(id) {
     const p = ALL_BY_ID[id];
@@ -1208,7 +1310,7 @@
       ${p.category ? `<p class="d-place">${esc(p.category)}</p>` : ''}
       <dl class="d-info">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
       ${p.description ? `<section class="d-desc"><h3>기관 소개글</h3><p>${esc(p.description)}</p></section>` : ''}
-      <p class="d-note">${icon('info')}<span><span class="sent">${p._collected ? `<span class="nw">${fmt(p._collected)}에</span> ` : ''}${p.org === 'seoul' ? '서울시 공개 자료에서' : '기관 사이트에서'} 모은 정보예요.</span><span class="sent">신청 전에 <span class="nw">원문을 꼭</span> 확인해 주세요.</span></span></p>
+      <p class="d-note">${icon('info')}<span><span class="sent">${p._collected ? `<span class="nw">${fmt(p._collected)}에</span> ` : ''}${org.method === 'public' ? '서울시 공개 자료에서' : '기관 사이트에서'} 모은 정보예요.</span><span class="sent">신청 전에 <span class="nw">원문을 꼭</span> 확인해 주세요.</span></span></p>
       ${similarHTML(p)}`;
     const on = favs.has(p.id);
     $('#drawer-foot').innerHTML = `
@@ -1220,6 +1322,9 @@
       ${p.url ? `<a class="btn btn-primary" href="${esc(p.url)}" target="_blank" rel="noopener">기관 사이트에서 보기${icon('external')}<span class="sr-only"> (새 창)</span></a>` : '<span class="btn is-disabled">원문 주소 없음</span>'}`;
 
     // 이미지를 못 불러오면(주소 변경·차단) 이미지 칸을 없앤다
+    drawerId = p.id;
+    markOpened(p.id);
+
     const img = $('#drawer-body .d-media img');
     if (img) img.addEventListener('error', () => { img.closest('.d-media').remove(); }, { once: true });
 
@@ -1228,6 +1333,7 @@
     $('#drawer-scrim').hidden = false;
     document.body.style.overflow = 'hidden';
     $('#drawer-body').scrollTop = 0;
+    initSwipers($('#drawer-body')); // 상세가 보인 뒤에 재야 넘기기 폭이 맞다
     $('#drawer .drawer-head .icon-btn').focus();
   }
 
@@ -1434,6 +1540,7 @@
       if (kind === 'list') renderList();
       if (kind === 'weekend') renderWeekend();
       if (kind === 'saved') renderSaved();
+      if (kind === 'new') renderNew();
       if (kind === 'free') renderFree();
       if (kind === 'week') renderWeek();
       if (kind === 'fac') renderSources();
@@ -1542,14 +1649,15 @@
     if (r.program) openProgram(r.program);
   });
 
-  let wasNarrow = null;
+  // 창 크기를 바꿔 휴대폰 ↔ 태블릿 ↔ PC 경계를 넘으면 목록 개수·넘기기를 다시 그린다
+  let lastMode = null;
   window.addEventListener('resize', () => {
     updateTabFade();
     centerMap();
     document.querySelectorAll('.sw').forEach(updateSwiper);
-    const now = isNarrow();
-    if (wasNarrow !== null && now !== wasNarrow) render();
-    wasNarrow = now;
+    const now = screenMode();
+    if (lastMode !== null && now !== lastMode) { render(); refreshDrawerSimilar(); }
+    lastMode = now;
   });
 
   $('#tabs').addEventListener('keydown', (e) => {
@@ -1605,6 +1713,6 @@
   const first = readHash();
   state.view = first.view;
   showRegion();
-  wasNarrow = isNarrow();
+  lastMode = screenMode();
   if (first.program) openProgram(first.program);
 })();

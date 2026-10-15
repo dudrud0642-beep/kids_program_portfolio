@@ -1,0 +1,73 @@
+# 데이터 자동 갱신 — 매일 아침 6시(한국 시간)에 프로그램을 새로 모아 사이트에 반영한다
+#  - 공공서비스예약 API는 매일, 기관 사이트는 월·목 (scripts/update.js)
+#  - 인증키: 저장소 Settings → Secrets and variables → Actions → SEOUL_API_KEY
+#  - 실패한 출처가 있으면 어제 자료를 유지한 채 커밋하고, 마지막에 실패로 표시해 메일로 알린다
+name: 데이터 자동 갱신
+
+on:
+  schedule:
+    - cron: '0 21 * * *' # 매일 06:00 (한국 시간)
+  workflow_dispatch:
+    inputs:
+      all:
+        description: '기관 사이트도 오늘 모으기'
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-data.yml'
+      - 'scripts/**'
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 수집하고 화면용 파일 만들기
+        id: update
+        env:
+          SEOUL_API_KEY: ${{ secrets.SEOUL_API_KEY }}
+          COLLECT_ALL: ${{ (github.event_name == 'push' || inputs.all) && '1' || '0' }}
+        run: node scripts/update.js
+
+      - name: 바뀐 데이터 올리기
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
+          git commit -m "데이터 자동 갱신 $(TZ=Asia/Seoul date +%F)"
+          git pull --rebase origin main
+          git push
+          echo "pushed=1" >> "$GITHUB_OUTPUT"
+
+      - name: 사이트 다시 배포 요청
+        if: steps.commit.outputs.pushed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -sS -o /dev/null -w "pages build %{http_code}\n" -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true
+
+      - name: 실패한 출처 알림
+        if: steps.update.outputs.failed != ''
+        run: |
+          echo "::error::수집 실패: ${{ steps.update.outputs.failed }} — 이 출처는 이전 자료를 그대로 보여 줘요"
+          exit 1
