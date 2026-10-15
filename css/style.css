@@ -602,6 +602,25 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .fold-btn svg.ic { width: 15px; height: 15px; }
 .fold-btn:hover { color: var(--text); text-decoration-color: currentColor; }
 .pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+/* 옆으로 넘기기 (무료 페이지 묶음) — 다음 카드가 살짝 보이게 카드 폭은 최대 300px */
+.sw { position: relative; }
+.sw-track { display: flex; gap: 12px; margin: 0; padding: 2px 2px 8px; scroll-padding: 0 2px; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.sw-track::-webkit-scrollbar { display: none; }
+.sw-track > .pcard { flex: 0 0 min(300px, 84%); scroll-snap-align: start; }
+.sw-track.is-draggable { cursor: grab; }
+.sw-track.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.sw-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; }
+.sw.is-static .sw-bar { display: none; }
+.sw-dots { display: flex; gap: 5px; }
+.sw-dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--line-strong); transition: width .2s, background .2s; }
+.sw-dots i.on { width: 18px; background: var(--primary); }
+.sw-count { font-size: 13px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.sw-count b { font-weight: 700; color: var(--text); }
+.sw-arrows { display: flex; gap: 6px; }
+.sw-btn { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: #fff; color: var(--text-2); cursor: pointer; }
+.sw-btn:hover:not(:disabled) { border-color: var(--text-3); color: var(--text); }
+.sw-btn:disabled { opacity: .35; cursor: default; }
+.sw-btn svg.ic { width: 17px; height: 17px; }
 .pcard { position: relative; display: flex; min-width: 0; border: 1px solid var(--card-line); border-radius: 16px; background: #fff; box-shadow: var(--shadow); }
 .pcard-main {
   display: flex; flex-direction: column; gap: 6px; width: 100%; min-width: 0; padding: 14px 44px 14px 16px;
@@ -821,15 +840,17 @@ html.intro-on .intro {
 /* ===== 중간 폭: 2단 ===== */
 @container main (max-width: 1039px) {
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "l m" "r m"; align-items: stretch; }
-  .card-list { min-height: 0; }
-  .list-scroll { flex: 1 1 0; min-height: 420px; overflow-y: auto; }
+  /* 목록이 길어도 왼쪽 위 칸(지도)은 내용 높이만큼 — 남는 높이는 아랫칸으로 (지도와 달력 사이가 벌어지지 않게) */
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "l m" "r m"; grid-template-rows: auto 1fr; align-items: stretch; }
+  .card-list { min-height: 0; align-self: start; }
+  .list-scroll { flex: none; min-height: 0; overflow: visible; }
   .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .week-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ===== 좁은 폭: 1단 ===== */
 @container main (max-width: 699px) {
+  .sw-track { margin: 0 -16px; padding: 2px 16px 8px; scroll-padding: 0 16px; }
   .page-head { flex-direction: column; align-items: stretch; }
   .page-title { flex: none; }
   .page-tools { flex-wrap: wrap; }
@@ -839,7 +860,7 @@ html.intro-on .intro {
   .search { order: 3; flex: 1 1 100%; width: auto; }
   .kid-pill select { flex: 1; }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "l" "m" "r"; }
+  .board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "l" "m" "r"; grid-template-rows: none; }
   .list-scroll { flex: none; min-height: 0; overflow: visible; }
   .source-grid, .week-grid, .source-stats { grid-template-columns: minmax(0, 1fr); }
   .week-day { min-height: 0; }
@@ -865,6 +886,10 @@ html.intro-on .intro {
   .kpi-viz { display: none; }
   .pill { height: 36px; padding: 0 12px; font-size: 13px; }
   .search { height: 40px; }
+}
+/* 340px 이하(갤럭시 폴드 바깥 화면 280px 등): 요약 카드 아이콘을 빼서 제목이 카드 안에 들어가게 */
+@container main (max-width: 340px) {
+  .kpi-icon { display: none; }
 }
 /* 360px대(갤럭시 기본): 장식 아이콘을 빼서 우리 아이·수집일을 한 줄에 */
 @container main (max-width: 380px) {

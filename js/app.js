@@ -27,6 +27,8 @@
     check: '<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/>',
     'chevron-down': '<path d="m6 9 6 6 6-6"/>',
+    chevron: '<path d="m9 18 6-6-6-6"/>',
+    'chevron-left': '<path d="m15 18-6-6 6-6"/>',
     'chevron-up': '<path d="m18 15-6-6-6 6"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
     refresh: '<path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/>',
@@ -381,14 +383,21 @@
     let last = 0;
     for (const m of s.matchAll(UNIT_RE)) {
       if (m[0].length > 14) continue; // 긴 구절은 묶지 않는다 (줄이 일찍 끊겨 빈칸이 생기지 않게)
-      out += esc(s.slice(last, m.index)) + `<span class="unit">${esc(m[0])}</span>`;
+      // 묶음 바로 앞의 짧은 낱말(3자 이하)은 그 앞 낱말에 붙인다 — "스텐실 / 워크숍 / <…>"처럼 혼자 한 줄이 되지 않게
+      const before = esc(s.slice(last, m.index)).replace(/(\S) (\S{1,3}) $/, '$1 $2 ');
+      out += before + `<span class="unit">${esc(m[0])}</span>`;
       last = m.index + m[0].length;
     }
     return out + esc(s.slice(last));
   }
 
   // 원문 글 속 날짜·시각("2026-10-30 16:30", "10/18(토)")은 하이픈·빗금에서 끊기지 않게 묶는다
-  const keepDates = (text) => esc(text).replace(/\d{4}-\d{1,2}-\d{1,2}(?:\s\d{1,2}:\d{2})?|\d{1,2}\/\d{1,2}(?:\([^)]*\))?|\d{1,2}:\d{2}\s?[~\-–]\s?\d{1,2}:\d{2}/g, (m) => `<span class="nw">${m}</span>`);
+  // 대상 글의 나이·학년은 한 덩어리로: "초등학교 3학년", "5세 ~ 초등학교 3학년", "7세~초2", "만3~만5세", "2018년~2019년생"
+  const AGE_ATOM = '(?:(?:초등(?:학교|학생|생)?|초(?=\\d)|중학교|중학생|고등학교|고등학생|만)\\s?)?\\d+(?:\\s?(?:세|개월|학년|년생|년))?';
+  const AGE_RE = new RegExp(`${AGE_ATOM}(?:\\s?[~\\-–]\\s?${AGE_ATOM})*`, 'g');
+  const keepAges = (text) => esc(text).replace(AGE_RE, (m) => (/\s|[~\-–]/.test(m) && /세|개월|학년|년생/.test(m) ? `<span class="nw">${m}</span>` : m));
+  // 기관 표기 "(목 요일)", "(일,토 요일)" → 화면에는 "(목요일)", "(일·토요일)"
+  const keepDates = (text) => esc(text).replace(/([월화수목금토일](?:\s*,\s*[월화수목금토일])*)\s+요일/g, (_, d) => `<span class="nw">${d.replace(/\s*,\s*/g, '·')}요일</span>`).replace(/\d{4}-\d{1,2}-\d{1,2}(?:\s\d{1,2}:\d{2})?|\d{1,2}\/\d{1,2}(?:\([^)]*\))?|\d{1,2}:\d{2}\s?[~\-–]\s?\d{1,2}:\d{2}/g, (m) => `<span class="nw">${m}</span>`);
 
   /* ---------- 공통 조각 ---------- */
   const typeTag = (type, text) => `<span class="type-tag t-${type}">${esc(text ?? TYPE_LABEL[type] ?? '')}</span>`;
@@ -420,7 +429,7 @@
           <span class="prog-body">
             ${t.kicker ? `<span class="prog-kicker">${esc(t.kicker)}</span>` : ''}
             <span class="prog-title">${unitize(t.main)}</span>
-            <span class="prog-meta">${typeTag(p._type)}${opts.region ? `<span class="prog-region">${esc(p._region)}</span>` : ''}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${esc(p.target)}</span>` : ''}</span>
+            <span class="prog-meta">${typeTag(p._type)}${opts.region ? `<span class="prog-region">${esc(p._region)}</span>` : ''}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
           </span>
           <span class="prog-when"><b>${dateText(p)}</b><span>${feeText(p)}</span></span>
         </button>
@@ -428,9 +437,9 @@
       </li>`;
   }
 
-  // 휴대폰처럼 좁은 화면(본문 700px 미만)에서는 긴 목록을 6개씩 보여 주고 [더 보기]로 6개씩 더
+  // 큰 PC 화면(본문 1040px 이상, 한 화면 대시보드)이 아니면 — 휴대폰·태블릿 — 긴 목록은 6개씩 보여 주고 [더 보기]로 6개씩 더
   const STEP = 6;
-  const isNarrow = () => $('#main-wrap').clientWidth < 700;
+  const isNarrow = () => $('#main-wrap').clientWidth < 1040;
   const shownOf = (key) => (isNarrow() ? (state.more[key] || STEP) : Infinity);
   const moreHTML = (key, rest, tag = 'li') => (rest > 0
     ? `<${tag} class="more-li"><button class="btn btn-ghost more-btn" type="button" data-more="${esc(key)}">더 보기 <span class="more-n">${rest}건 남음</span></button></${tag}>`
@@ -676,16 +685,16 @@
     });
     rows.sort((a, b) => (a.d - b.d) || (firstTime(a.p) || '99').localeCompare(firstTime(b.p) || '99'));
     $('#weekend-note').textContent = hasData() ? weekendLabel : '';
-    // 한 화면 대시보드: 카드 안에서 스크롤 / 중간 폭: 8건 + '모두 보기'(목록 거르기) / 휴대폰: 6건 + [더 보기]
+    // 한 화면 PC 대시보드: 카드 안에서 스크롤 / 휴대폰·태블릿: 6건 + [더 보기]
     const narrow = isNarrow();
-    const limit = narrow ? shownOf('weekend') : $('#main-wrap').clientWidth < 1040 ? 8 : 30;
+    const limit = narrow ? shownOf('weekend') : 30;
     $('#weekend-list').innerHTML = rows.length
       ? rows.slice(0, limit).map(({ p, d }) => `
         <li><button class="mini-item" type="button" data-open="${p.id}">
           <span class="wk-day${d.getDay() === 0 ? ' is-sun' : ''}">${DOW[d.getDay()]}<small>${firstTime(p) || '시간 확인'}</small></span>
           <span><span class="mini-title" title="${esc(p.title)}">${esc(splitTitle(p.title).main)}</span><span class="mini-sub">${esc(p.facility || '')}</span></span>
         </button></li>`).join('')
-        + (narrow ? moreHTML('weekend', rows.length - limit) : rows.length > limit ? `<li><button class="mini-more" type="button" data-kpi="weekend">이번 주말 ${new Set(rows.map((r) => r.p.id)).size}건 모두 보기</button></li>` : '')
+        + (narrow ? moreHTML('weekend', rows.length - limit) : '')
       : `<li class="mini-empty">${hasData() ? '이번 주말에 진행하는 프로그램이 없어요.' : '수집 전이에요.'}</li>`;
   }
 
@@ -836,10 +845,53 @@
           <span class="pcard-top">${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
           <span class="pcard-title">${unitize(t.main)}</span>
           <span class="pcard-meta">${typeTag(p._type)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}</span>
-          <span class="pcard-foot"><b>${dateText(p)}</b>${p.target ? `<span>${esc(p.target)}</span>` : ''}</span>
+          <span class="pcard-foot"><b>${dateText(p)}</b>${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
         </button>
         ${favButton(p)}
       </li>`;
+  }
+
+  // 옆으로 넘기기: 다음 카드가 살짝 보이고, 점(8개 이하)이나 "3 / 20"으로 위치를,
+  // 화살표로 한 장씩 넘긴다. 손가락으로 밀거나 마우스로 끌어도 넘어간다
+  function swiperHTML(key, items) {
+    const pos = items.length <= 8
+      ? `<span class="sw-dots" aria-hidden="true">${items.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</span>`
+      : `<span class="sw-count"><b class="sw-now">1</b> / ${items.length}</span>`;
+    return `
+      <div class="sw" data-sw="${esc(key)}">
+        <ul class="sw-track">${items.map(cardHTML).join('')}</ul>
+        <div class="sw-bar">
+          ${pos}
+          <span class="sw-arrows">
+            <button class="sw-btn" type="button" data-sw-dir="-1" aria-label="이전 카드" disabled>${icon('chevron-left')}</button>
+            <button class="sw-btn" type="button" data-sw-dir="1" aria-label="다음 카드">${icon('chevron')}</button>
+          </span>
+        </div>
+      </div>`;
+  }
+  function swiperStep(track) {
+    const first = track.querySelector('.pcard');
+    return first ? first.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 12) : track.clientWidth;
+  }
+  function updateSwiper(sw) {
+    const track = sw.querySelector('.sw-track');
+    const max = track.scrollWidth - track.clientWidth;
+    sw.classList.toggle('is-static', max <= 2); // 다 보이면 점·화살표를 숨긴다
+    const i = Math.round(track.scrollLeft / swiperStep(track));
+    sw.querySelectorAll('.sw-dots i').forEach((d, k) => d.classList.toggle('on', k === Math.min(i, track.children.length - 1)));
+    const now = sw.querySelector('.sw-now');
+    if (now) now.textContent = Math.min(i + 1, track.children.length);
+    const [prev, next] = sw.querySelectorAll('.sw-btn');
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max - 2;
+  }
+  function initSwipers(scope) {
+    scope.querySelectorAll('.sw').forEach((sw) => {
+      const track = sw.querySelector('.sw-track');
+      dragScroll(track);
+      track.addEventListener('scroll', () => requestAnimationFrame(() => updateSwiper(sw)), { passive: true });
+      updateSwiper(sw);
+    });
   }
 
   function renderFree() {
@@ -866,10 +918,11 @@
                 <h2>${g.title}</h2><span class="card-note">${g.items.length}건</span>
                 <button class="fold-btn" type="button" data-fold="${g.key}" aria-expanded="${!folded}">${folded ? '펼쳐 보기' : '접기'}${icon(folded ? 'chevron-down' : 'chevron-up')}</button>
               </div>
-              ${folded ? '' : (() => { const all = g.items.sort(SORTERS.deadline); const shown = all.slice(0, shownOf(`free:${g.key}`)); return `<ul class="pgrid">${shown.map(cardHTML).join('')}${moreHTML(`free:${g.key}`, all.length - shown.length)}</ul>`; })()}
+              ${folded ? '' : swiperHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline))}
             </section>`;
         }).join('')
       : `<ul class="pgrid">${emptyHTML({ iconName: 'ticket', title: '조건에 맞는 무료 프로그램이 없어요', desc: '우리 아이 나이나 기관을 바꿔 보세요.' })}</ul>`;
+    initSwipers($('#free-sections'));
   }
 
   // 저장한 프로그램: 여러 지역에 걸쳐 있으면 필요한 지역 파일을 받은 뒤 함께 보여 준다
@@ -1116,7 +1169,7 @@
     const fac = p._fac;
     const due = dueText(p);
     const rows = [];
-    if (p.target) rows.push(['대상', esc(p.target)]);
+    if (p.target) rows.push(['대상', keepAges(p.target)]);
     rows.push(['운영 기간', dateText(p) + (p.schedule ? `<span class="sub">${keepDates(p.schedule)}</span>` : '') + (p.sessions ? `<span class="sub">총 ${p.sessions}회</span>` : '')]);
     if (p.facility) {
       // 지도 앱 바로가기: 주소로 검색 (주소가 없으면 기관 이름으로)
@@ -1369,6 +1422,11 @@
     if ((el = hit('[data-pick]'))) { addRegion(el.dataset.pick); return; }
     if ((el = hit('[data-region]'))) { setRegion(el.dataset.region); closeSidebarIfOverlay(); return; }
     if (hit('[data-region-home]')) { goHome(); return; }
+    if ((el = hit('[data-sw-dir]'))) {
+      const track = el.closest('.sw').querySelector('.sw-track');
+      track.scrollBy({ left: +el.dataset.swDir * swiperStep(track), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      return;
+    }
     if ((el = hit('[data-more]'))) {
       const k = el.dataset.more;
       state.more[k] = (state.more[k] || STEP) + STEP;
@@ -1471,6 +1529,7 @@
     el.addEventListener('pointerup', end);
     el.addEventListener('pointercancel', end);
     el.addEventListener('dragstart', (e) => e.preventDefault());
+    if (el.classList.contains('sw-track')) el.classList.add('is-draggable');
   }
   dragScroll($('#tabs'));
   dragScroll($('#free-types'));
@@ -1483,7 +1542,15 @@
     if (r.program) openProgram(r.program);
   });
 
-  window.addEventListener('resize', () => { updateTabFade(); centerMap(); });
+  let wasNarrow = null;
+  window.addEventListener('resize', () => {
+    updateTabFade();
+    centerMap();
+    document.querySelectorAll('.sw').forEach(updateSwiper);
+    const now = isNarrow();
+    if (wasNarrow !== null && now !== wasNarrow) render();
+    wasNarrow = now;
+  });
 
   $('#tabs').addEventListener('keydown', (e) => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
@@ -1538,5 +1605,6 @@
   const first = readHash();
   state.view = first.view;
   showRegion();
+  wasNarrow = isNarrow();
   if (first.program) openProgram(first.program);
 })();
