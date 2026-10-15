@@ -257,7 +257,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .kid-pill > svg.ic:first-child { width: 17px; height: 17px; color: var(--text-4); }
 .kid-pill > svg.ic:last-child { position: absolute; right: 10px; width: 14px; height: 14px; color: var(--text-3); pointer-events: none; }
 .kid-label { font-weight: 500; color: var(--text-3); }
-.kid-pill select { appearance: none; border: 0; background: none; font: inherit; font-weight: 600; color: var(--text); cursor: pointer; }
+.kid-pill select { align-self: stretch; margin-right: -30px; padding: 0 30px 0 0; appearance: none; border: 0; background: none; font: inherit; font-weight: 600; color: var(--text); cursor: pointer; }
 .kid-pill select:focus { outline: none; }
 .kid-pill:focus-within { box-shadow: 0 0 0 2px var(--primary), var(--shadow); }
 .kid-pill.is-set { background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary-line), var(--shadow); }
@@ -323,7 +323,8 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
   border: 1px solid var(--card-line); border-radius: var(--radius);
   background: var(--card); box-shadow: var(--shadow);
 }
-.card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 10px; margin-bottom: 12px; }
+.card-head h2 { white-space: nowrap; }
 .card-head h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
 .card-note { font-size: 13px; font-weight: 500; color: var(--text-3); white-space: nowrap; }
 
@@ -444,7 +445,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 
 /* 이번 주말 */
 .wk-day { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 38px; border-radius: 9px; background: var(--purple-soft); color: var(--purple-ink); font-size: 13px; font-weight: 700; line-height: 1.15; }
-.wk-day small { font-size: 10.5px; font-weight: 500; }
+.wk-day small { font-size: 11px; font-weight: 500; }
 .wk-day.is-sun { background: var(--coral-soft); color: var(--coral-ink); }
 .mini-more { width: 100%; height: 36px; margin-top: 4px; border: 0; border-radius: 10px; background: var(--hover); color: var(--text-2); font-size: 13.5px; font-weight: 600; cursor: pointer; }
 .mini-more:hover { background: var(--gray-soft); color: var(--text); }
@@ -643,6 +644,9 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 }
 @keyframes drawer-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 .drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 10px 24px; }
+.drawer-head .icon-btn { flex: none; }
+#drawer-org { min-width: 0; }
+#drawer-org .type-tag { white-space: normal; line-height: 1.4; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 4px 24px 24px; }
 .drawer-foot { display: flex; gap: 8px; padding: 14px 24px 20px; border-top: 1px solid var(--line); }
 .drawer-foot .btn-primary, .drawer-foot .is-disabled { flex: 1; }
@@ -747,8 +751,11 @@ html.intro-on .intro {
 .intro.is-out { opacity: 0; visibility: hidden; }
 .intro-logo { display: flex; align-items: center; gap: 10px; }
 .intro .logo-mark { width: 88px; height: 88px; }
-.intro .logo-word { font-size: 60px; opacity: 0; animation: intro-fade .35s .2s forwards; }
-.intro-sub { font-size: 15px; color: var(--text-3); opacity: 0; animation: intro-fade .35s .7s forwards; }
+/* 글자는 글꼴이 준비된 뒤(.is-ready)에 나타난다 — 기본 글꼴로 먼저 보였다가 바뀌지 않게 */
+.intro .logo-word { font-size: 60px; opacity: 0; }
+.intro-sub { font-size: 15px; color: var(--text-3); opacity: 0; }
+.intro.is-ready .logo-word { animation: intro-fade .35s .2s forwards; }
+.intro.is-ready .intro-sub { animation: intro-fade .35s .7s forwards; }
 .intro .logo-mark.is-playing .lm-drop,
 .intro .logo-mark.is-playing .lm-base,
 .intro .logo-mark.is-playing .lm-face { animation-duration: 1.3s; }
@@ -818,8 +825,10 @@ html.intro-on .intro {
   .page-head { flex-direction: column; align-items: stretch; }
   .page-title { flex: none; }
   .page-tools { flex-wrap: wrap; }
-  .search { flex: 1; width: auto; }
-  .kid-pill { flex: 1 1 100%; }
+  /* 좁은 화면: 검색창은 한 줄을 다 쓰고(안내 문구가 잘리지 않게), 우리 아이·수집일은 들어가면 윗줄에 함께 */
+  .kid-pill { flex: 1 1 auto; }
+  #collected { flex: none; }
+  .search { order: 3; flex: 1 1 100%; width: auto; }
   .kid-pill select { flex: 1; }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "l" "m" "r"; }
@@ -839,6 +848,7 @@ html.intro-on .intro {
   .content { padding: 18px 16px 0; gap: 12px; }
   .hero-title { font-size: 28px; }
   .hero-eyebrow { font-size: 13px; }
+  #collected { gap: 4px; padding: 0 10px; } /* 360~375px에서 우리 아이와 한 줄에 들어가게 */
   .card { padding: 16px; }
   .tabs-wrap { margin: 0 -16px; padding: 0 16px; }
   .kpi { grid-template-columns: minmax(0, 1fr); padding: 14px 14px 12px; }
@@ -850,6 +860,10 @@ html.intro-on .intro {
   .kpi-viz { display: none; }
   .pill { height: 36px; padding: 0 12px; font-size: 13px; }
   .search { height: 40px; }
+}
+/* 360px대(갤럭시 기본): 장식 아이콘을 빼서 우리 아이·수집일을 한 줄에 */
+@container main (max-width: 380px) {
+  .kid-pill > svg.ic:first-child { display: none; }
 }
 
 /* ===== 사이드바 접기 (화면 폭 기준) ===== */
@@ -889,4 +903,23 @@ html.intro-on .intro {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ===== 손가락 터치 기기 (휴대폰·태블릿) — 맨 끝에 두어 위 규칙보다 우선 =====
+   누르는 곳은 최소 36~40px, 입력칸 글자는 16px (아이폰은 16px보다 작은 입력칸을 누르면 화면을 확대한다) */
+@media (hover: none) and (pointer: coarse) {
+  .side-plus { width: 36px; height: 36px; border-radius: 10px; }
+  .region-del { width: 36px; height: 36px; right: 58px; }
+  .brand-link.sm { min-height: 40px; }
+  .fold-btn { min-height: 40px; }
+  .d-route a { height: 36px; padding: 0 12px; }
+  .map-label { height: 36px; padding: 0 12px; }
+  .search input, .kid-pill select, .select select { font-size: 16px; }
+  .select select { height: 40px; }
+  .kid-pill { font-size: 14.5px; }
+  .seg button { height: 34px; padding: 0 12px; }
+  .site-foot .link-btn { display: inline-block; padding: 8px 2px; }
+  /* 2주 달력: 좁은 칸(아이패드 가로 화면 등)에서도 날짜를 누르기 쉽게 간격·여백을 줄여 칸을 넓힌다 */
+  .card-days { padding-left: 14px; padding-right: 14px; }
+  .days { gap: 3px; }
 }

@@ -480,8 +480,8 @@
       const w0 = WEEK_DAYS[0];
       const w1 = WEEK_DAYS[WEEK_DAYS.length - 1];
       $('#page-sub').innerHTML = {
-        saved: '북마크를 누른 프로그램이 <span class="nw">이 브라우저에 저장돼요.</span> <span class="nw">여러 지역 것을</span> 함께 보여 줘요.',
-        week: `<span class="nw">${fmt(w0)}${WEEK_DAYS.length > 1 ? `~${fmt(w1)}` : ''}</span> 진행하는 ${esc(region)} 프로그램이에요. <span class="nw">날짜가 확실한 것만</span> 보여요.`,
+        saved: '<span class="sent">북마크를 누른 프로그램이 <span class="nw">이 브라우저에 저장돼요.</span></span><span class="sent"><span class="nw">여러 지역 것을</span> <span class="nw">함께 보여 줘요.</span></span>',
+        week: `<span class="nw">${fmt(w0)}${WEEK_DAYS.length > 1 ? `~${fmt(w1)}` : ''}</span> 진행하는 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="nw">날짜가 확실한 것만</span> 보여요.`,
         free: `참가비 없이 참여할 수 있는 <span class="nw">${esc(region)} 프로그램이에요.</span> <span class="nw">재료비나 입장료는</span> <span class="nw">따로 있을 수 있어요.</span>`,
         sources: '프로그램을 모아 온 기관과 <span class="nw">수집 방법이에요.</span>'
       }[state.view];
@@ -1511,35 +1511,13 @@
     });
   });
 
-  /* ---------- 인트로 ---------- */
-  // 로고가 굴러와 안착하면(1.3초) 잠깐 보여 주고 사라진다. 누르거나 키를 누르면 바로 넘어간다.
-  function runIntro() {
-    const intro = $('#intro');
-    if (!document.documentElement.classList.contains('intro-on')) { intro.remove(); return; }
-    try { localStorage.setItem('moa-intro-seen', '1'); } catch (e) { /* 무시 */ }
-    // 인트로에서 이미 보여 주므로 사이드바 로고는 처음에 움직이지 않는다
-    document.querySelectorAll('.brand-link .logo-mark').forEach((m) => m.classList.remove('is-playing'));
-    const mark = intro.querySelector('.logo-mark');
-    let done = false;
-    const finish = () => {
-      if (done) return;
-      done = true;
-      intro.classList.add('is-out');
-      setTimeout(() => { document.documentElement.classList.remove('intro-on'); intro.remove(); }, 380);
-    };
-    const start = () => { if (!done) { mark.classList.add('is-playing'); setTimeout(finish, 1600); } };
-    // 로고 글꼴이 늦게 오면 최대 0.4초만 기다리고 시작
-    const fontReady = document.fonts ? document.fonts.load('60px MoaPoint').catch(() => {}) : Promise.resolve();
-    Promise.race([fontReady, new Promise((r) => setTimeout(r, 400))]).then(start);
-    intro.addEventListener('click', finish);
-    window.addEventListener('keydown', finish, { once: true });
-  }
-
   /* ---------- 시작 ---------- */
+  // 인트로는 index.html 맨 위의 작은 스크립트가 따로 맡는다 (데이터를 받기 전에 시작하도록)
+  // 인트로가 보이는 동안 사이드바 로고는 움직이지 않게 (끝난 뒤 정지된 로고가 보인다)
+  if (document.documentElement.classList.contains('intro-on')) document.querySelectorAll('.brand-link .logo-mark').forEach((m) => m.classList.remove('is-playing'));
   document.querySelectorAll('i[data-icon]').forEach((el) => { el.outerHTML = icon(el.dataset.icon); });
   const first = readHash();
   state.view = first.view;
   showRegion();
   if (first.program) openProgram(first.program);
-  runIntro();
 })();

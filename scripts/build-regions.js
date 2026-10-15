@@ -54,6 +54,20 @@ function ageTags(target) {
   return [...tags];
 }
 const day = (s) => (/^\d{4}-\d{2}-\d{2}/.test(s || '') ? s.slice(0, 10) : null);
+// 제목에 원문 그대로 적힌 요일만 읽는다: "(토)", "(화,수,목)", "[노원정원지원센터/일]", "매주 토", "토요일", "(주말)"
+// 추측하지 않는다 — 요일 표시가 없으면 빈 배열
+const DOW_ORDER = '월화수목금토일';
+function daysFromTitle(title) {
+  const t = title || '';
+  const found = new Set();
+  const add = (s) => [...s].filter((c) => DOW_ORDER.includes(c)).forEach((c) => found.add(c));
+  for (const m of t.matchAll(/\(([월화수목금토일](?:\s*[,·/]\s*[월화수목금토일])*)\)/g)) add(m[1]);
+  for (const m of t.matchAll(/\/([월화수목금토일])\]/g)) add(m[1]);
+  for (const m of t.matchAll(/매주\s*([월화수목금토일](?:\s*[,·]\s*[월화수목금토일])*)/g)) add(m[1]);
+  for (const m of t.matchAll(/([월화수목금토일])요일/g)) add(m[1]);
+  if (/\(주말|주말\)|\[주말/.test(t)) { found.add('토'); found.add('일'); }
+  return [...found].sort((a, b) => DOW_ORDER.indexOf(a) - DOW_ORDER.indexOf(b));
+}
 const hm = (s) => (/\d{2}:\d{2}/.test(s || '') ? s.slice(11, 16) : null);
 
 /* ---------- 지도: 행정동 경계 → SVG ---------- */
@@ -156,7 +170,9 @@ for (const g of SEOUL) {
       ageTags: ageTags(target),
       programStart: day(r['서비스개시시작일시']),
       programEnd: day(r['서비스개시종료일시']),
-      schedule: vmin ? `${vmin}${vmax ? `~${vmax}` : ''}` : null,
+      // 여러 날 진행: 제목에 적힌 요일 + 이용 시각 (예: "토요일 10:00~12:00") → 이번 주 일정·주말에 쓰인다
+      schedule: [(() => { const ds = daysFromTitle(r['서비스명']); return ds.length && day(r['서비스개시시작일시']) !== day(r['서비스개시종료일시']) ? `${ds.join('·')}요일` : null; })(),
+        vmin ? `${vmin}${vmax ? `~${vmax}` : ''}` : null].filter(Boolean).join(' ') || null,
       sessions: null,
       applyStart: day(r['접수시작일시']),
       applyEnd: day(r['접수종료일시']),
