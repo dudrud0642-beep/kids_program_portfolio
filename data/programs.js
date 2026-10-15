@@ -2526,34 +2526,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "unilib-1w7989",
-   "org": "unilib",
-   "title": "[야외도서관] 함께 즐기는 행복 서커스 공연 「더 해프닝쇼 My Dream」 (10/15)",
-   "facility": "도봉구청 야외도서관",
-   "category": "독서문화프로그램",
-   "target": "가족 10팀(팀당 2명씩)",
-   "ageTags": [
-    "family"
-   ],
-   "programStart": "2026-10-15",
-   "programEnd": "2026-10-15",
-   "schedule": "17:00~18:00 (목 요일)",
-   "sessions": null,
-   "applyStart": "2026-10-02",
-   "applyEnd": "2026-10-12",
-   "applyMethod": "선착순",
-   "capacity": 10,
-   "applied": 15,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6252",
-   "image": "https://www.unilib.dobong.kr/data/userfiles/3e2f9e50-936a-453b-bd1c-42b702563532.png",
-   "description": "반복되는 광대의 삶 속에 찾아온 작은 꽃, 자신의 꿈을 찾아 도전하는 광대의 드라마 서커스 무대! 꽃을 하나씩 만날 때 마다 생각나는 광대의 잊혀진 꿈 자신의 꿈을 찾아 도전하는 광대의 서커스 공연, 가족들과 함께 보러가요!",
-   "area": "방학동",
-   "firstSeen": null
-  },
-  {
    "id": "yeyak-1tcsf9f",
    "org": "yeyak",
    "title": "(도봉구)꽃동네책쉼터 유아가족프로그램(토요일)",
