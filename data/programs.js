@@ -3766,34 +3766,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "childcare-142np70",
-   "org": "childcare",
-   "title": "[10월] 그림책 부모교육",
-   "facility": "도봉구육아종합지원센터 창동센터",
-   "category": "부모교육 프로그램",
-   "target": "영유아 양육자",
-   "ageTags": [
-    "parent"
-   ],
-   "programStart": "2026-10-16",
-   "programEnd": "2026-10-16",
-   "schedule": "10월 16일(금) 10시 30분",
-   "sessions": 1,
-   "applyStart": "2026-09-28",
-   "applyEnd": null,
-   "applyMethod": "프로그램 예약 9월 28일(월) 10시 / 프로그램 예약완료는 프로그램 확정이 아닙니다. 체험 3일전 오후 3시까지 입금완료후 확정됩니다.",
-   "capacity": null,
-   "applied": null,
-   "fee": 5000,
-   "feeText": "5,000원",
-   "statusText": null,
-   "url": "https://www.doccic.go.kr/community/news.php?pagenumber=1&at=view&idx=574",
-   "image": null,
-   "description": "아이의 감정을 읽어주고 다루는 데 도움을 주는 그림책 알아보기",
-   "area": "창동",
-   "firstSeen": null
-  },
-  {
    "id": "childcare-lddx9p",
    "org": "childcare",
    "title": "책TALK! 육아TALK!",
