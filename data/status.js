@@ -1,12 +1,12 @@
 /* 자동 생성: scripts/update.js — 출처별 마지막 수집 결과 */
 window.KIDS_STATUS = {
- "updatedAt": "2026-10-17T08:11+09:00",
+ "updatedAt": "2026-10-18T07:48+09:00",
  "sources": {
   "seoul-api": {
    "name": "서울시 공공서비스예약",
    "schedule": "daily",
    "ok": false,
-   "lastAttempt": "2026-10-17T08:11+09:00",
+   "lastAttempt": "2026-10-18T07:48+09:00",
    "lastSuccess": "2026-10-15T15:14+09:00",
    "count": 758,
    "error": "공공서비스예약 수집 실패: Unexpected token '<', \"<RESULT><C\"... is not valid JSON"
