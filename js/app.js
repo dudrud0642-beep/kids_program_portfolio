@@ -40,7 +40,6 @@
     ticket: '<path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4Z"/><path d="M9.5 10.5h5M9.5 13.5h3"/>',
     zoom: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/>',
     share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',
-    route: '<path d="M3 11 21 3l-8 18-2-8-8-2Z"/>',
     link: '<path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
     chat: '<path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1Z"/>',
@@ -235,14 +234,12 @@
   // 지금 고른 지역의 데이터 (useRegion으로 바꾼다)
   let CUR = null;
   let PROGRAMS = [];
-  let BY_ID = {};
   let TYPES = [];
   let COLLECTED = null;
   let AREAS = [];
   function useRegion(name) {
     CUR = LOADED[name] || null;
     PROGRAMS = CUR ? CUR.programs : [];
-    BY_ID = CUR ? CUR.byId : {};
     TYPES = CUR ? CUR.types : [];
     COLLECTED = CUR ? CUR.collected : null;
     AREAS = CUR && CUR.geo ? CUR.geo.areas : [];
@@ -325,8 +322,8 @@
     kid: KID_OPTIONS.some((o) => o.key === load(KID_KEY, 'all')) ? load(KID_KEY, 'all') : 'all',
     dayMode: 'deadline',
     sort: 'deadline',
-    freeType: 'all',
-    freeFolded: { closed: true },
+    ptype: { free: 'all', saved: 'all' }, // 무료·저장 페이지의 기관 종류 거르기
+    folded: { 'free:closed': true, 'saved:closed': true }, // 접어 둔 상태별 묶음 (접수 끝난 것은 처음엔 접힘)
     more: {}, // 목록별로 [더 보기]로 늘린 개수 (좁은 화면)
     loading: null, // 데이터를 불러오는 중인 지역
     weekSavedOnly: false,
@@ -437,7 +434,7 @@
     return `<button class="fav-btn" type="button" data-fav="${p.id}" aria-pressed="${on}" aria-label="${esc(p.title)} ${on ? '저장 취소' : '저장'}">${icon('bookmark')}</button>`;
   };
 
-  function rowHTML(p, opts = {}) {
+  function rowHTML(p) {
     const due = dueText(p);
     const t = splitTitle(p.title);
     return `
@@ -447,7 +444,7 @@
           <span class="prog-body">
             ${t.kicker ? `<span class="prog-kicker">${esc(t.kicker)}</span>` : ''}
             <span class="prog-title">${newBadge(p)}${unitize(t.main)}</span>
-            <span class="prog-meta">${typeTag(p._type)}${opts.region ? `<span class="prog-region">${esc(p._region)}</span>` : ''}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
+            <span class="prog-meta">${typeTag(p._type)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
           </span>
           <span class="prog-when"><b>${dateText(p)}</b><span>${feeText(p)}</span></span>
         </button>
@@ -574,16 +571,6 @@
     const dash = (n) => (hasData() ? n : '–');
 
     const C = 2 * Math.PI * 16;
-    // 기관 유형별로 나눈 링
-    let offset = 0;
-    const typeRing = `<svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="ring-bg" cx="22" cy="22" r="16"/>${TYPES.map((t) => {
-      const n = all.filter((p) => p._type === t.key).length;
-      if (!n || !total) return '';
-      const len = (C * n) / total;
-      const seg = `<circle class="ring-seg t-${t.key}" cx="22" cy="22" r="16" stroke-dasharray="${Math.max(0, len - 1.5)} ${C}" stroke-dashoffset="${-offset}"/>`;
-      offset += len;
-      return seg;
-    }).join('')}</svg>`;
     const pct = total ? Math.round((avail / total) * 100) : 0;
     const freePct = total ? Math.round((free / total) * 100) : 0;
     const freeRing = `<svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="ring-bg" cx="22" cy="22" r="16"/><circle class="ring-fg" cx="22" cy="22" r="16" stroke-dasharray="${(C * freePct) / 100} ${C}"/><text x="22" y="22">${freePct}%</text></svg>`;
@@ -866,7 +853,6 @@
     $('#week-bar').innerHTML = `
       <p class="week-legend"><span class="week-legend-mark">${icon('bookmark')}</span>표시는 <span class="nw">내가 저장한 프로그램이에요.</span></p>
       <button class="chip" type="button" data-action="week-saved" aria-pressed="${state.weekSavedOnly}"${savedInWeek ? '' : ' disabled'}>저장한 것만 보기 <span class="chip-n">${savedInWeek}</span></button>`;
-    grid.style.setProperty('--days', WEEK_DAYS.length);
     grid.innerHTML = WEEK_DAYS.map((d, i) => {
       const items = kidPrograms().filter((p) => occursOn(p, d) && (!state.weekSavedOnly || favs.has(p.id)))
         .sort((a, b) => (firstTime(a) || '99').localeCompare(firstTime(b) || '99') || a.title.localeCompare(b.title, 'ko'));
@@ -883,8 +869,9 @@
     }).join('');
   }
 
-  /* ---------- 무료 프로그램: 카드 격자 + 상태별 묶음 (끝난 것은 접어 둔다) ---------- */
-  function cardHTML(p) {
+  /* ---------- 무료·저장 페이지: 상태별 묶음 + 카드 (접수 끝난 것은 처음엔 접어 둔다) ---------- */
+  // region: 여러 지역 것을 함께 보여 줄 때 지역 이름도 적는다 (저장한 프로그램)
+  function cardHTML(p, opts = {}) {
     const due = dueText(p);
     const t = splitTitle(p.title);
     return `
@@ -892,7 +879,7 @@
         <button class="pcard-main" type="button" data-open="${p.id}">
           <span class="pcard-top">${newBadge(p)}${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
           <span class="pcard-title">${unitize(t.main)}</span>
-          <span class="pcard-meta">${typeTag(p._type)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}</span>
+          <span class="pcard-meta">${typeTag(p._type)}${opts.region ? `<span class="prog-region">${esc(p._region)}</span>` : ''}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}</span>
           <span class="pcard-foot"><b>${dateText(p)}</b>${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
         </button>
         ${favButton(p)}
@@ -900,9 +887,40 @@
   }
 
   // 태블릿·PC: 카드 격자 (태블릿은 6개 + 더 보기)
-  function gridHTML(key, items) {
+  function gridHTML(key, items, card) {
     const shown = items.slice(0, shownOf(key));
-    return `<ul class="pgrid">${shown.map(cardHTML).join('')}${moreHTML(key, items.length - shown.length)}</ul>`;
+    return `<ul class="pgrid">${shown.map((p) => card(p)).join('')}${moreHTML(key, items.length - shown.length)}</ul>`;
+  }
+
+  // 상태별 묶음: 휴대폰은 옆으로 넘기기, 태블릿·PC는 격자. page = 'free' | 'saved' (더 보기·접기 상태의 이름 앞)
+  const STATUS_SECTIONS = [
+    { key: 'available', title: '지금 신청할 수 있어요', test: (p) => STATUS_GROUPS.available.includes(p._status) },
+    { key: 'soon', title: '곧 접수를 시작해요', test: (p) => p._status === 'soon' },
+    { key: 'unknown', title: '접수 일정은 기관에서 확인해요', test: (p) => p._status === 'unknown' },
+    { key: 'closed', title: '접수가 끝났어요', test: isClosed }
+  ];
+  function groupedCardsHTML(page, list, card) {
+    return STATUS_SECTIONS.map((s) => ({ ...s, items: list.filter(s.test).sort(SORTERS.deadline) })).filter((g) => g.items.length).map((g) => {
+      const key = `${page}:${g.key}`;
+      const folded = !!state.folded[key];
+      return `
+        <section class="pgroup${folded ? ' is-folded' : ''}" aria-label="${g.title} ${g.items.length}건">
+          <div class="pgroup-head">
+            <h2>${g.title}</h2><span class="card-note">${g.items.length}건</span>
+            <button class="fold-btn" type="button" data-fold="${key}" aria-expanded="${!folded}">${folded ? '펼쳐 보기' : '접기'}${icon(folded ? 'chevron-down' : 'chevron-up')}</button>
+          </div>
+          ${folded ? '' : isPhone() ? swiperHTML(key, g.items, card) : gridHTML(key, g.items, card)}
+        </section>`;
+    }).join('');
+  }
+  // 기관 종류로 거르는 칩 (무료·저장 페이지 맨 위)
+  function typeChipsHTML(page, all) {
+    const types = [{ key: 'all', label: '전체' }, ...ALL_TYPES.filter((t) => all.some((p) => p._type === t.key))];
+    if (!types.some((t) => t.key === state.ptype[page])) state.ptype[page] = 'all'; // 고른 종류가 없어지면 전체로
+    return types.map((t) => {
+      const n = t.key === 'all' ? all.length : all.filter((p) => p._type === t.key).length;
+      return `<button class="chip" type="button" data-ptype="${page}:${t.key}" aria-pressed="${state.ptype[page] === t.key}">${t.label}<span class="chip-n">${n}</span></button>`;
+    }).join('');
   }
   // 휴대폰: 옆으로 넘기기 — 다음 카드가 살짝 보이고, 점(8개 이하)이나 "3 / 20"으로 위치를,
   // 화살표로 한 장씩 넘긴다. 손가락으로 밀어도 넘어간다
@@ -949,31 +967,11 @@
 
   function renderFree() {
     const all = kidPrograms().filter((p) => p.fee === 0);
-    const list = all.filter((p) => state.freeType === 'all' || p._type === state.freeType);
-    const types = [{ key: 'all', label: '전체' }, ...TYPES.filter((t) => all.some((p) => p._type === t.key))];
-    $('#free-types').innerHTML = types.map((t) => {
-      const n = t.key === 'all' ? all.length : all.filter((p) => p._type === t.key).length;
-      return `<button class="chip" type="button" data-freetype="${t.key}" aria-pressed="${state.freeType === t.key}">${t.label}<span class="chip-n">${n}</span></button>`;
-    }).join('');
+    $('#free-types').innerHTML = typeChipsHTML('free', all);
+    const list = all.filter((p) => state.ptype.free === 'all' || p._type === state.ptype.free);
     $('#free-count').textContent = `${list.length}건`;
-    const groups = [
-      { key: 'available', title: '지금 신청할 수 있어요', items: list.filter((p) => STATUS_GROUPS.available.includes(p._status)) },
-      { key: 'soon', title: '곧 접수를 시작해요', items: list.filter((p) => p._status === 'soon') },
-      { key: 'unknown', title: '접수 일정은 기관에서 확인해요', items: list.filter((p) => p._status === 'unknown') },
-      { key: 'closed', title: '접수가 끝났어요', items: list.filter((p) => isClosed(p)) }
-    ].filter((g) => g.items.length);
-    $('#free-sections').innerHTML = groups.length
-      ? groups.map((g) => {
-          const folded = !!state.freeFolded[g.key];
-          return `
-            <section class="free-group${folded ? ' is-folded' : ''}" aria-label="${g.title} ${g.items.length}건">
-              <div class="free-head">
-                <h2>${g.title}</h2><span class="card-note">${g.items.length}건</span>
-                <button class="fold-btn" type="button" data-fold="${g.key}" aria-expanded="${!folded}">${folded ? '펼쳐 보기' : '접기'}${icon(folded ? 'chevron-down' : 'chevron-up')}</button>
-              </div>
-              ${folded ? '' : isPhone() ? swiperHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline), cardHTML) : gridHTML(`free:${g.key}`, g.items.sort(SORTERS.deadline))}
-            </section>`;
-        }).join('')
+    $('#free-sections').innerHTML = list.length
+      ? groupedCardsHTML('free', list, (p) => cardHTML(p))
       : `<ul class="pgrid">${emptyHTML({ iconName: 'ticket', title: '조건에 맞는 무료 프로그램이 없어요', desc: '우리 아이 나이나 기관을 바꿔 보세요.' })}</ul>`;
     initSwipers($('#free-sections'));
   }
@@ -983,24 +981,30 @@
     const items = kidPrograms().filter(isRecent).sort((a, b) => b._firstSeen - a._firstSeen || SORTERS.deadline(a, b));
     const shown = items.slice(0, shownOf('new'));
     $('#new-list').innerHTML = items.length
-      ? shown.map((p) => rowHTML(p)).join('') + moreHTML('new', items.length - shown.length)
+      ? shown.map(rowHTML).join('') + moreHTML('new', items.length - shown.length)
       : emptyHTML({ iconName: 'sparkle', title: '최근 7일 동안 새로 올라온 프로그램이 없어요', desc: '매일 아침 6시에 기관 소식을 새로 모아요. 새 프로그램이 올라오면 여기에 모여요.' });
   }
 
-  // 저장한 프로그램: 여러 지역에 걸쳐 있으면 필요한 지역 파일을 받은 뒤 함께 보여 준다
+  // 저장한 프로그램: 무료 페이지와 같은 짜임(기관 칩 + 상태별 묶음 카드)
+  // 여러 지역에 걸쳐 있으면 필요한 지역 파일을 받은 뒤 함께 보여 주고, 카드에 지역 이름을 적는다
   function renderSaved() {
     const need = [...new Set([...favs].map(regionOfId))].filter((r) => r && !LOADED[r]);
     if (need.length) {
-      $('#saved-list').innerHTML = emptyHTML({ iconName: 'bookmark', title: '저장한 프로그램을 불러오고 있어요', desc: '잠시만 기다려 주세요.' });
+      $('#saved-bar').hidden = true;
+      $('#saved-sections').innerHTML = `<ul class="pgrid">${emptyHTML({ iconName: 'bookmark', title: '저장한 프로그램을 불러오고 있어요', desc: '잠시만 기다려 주세요.' })}</ul>`;
       Promise.all(need.map(ensureRegion)).then(() => { renderMenu(); if (state.view === 'saved') renderSaved(); });
       return;
     }
-    const items = [...favs].map((id) => ALL_BY_ID[id]).filter(Boolean).sort(SORTERS.deadline);
-    const manyRegions = new Set(items.map((p) => p._region)).size > 1;
-    const savedShown = items.slice(0, shownOf('saved'));
-    $('#saved-list').innerHTML = items.length
-      ? savedShown.map((p) => rowHTML(p, { region: manyRegions })).join('') + moreHTML('saved', items.length - savedShown.length)
-      : emptyHTML({ iconName: 'bookmark', title: '아직 저장한 프로그램이 없어요', desc: '목록에서 북마크를 누르면 여기에 모여요.', action: `<button class="btn btn-primary" type="button" data-view="dashboard">프로그램 보러 가기</button>` });
+    const all = [...favs].map((id) => ALL_BY_ID[id]).filter(Boolean);
+    const manyRegions = new Set(all.map((p) => p._region)).size > 1;
+    $('#saved-bar').hidden = !all.length;
+    $('#saved-types').innerHTML = typeChipsHTML('saved', all);
+    const list = all.filter((p) => state.ptype.saved === 'all' || p._type === state.ptype.saved);
+    $('#saved-count').textContent = `${list.length}건`;
+    $('#saved-sections').innerHTML = all.length
+      ? groupedCardsHTML('saved', list, (p) => cardHTML(p, { region: manyRegions }))
+      : `<ul class="pgrid">${emptyHTML({ iconName: 'bookmark', title: '아직 저장한 프로그램이 없어요', desc: '목록에서 북마크를 누르면 여기에 모여요.', action: `<button class="btn btn-primary" type="button" data-view="dashboard">프로그램 보러 가기</button>` })}</ul>`;
+    initSwipers($('#saved-sections'));
   }
 
   // 출처마다 언제·얼마나 자주 모으는지, 마지막 수집이 잘 됐는지
@@ -1218,8 +1222,11 @@
     }
     return out;
   }
+  // 추천은 최대 6개: 휴대폰은 옆으로 넘기기로 모두, 태블릿·PC는 3개 + 더 보기
+  const SIM_FIRST = 3;
+  const SIM_MAX = 6;
   function similarHTML(p) {
-    const list = similarPrograms(p);
+    const list = similarPrograms(p, SIM_MAX);
     if (!list.length) return '';
     const basis = state.kid !== 'all' ? KID_OPTIONS.find((o) => o.key === state.kid).label.replace(/\s*\(.*\)/, '') : '';
     const chips = (x) => [
@@ -1240,15 +1247,17 @@
         </button></li>`;
       return `<section class="d-sim is-swipe" aria-labelledby="d-sim-title">${title}${swiperHTML('sim', list, card, 'sw-sim')}</section>`;
     }
+    // 태블릿·PC: 3개 + [더 보기]로 나머지 (최대 6개)
+    const shown = list.slice(0, state.more.sim ? SIM_MAX : SIM_FIRST);
     return `
       <section class="d-sim" aria-labelledby="d-sim-title">
         ${title}
-        <ul>${list.map((x) => `
+        <ul>${shown.map((x) => `
           <li><button class="sim-item" type="button" data-open="${x.q.id}">
             <span class="sim-top"><span class="sim-title">${newBadge(x.q)}${unitize(splitTitle(x.q.title).main)}</span>${badge(x.q)}</span>
             <span class="sim-meta">${esc(x.q.facility)} · ${dateText(x.q)}</span>
             <span class="sim-why">${chips(x)}</span>
-          </button></li>`).join('')}
+          </button></li>`).join('')}${moreHTML('sim', list.length - shown.length)}
         </ul>
       </section>`;
   }
@@ -1261,12 +1270,16 @@
   }
 
   /* ---------- 상세 패널 ---------- */
+  // 기관 안내 이미지는 원본이 수 MB인 것이 많아, 이미지 줄이기 서비스(wsrv.nl)로 폭 800px WebP를 받는다
+  // (scripts/update.js가 매일 새 이미지를 미리 한 번 받아 둔다 — 주소 형식을 바꾸면 그쪽도 함께)
+  const smallImage = (url) => `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=800&we&output=webp&q=78`;
   let lastFocus = null;
   let drawerId = null; // 지금 열린 상세
 
   function openDrawer(id) {
     const p = ALL_BY_ID[id];
     if (!p) return;
+    if (p.id !== drawerId) delete state.more.sim; // 다른 프로그램을 열면 추천은 다시 3개부터
     const org = p._org;
     const fac = p._fac;
     const due = dueText(p);
@@ -1277,8 +1290,8 @@
       // 지도 앱 바로가기: 주소로 검색 (주소가 없으면 기관 이름으로)
       const q = encodeURIComponent(fac && fac.address ? fac.address : `${p._region} ${p.facility}`);
       const route = `<span class="d-route" aria-label="길찾기">`
-        + `<a href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener">${icon('route')}네이버 지도<span class="sr-only"> (새 창)</span></a>`
-        + `<a href="https://map.kakao.com/link/search/${q}" target="_blank" rel="noopener">${icon('route')}카카오맵<span class="sr-only"> (새 창)</span></a></span>`;
+        + `<a href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener"><img src="img/naver-map.png" alt="" width="16" height="16">네이버 지도<span class="sr-only"> (새 창)</span></a>`
+        + `<a href="https://map.kakao.com/link/search/${q}" target="_blank" rel="noopener"><img src="img/kakao-map.png" alt="" width="16" height="16">카카오맵<span class="sr-only"> (새 창)</span></a></span>`;
       rows.push(['장소', esc(p.facility) + (fac && fac.address ? `<span class="sub">${esc(fac.address)}</span>` : '') + route]);
     }
     rows.push(['접수 기간', p._applyStart || p._applyEnd ? `${p._applyStart ? fmt(p._applyStart) : ''} ~ ${p._applyEnd ? fmt(p._applyEnd) : ''}` : '기관에서 확인']);
@@ -1298,7 +1311,7 @@
 
     // 이미지 칸: 상세 페이지 대표 이미지가 있을 때만
     const media = p.image
-      ? `<figure class="d-media t-${p._type}"><a href="${esc(p.image)}" target="_blank" rel="noopener" aria-label="이미지 원본 보기 (새 창)"><img src="${esc(p.image)}" alt="${esc(splitTitle(p.title).main)} 안내 이미지" referrerpolicy="no-referrer"></a><span class="d-media-zoom" aria-hidden="true">${icon('zoom')}원본 보기</span></figure>`
+      ? `<figure class="d-media t-${p._type}"><a href="${esc(p.image)}" target="_blank" rel="noopener" aria-label="이미지 원본 보기 (새 창)"><img src="${esc(smallImage(p.image))}" data-orig="${esc(p.image)}" alt="${esc(splitTitle(p.title).main)} 안내 이미지" referrerpolicy="no-referrer"></a><span class="d-media-zoom" aria-hidden="true">${icon('zoom')}원본 보기</span></figure>`
       : '';
 
     $('#drawer-org').innerHTML = typeTag(p._type, `${TYPE_LABEL[p._type] || ''} · ${org.name || ''}`);
@@ -1325,8 +1338,15 @@
     drawerId = p.id;
     markOpened(p.id);
 
+    // 작게 줄인 이미지를 먼저 쓰고, 실패하거나 3.5초 안에 안 오면(처음 보는 이미지라 줄이는 중) 원본으로 바꾼다.
+    // 원본도 못 불러오면(주소 변경·차단) 이미지 칸을 없앤다
     const img = $('#drawer-body .d-media img');
-    if (img) img.addEventListener('error', () => { img.closest('.d-media').remove(); }, { once: true });
+    if (img) {
+      const toOriginal = () => { if (img.dataset.orig && img.getAttribute('src') !== img.dataset.orig) img.src = img.dataset.orig; else img.closest('.d-media').remove(); };
+      const slow = setTimeout(() => { if (!img.complete) toOriginal(); }, 3500);
+      img.addEventListener('load', () => clearTimeout(slow));
+      img.addEventListener('error', () => { clearTimeout(slow); toOriginal(); });
+    }
 
     if ($('#drawer').hidden) lastFocus = document.activeElement;
     $('#drawer').hidden = false;
@@ -1544,10 +1564,12 @@
       if (kind === 'free') renderFree();
       if (kind === 'week') renderWeek();
       if (kind === 'fac') renderSources();
+      if (kind === 'sim') refreshDrawerSimilar();
       return;
     }
-    if ((el = hit('[data-fold]'))) { const k = el.dataset.fold; state.freeFolded[k] = !state.freeFolded[k]; renderFree(); return; }
-    if ((el = hit('[data-freetype]'))) { state.freeType = el.dataset.freetype; renderFree(); return; }
+    // 무료·저장 페이지: 묶음 접기와 기관 종류 칩 (값 앞에 'free:' / 'saved:'가 붙어 있다)
+    if ((el = hit('[data-fold]'))) { const k = el.dataset.fold; state.folded[k] = !state.folded[k]; (k.startsWith('saved:') ? renderSaved : renderFree)(); return; }
+    if ((el = hit('[data-ptype]'))) { const [page, type] = el.dataset.ptype.split(':'); state.ptype[page] = type; (page === 'saved' ? renderSaved : renderFree)(); return; }
     if ((el = hit('[data-share-to]'))) { const [to, id] = el.dataset.shareTo.split(':'); shareTo(to, ALL_BY_ID[id]); return; }
     if ((el = hit('[data-share]'))) { shareProgram(ALL_BY_ID[el.dataset.share], el); return; }
 
@@ -1640,6 +1662,7 @@
   }
   dragScroll($('#tabs'));
   dragScroll($('#free-types'));
+  dragScroll($('#saved-types'));
 
   // 뒤로·앞으로 가기: 주소에 맞는 화면으로
   window.addEventListener('popstate', () => {

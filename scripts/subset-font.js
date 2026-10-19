@@ -11,15 +11,13 @@ const ROOT = path.resolve(__dirname, '..');
 const SOURCE = 'https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Syongsyong.woff';
 const OUT = path.join(ROOT, 'fonts', 'moa-point.woff2');
 
-// 이 글꼴로 보이는 글자: 로고, 페이지 제목, 지역 추가 창 제목, 서울 25개 구 이름
+// 이 글꼴로 보이는 글자: 로고(인트로 포함)와 대시보드 제목 "<구> 아이랑 프로그램"뿐 (다른 페이지 제목은 본문 글꼴)
 global.window = {};
 require(path.join(ROOT, 'data', 'geo.js'));
 const guNames = (window.KIDS_GEO.seoul.gu || []).map((g) => g.name);
 const TEXTS = [
   '모아놀자',
   '아이랑 프로그램',
-  '저장한 프로그램', '이번 주 일정', '무료 프로그램', '데이터 출처',
-  '지역 추가',
   ...guNames
 ];
 const ASCII = Array.from({ length: 95 }, (_, i) => String.fromCharCode(32 + i)).join('');

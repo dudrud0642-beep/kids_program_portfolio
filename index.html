@@ -216,9 +216,11 @@
 
         <!-- 저장한 프로그램 -->
         <section class="view" id="view-saved" aria-label="저장한 프로그램" hidden>
-          <div class="card card-full">
-            <ul class="plist" id="saved-list"></ul>
+          <div class="group-bar" id="saved-bar">
+            <div class="chips" id="saved-types" role="group" aria-label="기관별 보기"></div>
+            <span class="card-note" id="saved-count"></span>
           </div>
+          <div id="saved-sections"></div>
         </section>
 
         <!-- 새로 올라온 프로그램 (자동 수집에서 처음 본 지 7일 안) -->
@@ -230,7 +232,7 @@
 
         <!-- 무료 프로그램 -->
         <section class="view" id="view-free" aria-label="무료 프로그램" hidden>
-          <div class="free-bar">
+          <div class="group-bar">
             <div class="chips" id="free-types" role="group" aria-label="기관별 보기"></div>
             <span class="card-note" id="free-count"></span>
           </div>

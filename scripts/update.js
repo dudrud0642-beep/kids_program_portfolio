@@ -1,10 +1,11 @@
-// 사용법: node scripts/update.js [--all] [--only 11100/family,11110/childcare] [--today YYYY-MM-DD]
+// 사용법: node scripts/update.js [--all] [--only 11100/family,11110/childcare] [--today YYYY-MM-DD] [--no-images]
 // 매일 아침 GitHub Actions(.github/workflows/update-data.yml)가 돌리는 자동 갱신 순서
 //  1) 서울시 공공서비스예약 API (매일) — 인증키는 환경변수 SEOUL_API_KEY
 //  2) 기관 사이트 수집기 scripts/collectors/* (월·목, --all이면 오늘도)
 //     실패한 출처는 어제 자료를 그대로 두고 실패로 기록한다
 //  3) 화면용 파일 만들기: build-regions.js(24개 구 + 도봉구 공공예약 몫) → build-data.js(도봉구)
 //  4) 출처별 상태를 data/status.js에 쓴다 (데이터 출처 페이지·맨 위 수집 표시에서 씀)
+//  5) 새 안내 이미지를 이미지 줄이기 서비스로 미리 한 번 받아 둔다 (상세 팝업이 빨리 뜨게)
 // 실패한 출처가 있으면 GITHUB_OUTPUT에 failed=…를 남긴다 → 워크플로가 커밋 뒤 실패로 표시해 메일이 간다
 const fs = require('fs');
 const path = require('path');
@@ -106,3 +107,38 @@ if (!b.ok) failed.push('build-data');
 fs.writeFileSync(STATUS_FILE, `/* 자동 생성: scripts/update.js — 출처별 마지막 수집 결과 */\nwindow.KIDS_STATUS = ${JSON.stringify({ updatedAt: NOW, sources }, null, 1)};\n`);
 console.log(`\n상태 → data/status.js${failed.length ? ` · 실패: ${failed.join(', ')}` : ' · 모두 정상'}`);
 if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `failed=${failed.join(', ')}\n`);
+
+// 5) 안내 이미지 미리 받아 두기
+// 화면은 원본(수 MB) 대신 이미지 줄이기 서비스(wsrv.nl)의 폭 800px WebP를 쓴다. 처음 요청 때 줄이느라 몇 초 걸리므로
+// 새 이미지를 여기서 먼저 한 번 받아 둔다 (js/app.js smallImage와 같은 주소여야 한다). 실패해도 수집 실패로 치지 않는다
+const smallImage = (url) => `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=800&we&output=webp&q=78`;
+const WARM_FILE = path.join(ROOT, 'data', 'state', 'images.json');
+async function warmImages() {
+  const files = [path.join(ROOT, 'data', 'programs.js'),
+    ...fs.readdirSync(path.join(ROOT, 'data', 'regions')).filter((f) => /^\d+\.js$/.test(f)).map((f) => path.join(ROOT, 'data', 'regions', f))];
+  const urls = new Set();
+  files.forEach((f) => (readDataFile(f).programs || []).forEach((p) => { if (p.image) urls.add(p.image); }));
+  let warmed = {};
+  try { warmed = JSON.parse(fs.readFileSync(WARM_FILE, 'utf8')); } catch (e) { /* 처음 */ }
+  const stale = new Date(Date.parse(`${TODAY}T00:00:00+09:00`) - 30 * 864e5).toISOString().slice(0, 10); // 30일마다 다시
+  const todo = [...urls].filter((u) => !warmed[u] || warmed[u] < stale);
+  const deadline = Date.now() + 10 * 60e3; // 한 번에 10분까지만, 남은 것은 다음 날
+  let ok = 0, bad = 0;
+  const worker = async () => {
+    while (todo.length && Date.now() < deadline) {
+      const u = todo.shift();
+      try {
+        const r = await fetch(smallImage(u), { signal: AbortSignal.timeout(60000) });
+        await r.arrayBuffer();
+        if (r.ok) { warmed[u] = TODAY; ok++; } else bad++;
+      } catch (e) { bad++; }
+    }
+  };
+  await Promise.all([worker(), worker(), worker()]);
+  Object.keys(warmed).forEach((u) => { if (!urls.has(u)) delete warmed[u]; }); // 지금 안 쓰는 이미지는 지운다
+  const sorted = Object.fromEntries(Object.keys(warmed).sort().map((k) => [k, warmed[k]]));
+  fs.mkdirSync(path.dirname(WARM_FILE), { recursive: true });
+  fs.writeFileSync(WARM_FILE, JSON.stringify(sorted, null, 0).replace(/","/g, '",\n"') + '\n');
+  console.log(`\n이미지 미리 받기: 새로 ${ok}장 · 실패 ${bad}장 · 다음으로 미룬 것 ${todo.length}장 (전체 ${urls.size}장)`);
+}
+if (!process.argv.includes('--no-images')) warmImages().catch((e) => console.log('이미지 미리 받기 건너뜀:', e.message));
