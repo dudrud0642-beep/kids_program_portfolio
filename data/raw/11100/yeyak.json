@@ -3,7 +3,7 @@
  "sourceName": "서울시 공공서비스예약 (도봉구)",
  "sourceUrl": "https://yeyak.seoul.go.kr",
  "listUrl": "https://data.seoul.go.kr/dataList/OA-20497/S/1/datasetView.do",
- "collectedAt": "2026-10-15",
+ "collectedAt": "2026-10-19",
  "howToCollect": "scripts/collect-seoul-api.js(서울 열린데이터광장 공공서비스예약 정보 API) → scripts/build-regions.js가 도봉구 몫만 이 파일로 씀. 장소의 동은 장소 좌표로 찾음.",
  "facilities": [
   {
@@ -275,6 +275,31 @@
    "description": null
   },
   {
+   "title": "[초안산가드닝센터][가든위크]이웃정원사와 함께하는 가든페스타_수경 삽목",
+   "facility": "초안산가드닝센터 본관",
+   "category": "문화체험 > 교육체험",
+   "target": "제한없음(어린이~성인)",
+   "ageTags": [
+    "elem-low",
+    "elem-high"
+   ],
+   "programStart": "2026-10-17",
+   "programEnd": "2026-10-24",
+   "schedule": "13:00~15:30",
+   "sessions": null,
+   "applyStart": "2026-10-06",
+   "applyEnd": "2026-10-23",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/06 14:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261006103419238450",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179125049600832FU44BP7S7TQOJBI3OLHZF8V",
+   "description": null
+  },
+  {
    "title": "[초안산가드닝센터][금요일][토요일]9월/도예/핸드페인팅",
    "facility": "초안산가드닝센터 별관(예술공방)",
    "category": "문화체험 > 교육체험",
@@ -294,7 +319,7 @@
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260822105124483386",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1787364229705TA6JSYLA4AYKVBJVDLBYKE3DE",
    "description": null
@@ -351,6 +376,32 @@
    "description": "무수골 녹색복지센터(산림치유센터)는 바쁜 일상에 지친 주민들 누구나 자연을 통해 몸과 마음을 치유하는 도심 속 힐링공간 입니다 . 역사와 자연이 어우러진 치유과 회복의 쉼터 , 무수골 녹색복지 숲에서 건강 돌봄 함께 해요 ! 문 의 : 무수골녹색복지센터(산림치유센터) / 02-2091-3463 결제는 현장에서 합니다!!(예약사이트 결제 불가) ※ 이용 료 감면 50% 감면 가 . 도봉구민 나 . 장애인 다 . 경로우대자 (65세 이상) 라. 다둥이행복카드소지 및 등재자 마. 다문화가정 바. 북한이탈주민 전액 감면 가 . 기초생활수급…"
   },
   {
+   "title": "[도봉구] 11월 무수골 녹색복지센터[산림치유센터] 아기자기 무수골(6~13세 가족)",
+   "facility": "무수골 녹색복지센터(산림치유센터)",
+   "category": "문화체험 > 산림여가",
+   "target": "가족(4~11세 가족)",
+   "ageTags": [
+    "elem-low",
+    "elem-high",
+    "family"
+   ],
+   "programStart": "2026-11-01",
+   "programEnd": "2026-11-30",
+   "schedule": "14:00~16:00",
+   "sessions": null,
+   "applyStart": "2026-10-20",
+   "applyEnd": "2026-11-29",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 10:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "안내중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261018132808571064",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792297786221I6LKVOYACQZG317OCT4WUKRMP",
+   "description": "무수골 녹색복지센터(산림치유센터)는 바쁜 일상에 지친 주민들 누구나 자연을 통해 몸과 마음을 치유하는 도심 속 힐링공간 입니다 . 역사와 자연이 어우러진 치유과 회복의 쉼터 , 무수골 녹색복지 숲에서 건강 돌봄 함께 해요 ! 문 의 : 무수골녹색복지센터(산림치유센터) / 02-2091-3463 결제는 현장에서 합니다!!(예약사이트 결제 불가) ※ 이용 료 감면 50% 감면 가 . 도봉구민 나 . 장애인 다 . 경로우대자 (65세 이상) 라. 다둥이행복카드소지 및 등재자 마. 다문화가정 바. 북한이탈주민 전액 감면 가 . 기초생활수급…"
+  },
+  {
    "title": "(도봉구) 발바닥공원 힐링센터 원예치유프로그램(성인)",
    "facility": "발바닥공원 힐링센터",
    "category": "문화체험 > 산림여가",
@@ -370,7 +421,7 @@
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수종료",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260919124116431107",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1789789308335PS7RKLID8GOMH4UZEIRATIAPD",
    "description": null
@@ -452,7 +503,7 @@
    "description": "시립창동인터넷중독예방상담센터에서는 가족과의 소통과 화합, 청소년의 스마트폰 과의존 예방을 위해 다양한 체험 프로그램을 준비했습니다. 많은 신청 부탁드립니다!!! 반드시 구글폼으로 신청바랍니다. 해당 예약서비스는 이용하지 않습니다. 1. 일시: 1차 - 11월 14일(토) 15:00~17:00 / 2차 - 11월 21일(토) 10:00~12:00 2. 장소: 1차 -시립강북청소년센터 인공암벽장 / 2차-메이커스쿨 도봉 *본 일정과 장소는 기관사정에 따라 변경 될 수 있습니다. 3. 대상: 청소년(07년생~17년생)이 포함된 가족 누구…"
   },
   {
-   "title": "(공공미술/토) 서울시 공공미술 - 숲 해설, 스텐실 워크숍 <숲 따라, 예술 따라>",
+   "title": "(공공미술/토) 서울시 공공미술 - 유아, 어린이 동반 가족 대상 숲 해설, 스텐실 워크숍 <숲 따라, 예술 따라>",
    "facility": "서울창포원 방문자센터",
    "category": "문화체험 > 문화행사",
    "target": "가족",
@@ -472,7 +523,7 @@
    "feeText": "무료",
    "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261013141157925365",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1791869223377BPJVCLFYPPOLHNA3XGQHQGYTT",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792137335436JI49FBKO83D1OOFBR13YH3MIY",
    "description": "서울시 공공미술 참여 프로그램 - 숲 해설 및 스텐실 체험 워크숍 <숲 따라, 예술 따라> 참여자 모집 <숲 따라, 예술 따라>는 서울 창포원에서 가을의 정취를 느끼며 자연과 예술을 함께 즐기는 프로그램입니다. 전문 숲 해설가가 진행하는 '창포원 가을 숲에서 놀자!'에서는 가을의 창포원을 거닐며 자연에 대한 이야기를 듣고, 곳곳에 설치된 공공미술 작품을 감상합니다. 이후 작품 <지란지교>의 연계 프로그램 '스텐실로 만나는 창포원'을 통해 창포원의 풍경을 직접 표현해봅니다. 활동명 활동내용 소요시간 도입 인원 점검 및 인사 10‘ 창…"
   },
   {
@@ -483,11 +534,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -507,11 +558,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -531,11 +582,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -555,11 +606,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -579,11 +630,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -603,11 +654,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -627,11 +678,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -651,11 +702,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -675,11 +726,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-10-15",
+   "programStart": "2026-10-19",
    "programEnd": "2026-10-26",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-10-15",
+   "applyStart": "2026-10-19",
    "applyEnd": "2026-10-26",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -712,7 +763,7 @@
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260809150617465736",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1786415413007A84SCQ32E2D6VNQSZNN4JEM68",
    "description": "가족과 함께하는 주말 교육프로그램 라임 위 . 크 . 앤 . 드 . (We Create robot And Dream) - 서울로봇인공지능과학관 , a.k.a. RAIM 에서 초대장 이 도착했습니다📨 - 🎉여러분들을 주말가족 일일교육프로그램 '라임 위 . 크 . 앤 . 드 . ' 에 초대합니다 !🎉 🪄 가족 과 함께 주말 을 라임에서 신나게 보내볼까요 ?🏃 ♂️✨ 지금 바로 신청하러 GoGo~~🏃 ♂️ ➡️🏃 ➡️🏃 ♀️ ➡️ 💙 접 수 : 26. 8. 15. 10:00 ~ 서울시공공서비스예약 *참여자의 이름 과 나이…"
@@ -754,7 +805,7 @@
    "schedule": "토·일요일 10:00~16:30",
    "sessions": null,
    "applyStart": "2026-10-01",
-   "applyEnd": "2026-10-30",
+   "applyEnd": "2026-10-15",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/01 10:00부터",
    "capacity": null,
    "applied": null,

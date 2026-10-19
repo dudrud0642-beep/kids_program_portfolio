@@ -114,12 +114,35 @@
    "applyEnd": "2026-10-23",
    "applyMethod": "선착순",
    "capacity": 15,
-   "applied": 22,
+   "applied": 21,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수마감",
+   "statusText": "대기접수",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6262",
    "description": "최근 학습에서 중요성이 더욱 커지고 있는 문해력과 논리적 사고력, 서술·표현력. 그 바탕에는 깊이 읽고 스스로 생각하는 힘이 있습니다. 어린이 고전 디베이트에서는 우리에게 필독 고전 작품을 함께 읽고, 인물의 선택과 작품 속 상황에 대해 질문하고 토론합니다. 고전을 깊이 읽으며 문해력을 키우고, 자신의 생각을 근거 있게 말하고 글로 표현하는 힘을 길러봅니다."
+  },
+  {
+   "title": "[문화교실] 2026년 4기 보드게임(초등 저학년) - [매주 토요일 / 강사:최인영]",
+   "facility": "도봉문화정보도서관",
+   "category": "문화교실",
+   "target": "초등 1~3학년",
+   "ageTags": [
+    "elem-low"
+   ],
+   "programStart": "2026-11-07",
+   "programEnd": "2026-12-26",
+   "schedule": "10:00~11:30 (매주 토 요일)",
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-10-31",
+   "applyMethod": "선착순",
+   "capacity": 16,
+   "applied": 0,
+   "fee": 20000,
+   "feeText": "20,000원",
+   "statusText": "접수준비",
+   "url": "https://www.unilib.dobong.kr/edusat2/view.do?edu_idx=922",
+   "description": null
   },
   {
    "title": "[문화교실] 2026년 3기 보드게임(초등 저학년) - [매주 토요일 / 강사:최인영]",
