@@ -16,7 +16,7 @@ const arg = (name) => { const i = process.argv.indexOf(`--${name}`); return i > 
 const TODAY = arg('today') || kstToday();
 const ONLY = arg('only') ? arg('only').split(',') : null; // 손으로 돌릴 때 일부 기관만
 const NOW = kstNow();
-const KEY = process.env.SEOUL_API_KEY || '';
+const KEY = (process.env.SEOUL_API_KEY || '').trim();
 const STATUS_FILE = path.join(ROOT, 'data', 'status.js');
 
 // 기관 사이트 수집기 — 키는 data/raw/<구 코드>/<파일 이름>

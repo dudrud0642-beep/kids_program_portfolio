@@ -13,7 +13,7 @@ const { ROOT, kstToday } = require('./lib/common');
 const arg = (name) => { const i = process.argv.indexOf(`--${name}`); return i > -1 ? process.argv[i + 1] : null; };
 const OUT = arg('out') || path.join(ROOT, 'data', 'raw', 'seoul-api.json');
 const CSV = arg('csv');
-const KEY = process.env.SEOUL_API_KEY;
+const KEY = (process.env.SEOUL_API_KEY || '').trim(); // 붙여 넣을 때 섞인 앞뒤 공백·줄바꿈은 뗀다
 const SERVICES = ['ListPublicReservationCulture', 'ListPublicReservationEducation'];
 const PAGE = 1000;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -66,7 +66,14 @@ async function fromApi() {
       const url = `http://openapi.seoul.go.kr:8088/${encodeURIComponent(KEY)}/json/${svc}/${start}/${start + PAGE - 1}/`;
       const res = await fetch(url, { signal: AbortSignal.timeout(30000) });
       if (!res.ok) throw new Error(`${svc} HTTP ${res.status}`);
-      const json = await res.json();
+      // 오류(인증키가 틀림 등)는 json을 달라고 해도 XML로 온다: <RESULT><CODE>INFO-100</CODE><MESSAGE>…</MESSAGE></RESULT>
+      const text = await res.text();
+      if (text.trim().startsWith('<')) {
+        const code = (text.match(/<CODE>([^<]*)<\/CODE>/) || [])[1] || '?';
+        const msg = (text.match(/<MESSAGE><!\[CDATA\[([\s\S]*?)\]\]><\/MESSAGE>/) || text.match(/<MESSAGE>([^<]*)<\/MESSAGE>/) || [])[1] || text.slice(0, 120);
+        throw new Error(`${svc} ${code} ${msg.trim()}`);
+      }
+      const json = JSON.parse(text);
       const body = json[svc];
       if (!body || !Array.isArray(body.row)) throw new Error(`${svc} ${JSON.stringify(json.RESULT || json).slice(0, 200)}`);
       rows.push(...body.row);
