@@ -272,7 +272,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .new-pill:hover { box-shadow: 0 0 0 1.5px var(--primary-line), var(--shadow); }
 
 /* NEW: 자동 수집에서 처음 본 지 7일 안 (열어 보면 사라짐) */
-.new-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 5px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-size: 10.5px; font-weight: 700; letter-spacing: .03em; line-height: 1; white-space: nowrap; vertical-align: 2px; }
+.new-badge { display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 5px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-size: 11px; font-weight: 700; letter-spacing: .03em; line-height: 1; white-space: nowrap; vertical-align: 2px; }
 .prog-title .new-badge { margin-right: 6px; }
 .side-num.is-new { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--primary); color: var(--on-primary); text-shadow: var(--on-primary-shadow); font-weight: 700; line-height: 20px; text-align: center; }
 .side-item.is-active .side-num.is-new { color: var(--on-primary); }
