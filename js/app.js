@@ -374,7 +374,9 @@
   // 괄호·따옴표로 묶인 구절은 한 덩어리로 (줄 길이보다 길면 그 안에서만 줄바꿈)
   // 괄호 묶음은 한 덩어리로. 둥근 괄호는 붙어 있는 앞 단어까지("단원(참여자)"),
   // 뒤에 붙은 문장부호도 함께("‘라면’:")
-  const UNIT_RE = /(?:\S*?\([^)]*\)|〈[^〉>]*[〉>]|<[^>]*>|「[^」]*」|『[^』]*』|‘[^’]*’|'[^']*'|“[^”]*”|"[^"]*"|\{[^}]*\}|\[[^\]]*\])[^\s가-힣A-Za-z0-9]*/g;
+  const UNIT_RE = /(?:\S*?\([^)]*\)|〈[^〉>]*[〉>]|<[^>]*>|「[^」]*」|『[^』]*』|‘[^’]*’|'[^']*'|“[^”]*”|"[^"]*"|\{[^}]*\}|\[[^\]]*\])[^\s가-힣A-Za-z0-9(<〈「『‘“{[]*/g; // 뒤에 붙는 문장부호는 함께, 다음 여는 괄호는 빼고
+  // 여는 괄호는 바로 뒤 글자와 붙인다 (보이지 않는 연결 문자 U+2060) — "초등저학년 < / 그림책"처럼 괄호만 줄 끝에 남지 않게
+  const glueOpen = (html) => html.replace(/(&lt;|[([〈「『‘“{])(?=\S)/g, '$1⁠');
   function unitize(raw) {
     const s = raw
       .replace(/(\S)\s*_\s*(?=\S)/g, '$1 · ') // "가든페스타_가을 화관" → "가든페스타 · 가을 화관" (밑줄은 구분 기호로만 쓰임)
@@ -384,11 +386,11 @@
     for (const m of s.matchAll(UNIT_RE)) {
       if (m[0].length > 14) continue; // 긴 구절은 묶지 않는다 (줄이 일찍 끊겨 빈칸이 생기지 않게)
       // 묶음 바로 앞의 짧은 낱말(3자 이하)은 그 앞 낱말에 붙인다 — "스텐실 / 워크숍 / <…>"처럼 혼자 한 줄이 되지 않게
-      const before = esc(s.slice(last, m.index)).replace(/(\S) (\S{1,3}) $/, '$1 $2 ');
+      const before = glueOpen(esc(s.slice(last, m.index))).replace(/(\S) (\S{1,3}) $/, '$1 $2 ');
       out += before + `<span class="unit">${esc(m[0])}</span>`;
       last = m.index + m[0].length;
     }
-    return out + esc(s.slice(last));
+    return out + glueOpen(esc(s.slice(last)));
   }
 
   // 원문 글 속 날짜·시각("2026-10-30 16:30", "10/18(토)")은 하이픈·빗금에서 끊기지 않게 묶는다
@@ -853,18 +855,22 @@
     $('#week-bar').innerHTML = `
       <p class="week-legend"><span class="week-legend-mark">${icon('bookmark')}</span>표시는 <span class="nw">내가 저장한 프로그램이에요.</span></p>
       <button class="chip" type="button" data-action="week-saved" aria-pressed="${state.weekSavedOnly}"${savedInWeek ? '' : ' disabled'}>저장한 것만 보기 <span class="chip-n">${savedInWeek}</span></button>`;
+    grid.style.setProperty('--days', WEEK_DAYS.length);
     grid.innerHTML = WEEK_DAYS.map((d, i) => {
       const items = kidPrograms().filter((p) => occursOn(p, d) && (!state.weekSavedOnly || favs.has(p.id)))
         .sort((a, b) => (firstTime(a) || '99').localeCompare(firstTime(b) || '99') || a.title.localeCompare(b.title, 'ko'));
       const dow = d.getDay();
+      // 요일마다 6개 + 더 보기 (PC 포함) — 칸이 길게 늘어져 주말 줄이 한참 아래로 밀리지 않게
+      const key = `week:${iso(d)}`;
+      const shown = state.more[key] || STEP;
       return `
-        <section class="card week-day${dow === 0 ? ' is-sun' : ''}${dow === 6 ? ' is-sat' : ''}" aria-label="${fmt(d)} 일정 ${items.length}건">
-          <div class="week-head"><b>${d.getMonth() + 1}.${d.getDate()}</b><span>${DOW[dow]}요일</span>${i === 0 ? '<span class="today">오늘</span>' : ''}</div>
-          <div class="week-list">${items.length ? items.slice(0, shownOf(`week:${iso(d)}`)).map((p) => `
+        <section class="card week-day${dow === 0 ? ' is-sun' : ''}${dow === 6 ? ' is-sat' : ''}${i === 0 && WEEK_DAYS.length % 2 ? ' is-wide' : ''}" aria-label="${fmt(d)} 일정 ${items.length}건">
+          <div class="week-head"><b>${d.getMonth() + 1}.${d.getDate()}</b><span>${DOW[dow]}<span class="wk-yo">요일</span></span>${i === 0 ? '<span class="today">오늘</span>' : ''}</div>
+          <div class="week-list">${items.length ? items.slice(0, shown).map((p) => `
             <button class="week-item t-${p._type}${favs.has(p.id) ? ' is-saved' : ''}" type="button" data-open="${p.id}">
               <span class="week-meta">${firstTime(p) ? `<span class="week-time">${firstTime(p)}</span>` : ''}${p.facility ? `<span class="week-place">${esc(p.facility)}</span>` : ''}${favs.has(p.id) ? `<span class="week-saved" role="img" aria-label="저장함">${icon('bookmark')}</span>` : ''}</span>
               <span class="week-title">${unitize(splitTitle(p.title).main)}</span>
-            </button>`).join('') + moreHTML(`week:${iso(d)}`, items.length - shownOf(`week:${iso(d)}`), 'div') : `<p class="week-none">${state.weekSavedOnly ? '저장한 프로그램이 없어요' : '진행하는 프로그램이 없어요'}</p>`}</div>
+            </button>`).join('') + moreHTML(key, items.length - shown, 'div') : `<p class="week-none">${state.weekSavedOnly ? '저장한 프로그램이 없어요' : '진행하는 프로그램이 없어요'}</p>`}</div>
         </section>`;
     }).join('');
   }
@@ -1100,8 +1106,9 @@
     if (back) back.focus();
     return ok;
   }
-  // 공유 메뉴: 카카오톡(키를 넣고 배포했을 때) · 링크 복사 · 밴드 · 이메일 · (휴대폰) 다른 앱
-  // 키가 없을 때 휴대폰은 바로 기기의 공유 창을 띄운다. 컴퓨터는 윈도 공유 창 대신 이 메뉴를 쓴다
+  // 공유 메뉴: 카카오톡(키를 넣고 배포했을 때) · 링크 복사 · 밴드 · 이메일 · 다른 앱(기기·윈도 공유 창)
+  // 키가 없을 때 휴대폰은 바로 기기의 공유 창을 띄운다. 컴퓨터는 이 메뉴를 먼저 보여 주고, 웹 주소일 때만 윈도 공유 창도 고를 수 있다
+  // (파일로 연 사이트에서 윈도 공유 창을 쓰면 file:// 주소라 오류 페이지가 떴다)
   const CONFIG = window.MOA_CONFIG || {};
   const KAKAO_SDK = { src: 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js', integrity: 'sha384-oroumrnFVE0xtgqyDZJARgERibXg2C28380uaUZz2kHDS5CR7tu20eGiOU6GkTpy' };
   const isWeb = () => /^https?:$/.test(location.protocol);
@@ -1162,7 +1169,7 @@
         ${item('copy', 'link', '링크 복사')}
         ${isWeb() ? item('band', 'users', '네이버 밴드') : ''}
         ${item('mail', 'mail', '이메일로 보내기')}
-        ${touchDevice() && navigator.share ? item('more', 'share', '다른 앱으로 공유') : ''}
+        ${isWeb() && navigator.share ? item('more', 'share', '다른 앱으로 공유') : ''}
         ${note ? `<p class="share-note">${note}</p>` : ''}
       </div>`;
   }

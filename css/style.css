@@ -65,7 +65,8 @@
 /* ===== 기본 ===== */
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { -webkit-text-size-adjust: 100%; }
+/* 두 번 탭해도 화면이 확대되지 않게 (손가락 두 개로 벌려 확대하는 것은 그대로 됨) */
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
 body {
   margin: 0;
   background: var(--bg);
@@ -105,12 +106,12 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 
 /* ===== 레이아웃 ===== */
 .app {
-  display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh;
+  display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); min-height: 100vh; min-height: 100dvh;
   /* 페이지가 화면보다 길어도 사이드바 칸의 흰 배경·경계선이 끝까지 이어지게 */
   background: linear-gradient(to right, #fff calc(var(--sidebar-w) - 1px), var(--card-line) calc(var(--sidebar-w) - 1px) var(--sidebar-w), transparent var(--sidebar-w));
 }
 .main { min-width: 0; container: main / inline-size; }
-.content { display: flex; flex-direction: column; gap: var(--gap); padding: 22px 24px 0; outline: none; min-height: calc(100vh - var(--appbar-h)); }
+.content { display: flex; flex-direction: column; gap: var(--gap); padding: 22px 24px 0; outline: none; min-height: calc(100vh - var(--appbar-h)); min-height: calc(100dvh - var(--appbar-h)); }
 
 /* ===== 로고 ===== */
 /* 카페24 숑숑 (상업적 사용 가능, 폰트 파일 판매만 금지) */
@@ -563,9 +564,10 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 }
 
 /* ===== 이번 주 일정 ===== */
-/* 요일 칸은 200px보다 좁아지지 않게 — 넓은 화면은 7칸, 좁아지면 다음 줄로 (월요일엔 7일이 다 보여 칸이 많다) */
-.week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: start; }
-.week-day { padding: 14px 12px; min-height: 160px; }
+/* PC: 달력의 주간 보기처럼 요일은 늘 한 줄 (주말이 아래 줄로 떨어지지 않게) — 칸이 좁으면 아래 wday 규칙으로 내용을 줄인다 */
+.week-grid { display: grid; grid-template-columns: repeat(var(--days, 7), minmax(0, 1fr)); gap: 12px; align-items: start; }
+.week-day { padding: 14px 12px; min-height: 160px; container: wday / inline-size; }
+
 .week-list, .week-item, .week-title, .week-place { min-width: 0; max-width: 100%; }
 .week-head { display: flex; align-items: baseline; gap: 6px; padding: 0 4px 10px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
 .week-head b { font-size: 20px; font-weight: 700; }
@@ -593,6 +595,24 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 .week-legend-mark { display: inline-flex; color: var(--primary-hover); }
 .chip:disabled { opacity: .5; cursor: default; }
 .week-none { padding: 6px 4px; font-size: 13px; color: var(--text-4); }
+@container main (min-width: 1040px) and (max-width: 1450px) {
+  .week-grid { gap: 8px; }
+  .week-day { padding: 12px 8px; }
+}
+/* 좁은 요일 칸(PC에서 7일이 한 줄일 때): 요일은 한 글자(월), 장소는 한 줄(…), 제목은 3줄까지 — 전체 내용은 눌러서 상세에서 */
+@container wday (max-width: 200px) {
+  .week-head { gap: 4px; padding: 0 2px 8px; }
+  .week-head b { font-size: 18px; }
+  .week-head .today { padding: 0 5px; font-size: 11px; line-height: 20px; }
+  .wk-yo { display: none; }
+  .week-item { position: relative; padding: 7px 6px 7px 8px; }
+  .week-meta { flex-wrap: wrap; gap: 0 6px; }
+  .week-place { flex: 1 1 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .week-time + .week-place::before { content: none; }
+  .week-saved { position: absolute; top: 6px; right: 6px; }
+  .week-title { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; font-size: 13px; }
+  .week-title .unit { max-width: 100%; } /* 괄호 묶음은 한 덩어리로 두되, 줄보다 길면 그 안에서만 줄바꿈 (잘리지 않게) */
+}
 
 /* ===== 무료 프로그램 ===== */
 
@@ -770,7 +790,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
 
 /* ===== 지역 추가 ===== */
 .modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(27, 36, 55, 0.4); }
-.modal-card { width: min(760px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; padding: 22px 24px 24px; border-radius: 22px; background: #fff; box-shadow: 0 24px 60px rgba(27, 36, 55, 0.25); animation: drawer-in .2s ease-out; }
+.modal-card { width: min(760px, 100%); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 22px 24px 24px; border-radius: 22px; background: #fff; box-shadow: 0 24px 60px rgba(27, 36, 55, 0.25); animation: drawer-in .2s ease-out; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .modal-head h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
 .modal-desc { margin-top: 4px; font-size: 14px; color: var(--text-3); }
@@ -874,6 +894,8 @@ html.intro-on .intro {
   .list-scroll { flex: none; min-height: 0; overflow: visible; }
   .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .week-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* 2칸일 때 요일 수가 홀수면 오늘 칸을 한 줄 전체로 — 토·일이 늘 같은 줄에 나란히 */
+  .week-day.is-wide { grid-column: 1 / -1; }
 }
 
 /* ===== 좁은 폭: 1단 ===== */
@@ -948,7 +970,7 @@ html.intro-on .intro {
 }
 
 @media (max-width: 599px) {
-  .drawer { top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 92vh; border-radius: 22px 22px 0 0; }
+  .drawer { top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 92vh; max-height: 92dvh; border-radius: 22px 22px 0 0; } /* dvh: 아이폰 브라우저 아래 막대를 뺀 높이 */
   .drawer-head { padding: 12px 10px 6px 20px; }
   .drawer-body { padding: 4px 20px 20px; }
   .drawer-foot { padding: 12px 20px 16px; }
@@ -957,7 +979,7 @@ html.intro-on .intro {
   .d-media { height: 170px; }
   .picker { grid-template-columns: minmax(0, 1fr); }
   .modal { align-items: end; padding: 0; }
-  .modal-card { border-radius: 22px 22px 0 0; max-height: 92vh; padding: 20px 16px 24px; }
+  .modal-card { border-radius: 22px 22px 0 0; max-height: 92vh; max-height: 92dvh; padding: 20px 16px 24px; }
 }
 /* 아주 좁은 화면: 저장·공유는 아이콘만 (글자는 화면 읽기용으로 남김) */
 @media (max-width: 419px) {
