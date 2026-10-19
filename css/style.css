@@ -611,7 +611,7 @@ svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none
   .week-time + .week-place::before { content: none; }
   .week-saved { position: absolute; top: 6px; right: 6px; }
   .week-title { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; font-size: 13px; }
-  .week-title .unit { max-width: 100%; } /* 괄호 묶음은 한 덩어리로 두되, 줄보다 길면 그 안에서만 줄바꿈 (잘리지 않게) */
+  .week-title .unit { display: inline; } /* 좁은 칸에선 괄호 묶음도 글처럼 흐르게 — 덩어리째 접히면 3줄 제한이 4줄로 보인다 (괄호는 앞뒤 글자에 붙어 있어 혼자 남지 않음) */
 }
 
 /* ===== 무료 프로그램 ===== */
