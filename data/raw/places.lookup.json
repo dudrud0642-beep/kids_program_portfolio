@@ -1,0 +1,14 @@
+{
+ "source": "공식 안내 페이지에서 확인한 장소 정보 — 서울시 공공서비스예약 자료에 좌표가 없어 지도 앱 검색이 안 되던 곳만",
+ "checkedAt": "2026-10-19",
+ "howToUse": "scripts/build-regions.js·build-data.js가 좌표도 주소도 없는 장소에 채운다. 장소 이름의 괄호 앞 부분과 구가 같으면 적용. address = 화면에 보이는 공식 주소(지도 검색에도 씀), mapQuery = 지도 앱 검색어로만 씀",
+ "results": [
+  { "name": "거점 1호 우리동네키움센터", "gu": "노원구", "address": "서울특별시 노원구 동일로 231다길 10 (상계동 1071-2)", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_1/dolbomMENU1_2_1_5.jsp" },
+  { "name": "거점 4호 우리동네키움센터", "gu": "구로구", "address": "서울특별시 구로구 서해안로 2329 (오류동)", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_4/dolbomMENU1_2_4_5.jsp" },
+  { "name": "거점 5호 우리동네키움센터", "gu": "성북구", "address": "서울특별시 성북구 회기로 3길 17 (종암동 28-358)", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_5/dolbomMENU1_2_5_5.jsp" },
+  { "name": "거점 6호 우리동네키움센터", "gu": "강서구", "address": "서울특별시 강서구 화곡로31나길 35(화곡동)", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_6/dolbomMENU1_2_6_5.jsp" },
+  { "name": "거점 7호 우리동네키움센터", "gu": "양천구", "address": "서울특별시 양천구 안양천로 1131(목동) 2층", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_7/dolbomMENU1_2_7_5.jsp" },
+  { "name": "거점 8호 우리동네키움센터", "gu": "마포구", "address": "서울특별시 마포구 백범로 24 3층", "url": "https://umppa.seoul.go.kr/icare/dolbomMENU1/dolbomMENU1_2/dolbomMENU1_2_8/dolbomMENU1_2_8_5.jsp" },
+  { "name": "초안산근린공원 창골축구장", "gu": "도봉구", "mapQuery": "도봉구 창골축구장", "note": "주소가 '초안산근린공원 내 창골축구장 (창1동주민센터 인근)'뿐이라 지도 검색어만 지정 — 네이버(휴대폰·PC)·카카오에서 검색되는 것 확인" }
+ ]
+}

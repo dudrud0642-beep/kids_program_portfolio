@@ -8,7 +8,7 @@
 //  - 끝난 프로그램은 빼고, 아이디는 바뀌지 않게(공공예약 서비스 ID·원문 주소), 처음 본 날(NEW)을 붙인다
 const fs = require('fs');
 const path = require('path');
-const { ROOT, kstToday, assignIds, notEnded, loadState, saveState, stampFirstSeen, normalizeProgram, str } = require('./lib/common');
+const { ROOT, kstToday, assignIds, notEnded, loadState, saveState, stampFirstSeen, fillPlace, normalizeProgram, str } = require('./lib/common');
 
 const arg = (name, def) => { const i = process.argv.indexOf(`--${name}`); return i > -1 ? process.argv[i + 1] : def; };
 const API_FILE = path.resolve(arg('api', path.join(ROOT, 'data', 'raw', 'seoul-api.json')));
@@ -192,7 +192,9 @@ for (const g of SEOUL) {
   list.forEach(({ r, dong }) => {
     const place = r.PLACENM;
     const area = dong ? areaOfDong[dong] : null;
-    if (place && !pubFacilities.some((f) => f.name === place)) pubFacilities.push({ name: place, address: null, area, url: null, tel: r.TELNO && r.TELNO !== '***' ? r.TELNO : null });
+    // 좌표(위도·경도)는 지도 앱에서 그 자리에 핀을 꽂는 데 쓴다 (주소 글보다 정확)
+    const lat = +(+r.Y).toFixed(6) || null, lng = +(+r.X).toFixed(6) || null;
+    if (place && !pubFacilities.some((f) => f.name === place)) pubFacilities.push(fillPlace({ name: place, address: null, area, url: null, tel: r.TELNO && r.TELNO !== '***' ? r.TELNO : null, lat, lng }, g.name));
     const p = fromSeoulRow(r);
     if (!notEnded(p, TODAY)) return;
     pubPrograms.push({ svcId: r.SVCID, area, ...p });
@@ -231,7 +233,7 @@ for (const g of SEOUL) {
     (raw.facilities || []).forEach((f) => {
       const name = str(f.name);
       const found = LOOKUP.find((r) => r.address === f.address && r.area && areas.some((a) => a.name === r.area));
-      if (name && !facilities.some((x) => x.org === key && x.name === name)) facilities.push({ org: key, name, address: str(f.address), area: f.area || (found && found.area) || areaOfAddress(f.address), url: str(f.url) });
+      if (name && !facilities.some((x) => x.org === key && x.name === name)) facilities.push(fillPlace({ org: key, name, address: str(f.address), area: f.area || (found && found.area) || areaOfAddress(f.address), url: str(f.url) }, g.name));
     });
     const mine = [];
     (raw.programs || []).forEach((rp) => {

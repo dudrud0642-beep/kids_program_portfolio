@@ -5,7 +5,7 @@
 // 원문 값은 바꾸지 않고, 형식(날짜·숫자)만 정리하고 중복·끝난 프로그램을 걸러 낸다.
 const fs = require('fs');
 const path = require('path');
-const { ROOT, kstToday, assignIds, notEnded, loadState, saveState, stampFirstSeen, normalizeProgram, str, norm } = require('./lib/common');
+const { ROOT, kstToday, assignIds, notEnded, loadState, saveState, stampFirstSeen, fillPlace, normalizeProgram, str, norm } = require('./lib/common');
 
 const RAW = path.join(ROOT, 'data', 'raw');
 const AUTO = path.join(RAW, '11100');
@@ -56,7 +56,8 @@ function addFacility(org, f) {
   const found = lookup.find((r) => r.address === f.address && r.area);
   const known = manualFacArea.get(norm(name));
   const area = AREAS.includes(f.area) ? f.area : found && AREAS.includes(found.area) ? found.area : AREAS.includes(known) ? known : null;
-  facilities.push({ org, name, address: str(f.address), area, url: str(f.url) });
+  const coord = (v) => (typeof v === 'number' && Number.isFinite(v) && v !== 0 ? v : null);
+  facilities.push(fillPlace({ org, name, address: str(f.address), area, url: str(f.url), lat: coord(f.lat), lng: coord(f.lng) }, '도봉구'));
 }
 
 // 자동 수집기가 목록만 읽을 수 있는 기관(가족센터: 상세는 로그인 세션 필요)은

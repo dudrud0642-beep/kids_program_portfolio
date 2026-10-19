@@ -371,6 +371,13 @@
     if (!m || !m[2].trim()) return { kicker: '', main: t.trim() };
     return { kicker: [...m[1].matchAll(/\[([^\]]*)\]/g)].map((x) => x[1].trim()).join(' · '), main: m[2].trim().replace(/^[-–·*]+\s*/, '') }; // "[말머리] - 제목"의 '-'도 뗀다
   }
+  // 가족센터가 제목 앞·분류에 줄여 쓴 사업 영역을 정식 이름으로 ("[관계]" → 가족관계) — 노원구 가족센터는 정식 이름을 쓴다
+  const FAMILY_AREA = { 관계: '가족관계', 돌봄: '가족돌봄', 생활: '가족생활', 공동체: '지역공동체' };
+  const kickerOf = (p) => {
+    const k = splitTitle(p.title).kicker;
+    return p._type === 'family' ? k.split(' · ').map((x) => FAMILY_AREA[x] || x).join(' · ') : k;
+  };
+  const categoryOf = (p) => (p._type === 'family' && FAMILY_AREA[p.category]) || p.category;
   // 괄호·따옴표로 묶인 구절은 한 덩어리로 (줄 길이보다 길면 그 안에서만 줄바꿈)
   // 괄호 묶음은 한 덩어리로. 둥근 괄호는 붙어 있는 앞 단어까지("단원(참여자)"),
   // 뒤에 붙은 문장부호도 함께("‘라면’:")
@@ -448,7 +455,7 @@
         <button class="prog-main" type="button" data-open="${p.id}">
           <span class="prog-status">${badge(p)}<span class="prog-due${due.urgent ? ' is-urgent' : ''}">${esc(due.text)}</span></span>
           <span class="prog-body">
-            ${t.kicker ? `<span class="prog-kicker">${esc(t.kicker)}</span>` : ''}
+            ${kickerOf(p) ? `<span class="prog-kicker">${esc(kickerOf(p))}</span>` : ''}
             <span class="prog-title">${newBadge(p)}${unitize(t.main)}</span>
             <span class="prog-meta">${typeTag(p._type)}${p.facility ? `<span>${esc(p.facility)}</span>` : ''}${p.target ? `<span>${keepAges(p.target)}</span>` : ''}</span>
           </span>
@@ -1280,6 +1287,68 @@
     initSwipers($('#drawer-body'));
   }
 
+  /* ---------- 안내 이미지 크게 보기 ----------
+   * 기관 이미지 주소를 링크로 열면 파일로 내려받아지는 곳이 있어(서울시 공공예약), 사이트 안 창에 원본을 띄운다.
+   * 원본을 못 불러오면 상세에 보이던 줄인 이미지로 */
+  let viewerBack = null;
+  function openImageViewer(src, alt, fallback) {
+    let v = $('#img-viewer');
+    if (!v) {
+      v = document.createElement('div');
+      v.id = 'img-viewer';
+      v.className = 'img-viewer';
+      v.hidden = true;
+      v.setAttribute('role', 'dialog');
+      v.setAttribute('aria-modal', 'true');
+      v.setAttribute('aria-label', '안내 이미지 원본');
+      v.innerHTML = `<div class="img-viewer-bar"><button class="icon-btn img-viewer-close" type="button" aria-label="이미지 닫기">${icon('x')}</button></div><div class="img-viewer-body"><img alt="" referrerpolicy="no-referrer"></div>`;
+      document.body.appendChild(v);
+    }
+    const img = v.querySelector('img');
+    img.onerror = () => { if (fallback && img.getAttribute('src') !== fallback) img.src = fallback; };
+    img.alt = alt || '';
+    img.src = src;
+    viewerBack = document.activeElement;
+    v.hidden = false;
+    v.querySelector('.img-viewer-body').scrollTop = 0;
+    v.querySelector('.img-viewer-close').focus();
+  }
+  function closeImageViewer() {
+    const v = $('#img-viewer');
+    if (!v || v.hidden) return false;
+    v.hidden = true;
+    v.querySelector('img').removeAttribute('src');
+    if (viewerBack) viewerBack.focus();
+    return true;
+  }
+
+  /* ---------- 지도 앱 바로가기 ---------- */
+  // 주소 글에서 "도로명 + 건물 번호"까지만 남긴다: 우편번호·층수·괄호·건물 이름이 붙은 긴 주소는
+  // 네이버 지도 앱에서 검색이 안 된다 ("…국제금융로 39 지하1층 (여의도동, 브라이튼 여의도)" → "…국제금융로 39")
+  function cleanAddress(text) {
+    const s = String(text || '').replace(/^\(\d{5}\)\s*/, '').replace(/\s+/g, ' ').trim();
+    const m = s.match(/^(.*?[가-힣\d](?:로|길)\s?\d+(?:-\d+)?)(?=$|[\s,(])/);
+    return m ? m[1].replace(/로 (\d+[가-힣]?길)/, '로$1') : null; // "노해로 69길" → "노해로69길"
+  }
+  // 좌표가 있으면(서울시 공공예약 장소) 그 자리에 핀을 꽂고, 없으면 따로 확인해 둔 검색어(data/raw/places.lookup.json) →
+  // 다듬은 주소 → "구 + 장소 이름" 순으로 검색한다
+  //  - 네이버: index.nhn?lng&lat&pinTitle — PC는 이름 붙은 핀, 휴대폰은 핀 (둘 다 확인함)
+  //  - 카카오: /link/map/이름,위도,경도
+  function mapLinks(p) {
+    const fac = p._fac || {};
+    const enc = encodeURIComponent;
+    const name = p.facility.replace(/,/g, ' ');
+    if (fac.lat && fac.lng) {
+      return {
+        naver: `https://map.naver.com/index.nhn?lng=${fac.lng}&lat=${fac.lat}&pinTitle=${enc(name)}&pinType=SITE`,
+        kakao: `https://map.kakao.com/link/map/${enc(name)},${fac.lat},${fac.lng}`
+      };
+    }
+    // 장소 이름 뒤 괄호 설명은 첫 괄호부터 뗀다 ("거점 5호 우리동네키움센터 (4층 놀이마루(다목적실))" → "거점 5호 우리동네키움센터")
+    const q = fac.mapQuery || cleanAddress(fac.address) || cleanAddress(p.facility) || `${p._region} ${p.facility.replace(/\s*\(.*$/, '').trim()}`;
+    return { naver: `https://map.naver.com/p/search/${enc(q)}`, kakao: `https://map.kakao.com/link/search/${enc(q)}` };
+  }
+
   /* ---------- 상세 패널 ---------- */
   // 기관 안내 이미지는 원본이 수 MB인 것이 많아, 이미지 줄이기 서비스(wsrv.nl)로 폭 800px WebP를 받는다
   // (scripts/update.js가 매일 새 이미지를 미리 한 번 받아 둔다 — 주소 형식을 바꾸면 그쪽도 함께)
@@ -1298,11 +1367,10 @@
     if (p.target) rows.push(['대상', keepAges(p.target)]);
     rows.push(['운영 기간', dateText(p) + (p.schedule ? `<span class="sub">${keepDates(p.schedule)}</span>` : '') + (p.sessions ? `<span class="sub">총 ${p.sessions}회</span>` : '')]);
     if (p.facility) {
-      // 지도 앱 바로가기: 주소로 검색 (주소가 없으면 기관 이름으로)
-      const q = encodeURIComponent(fac && fac.address ? fac.address : `${p._region} ${p.facility}`);
+      const links = mapLinks(p);
       const route = `<span class="d-route" aria-label="길찾기">`
-        + `<a href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener"><img src="img/naver-map.png" alt="" width="16" height="16">네이버 지도<span class="sr-only"> (새 창)</span></a>`
-        + `<a href="https://map.kakao.com/link/search/${q}" target="_blank" rel="noopener"><img src="img/kakao-map.png" alt="" width="16" height="16">카카오맵<span class="sr-only"> (새 창)</span></a></span>`;
+        + `<a href="${esc(links.naver)}" target="_blank" rel="noopener"><img src="img/naver-map.png" alt="" width="16" height="16">네이버 지도<span class="sr-only"> (새 창)</span></a>`
+        + `<a href="${esc(links.kakao)}" target="_blank" rel="noopener"><img src="img/kakao-map.png" alt="" width="16" height="16">카카오맵<span class="sr-only"> (새 창)</span></a></span>`;
       rows.push(['장소', esc(p.facility) + (fac && fac.address ? `<span class="sub">${esc(fac.address)}</span>` : '') + route]);
     }
     rows.push(['접수 기간', p._applyStart || p._applyEnd ? `${p._applyStart ? fmt(p._applyStart) : ''} ~ ${p._applyEnd ? fmt(p._applyEnd) : ''}` : '기관에서 확인']);
@@ -1322,16 +1390,16 @@
 
     // 이미지 칸: 상세 페이지 대표 이미지가 있을 때만
     const media = p.image
-      ? `<figure class="d-media t-${p._type}"><a href="${esc(p.image)}" target="_blank" rel="noopener" aria-label="이미지 원본 보기 (새 창)"><img src="${esc(smallImage(p.image))}" data-orig="${esc(p.image)}" alt="${esc(splitTitle(p.title).main)} 안내 이미지" referrerpolicy="no-referrer"></a><span class="d-media-zoom" aria-hidden="true">${icon('zoom')}원본 보기</span></figure>`
+      ? `<figure class="d-media t-${p._type}"><button class="d-media-btn" type="button" data-zoom-img aria-label="안내 이미지 원본 크게 보기"><img src="${esc(smallImage(p.image))}" data-orig="${esc(p.image)}" alt="${esc(splitTitle(p.title).main)} 안내 이미지" referrerpolicy="no-referrer"></button><span class="d-media-zoom" aria-hidden="true">${icon('zoom')}원본 보기</span></figure>`
       : '';
 
     $('#drawer-org').innerHTML = typeTag(p._type, `${TYPE_LABEL[p._type] || ''} · ${org.name || ''}`);
     $('#drawer-body').innerHTML = `
       ${media}
       <div class="d-status">${badge(p)}<span class="${due.urgent ? 'is-urgent' : ''}">${esc(due.text)}</span></div>
-      ${splitTitle(p.title).kicker ? `<p class="d-kicker">${esc(splitTitle(p.title).kicker)}</p>` : ''}
+      ${kickerOf(p) ? `<p class="d-kicker">${esc(kickerOf(p))}</p>` : ''}
       <h2 id="drawer-title">${unitize(splitTitle(p.title).main)}</h2>
-      ${p.category ? `<p class="d-place">${esc(p.category)}</p>` : ''}
+      ${categoryOf(p) && categoryOf(p) !== kickerOf(p) ? `<p class="d-place">${esc(categoryOf(p))}</p>` : ''}
       <dl class="d-info">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
       ${p.description ? `<section class="d-desc"><h3>기관 소개글</h3><p>${esc(p.description)}</p></section>` : ''}
       <p class="d-note">${icon('info')}<span><span class="sent">${p._collected ? `<span class="nw">${fmt(p._collected)}에</span> ` : ''}${org.method === 'public' ? '서울시 공개 자료에서' : '기관 사이트에서'} 모은 정보예요.</span><span class="sent">신청 전에 <span class="nw">원문을 꼭</span> 확인해 주세요.</span></span></p>
@@ -1553,6 +1621,9 @@
     const hit = (sel) => t.closest(sel);
     let el;
     if (!hit('.share-wrap')) closeShareMenu();
+    // 안내 이미지 크게 보기: 열기 · 닫기 버튼 · 이미지 바깥 어두운 곳
+    if ((el = hit('[data-zoom-img]'))) { const im = el.querySelector('img'); openImageViewer(im.dataset.orig || im.src, im.alt, im.currentSrc || im.src); return; }
+    if (hit('.img-viewer-close') || t.classList.contains('img-viewer-body')) { closeImageViewer(); return; }
 
     if ((el = hit('[data-fav]'))) { toggleFav(el.dataset.fav); return; }
     if ((el = hit('[data-del-region]'))) { removeRegion(el.dataset.delRegion); return; }
@@ -1713,8 +1784,10 @@
 
   // Esc 닫기 + 열린 창 안에서만 Tab 이동
   document.addEventListener('keydown', (e) => {
-    const openBox = !$('#drawer').hidden ? $('#drawer') : (!$('#region-modal').hidden ? $('#region-modal') : null);
+    const viewer = $('#img-viewer');
+    const openBox = viewer && !viewer.hidden ? viewer : !$('#drawer').hidden ? $('#drawer') : (!$('#region-modal').hidden ? $('#region-modal') : null);
     if (e.key === 'Escape') {
+      if (closeImageViewer()) return;
       if (closeShareMenu(true)) return;
       if (!$('#drawer').hidden) closeDrawer();
       else if (!$('#region-modal').hidden) closeRegionModal();

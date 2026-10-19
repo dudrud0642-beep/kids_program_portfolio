@@ -119,5 +119,15 @@ function readDataFile(file) {
   return JSON.parse(text.slice(text.indexOf(' = {') + 3).trim().replace(/;\s*$/, ''));
 }
 
-module.exports = { ROOT, kstNow, kstToday, hash, assignIds, notEnded, loadState, saveState, stampFirstSeen,
+/* ---------- 좌표·주소가 없는 장소의 공식 정보 (data/raw/places.lookup.json) ---------- */
+// 서울시 공공서비스예약 자료에 좌표가 없으면 지도 앱 검색이 안 되는 곳이 있어, 공식 안내 페이지의 주소(또는 검색어)를 채운다
+const PLACES = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'raw', 'places.lookup.json'), 'utf8')).results; } catch (e) { return []; } })();
+const placeBase = (name) => String(name || '').replace(/\s*\(.*$/, '').replace(/\s+/g, ' ').trim();
+function fillPlace(fac, gu) {
+  if (fac.lat) return fac;
+  const hit = PLACES.find((r) => r.gu === gu && placeBase(r.name) === placeBase(fac.name));
+  return hit ? { ...fac, address: hit.address || fac.address, mapQuery: hit.mapQuery || null } : fac;
+}
+
+module.exports = { ROOT, kstNow, kstToday, hash, assignIds, notEnded, loadState, saveState, stampFirstSeen, fillPlace,
   AGE_TAGS, isDate, num, str, norm, normalizeProgram, readDataFile };

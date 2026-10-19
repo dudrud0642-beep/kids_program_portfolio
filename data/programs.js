@@ -157,357 +157,460 @@ window.KIDS_DATA = {
    "name": "평화문화진지",
    "address": "서울특별시 도봉구 마들로 932 평화문화진지",
    "area": "도봉동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/culturebunker.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/culturebunker.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "함석헌기념관",
    "address": "서울특별시 도봉구 도봉로 123길 33-6 (쌍문동)",
    "area": "쌍문동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/hamsokhon.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/hamsokhon.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "김수영문학관",
    "address": "서울특별시 도봉구 해등로32길 80(방학동)",
    "area": "방학동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/kimsuyoung.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/kimsuyoung.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "간송옛집",
    "address": "서울특별시 도봉구 시루봉로 149-18(방학동)",
    "area": "방학동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/kansong.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/kansong.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "마을극장 흰고무신",
    "address": "서울시 도봉구 시루봉로 15마길 13",
    "area": "방학동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/rubbershoes.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/rubbershoes.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "청소년 예술공간 채움",
    "address": "서울특별시 도봉구 도봉로 955 광역환승센터 1층",
    "area": "도봉동",
-   "url": "https://www.dbfac.or.kr/front/cultureplace/youthart.do"
+   "url": "https://www.dbfac.or.kr/front/cultureplace/youthart.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbfac",
    "name": "도봉구민회관 소공연장",
    "address": null,
    "area": null,
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dooly",
    "name": "둘리뮤지엄",
    "address": "서울특별시 도봉구 시루봉로1길 6(쌍문동)",
    "area": "쌍문동",
-   "url": "https://www.doolymuseum.or.kr/html/sub01/sub01_0106.php"
+   "url": "https://www.doolymuseum.or.kr/html/sub01/sub01_0106.php",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "familycenter",
    "name": "도봉구 가족센터",
    "address": "서울특별시 도봉구 도봉로 552 (창5동 303 도봉구민회관 2층)",
    "area": "창동",
-   "url": "https://dobong.familynet.or.kr/center/index.do"
+   "url": "https://dobong.familynet.or.kr/center/index.do",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "familycenter",
    "name": "공동육아나눔터 가족센터점",
    "address": "서울특별시 도봉구 도봉로 552 (창동) 2층 공동육아나눔터 가족센터점",
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "familycenter",
    "name": "공동육아나눔터 창동이음점",
    "address": "서울특별시 도봉구 덕릉로63길 53 (창동) 창동보건지소 3층 공동육아나눔터 창동이음점",
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "familycenter",
    "name": "공동육아나눔터 아이나라점",
    "address": "서울특별시 도봉구 노해로69길 151 (창동) 3층 공동육아나눔터 아이나라점",
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "familycenter",
    "name": "북한산생태탐방원 및 피카푸 글램핑장",
    "address": "서울특별시 도봉구 도봉산길 86 (도봉동) 북한산생태탐방원 및 피카푸 글램핑장",
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "도봉문화정보도서관",
    "address": "(01485) 서울시 도봉구 덕릉로 315",
    "area": "창동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=450"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=450",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "도봉아이나라도서관",
    "address": "(01411) 서울 도봉구 노해로 69길 151",
    "area": "창동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=455"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=455",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "학마을도서관",
    "address": "(01359) 서울 도봉구 시루봉로 128",
    "area": "방학동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=460"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=460",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "도봉기적의도서관",
    "address": "(01320) 서울 도봉구 마들로 797",
    "area": "도봉동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=465"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=465",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "쌍문채움도서관",
    "address": "(01450) 서울 도봉구 우이천로 340",
    "area": "쌍문동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=470"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=470",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "원당마을한옥도서관",
    "address": "(01360) 서울 도봉구 해등로32가길 17",
    "area": "방학동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=475"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=475",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "둘리도서관",
    "address": "(01376) 서울 도봉구 시루봉로1길 6",
    "area": "쌍문동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=480"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=480",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "김근태기념도서관",
    "address": "(01301) 서울 도봉구 도봉산길 14",
    "area": "도봉동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=485"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=485",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "무수골도서관",
    "address": "(01305) 서울 도봉구 도봉로175길 10, 3층",
    "area": "도봉동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=400"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=400",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "도봉구청 야외도서관",
    "address": "마들로 656 도봉구청",
    "area": "방학동",
-   "url": null
+   "url": null,
+   "lat": null,
+   "lng": null
   },
   {
    "org": "unilib",
    "name": "도봉구청 행복작은도서관",
    "address": "(01331) 서울 도봉구 마들로 656, 지하1층",
    "area": "방학동",
-   "url": "https://www.unilib.dobong.kr/contents.do?idx=398"
+   "url": "https://www.unilib.dobong.kr/contents.do?idx=398",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "yeyak",
    "name": "꽃동네책쉼터",
    "address": null,
    "area": "방학동",
-   "url": null
+   "url": null,
+   "lat": 37.654545,
+   "lng": 127.021222
   },
   {
    "org": "yeyak",
    "name": "서울창포원",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.68954,
+   "lng": 127.0472
   },
   {
    "org": "yeyak",
    "name": "초안산가드닝센터 본관",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.647491,
+   "lng": 127.046679
   },
   {
    "org": "yeyak",
    "name": "초안산가드닝센터 별관(예술공방)",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.647509,
+   "lng": 127.046599
   },
   {
    "org": "yeyak",
    "name": "뚝딱뚝딱놀이터",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.642791,
+   "lng": 127.048569
   },
   {
    "org": "yeyak",
    "name": "무수골 녹색복지센터(산림치유센터)",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.67686,
+   "lng": 127.03228
   },
   {
    "org": "yeyak",
    "name": "발바닥공원 힐링센터",
    "address": null,
    "area": "방학동",
-   "url": null
+   "url": null,
+   "lat": 37.65961,
+   "lng": 127.02972
   },
   {
    "org": "yeyak",
    "name": "시립창동인터넷중독예방상담센터",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.658035,
+   "lng": 127.05024
   },
   {
    "org": "yeyak",
    "name": "서울창포원 방문자센터",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.69155,
+   "lng": 127.04701
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 노해로 227 (쌍문동)",
    "address": null,
    "area": "쌍문동",
-   "url": null
+   "url": null,
+   "lat": 37.65135,
+   "lng": 127.03349
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 마들로 656 도봉구청사, 지하1층 (방학동)",
    "address": null,
    "area": "방학동",
-   "url": null
+   "url": null,
+   "lat": 37.668775,
+   "lng": 127.047172
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 해등로4길 38 초안산생태공원 내 위치 (창동)",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.64882,
+   "lng": 127.04554
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 도봉로180나길 19 1층, (도봉동, 힐스테이트 도봉역 웰가)",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.68316,
+   "lng": 127.04793
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 마들로 668  (도봉동)",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.66967,
+   "lng": 127.04653
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 창포원로 45 다락원체육공원 평화울림터 옆 잔디마당 (도봉동)",
    "address": null,
    "area": "도봉동",
-   "url": null
+   "url": null,
+   "lat": 37.691227,
+   "lng": 127.048858
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 도당로 70  (방학동, 쏘네하임 103동 1층)",
    "address": null,
    "area": "방학동",
-   "url": null
+   "url": null,
+   "lat": 37.664207,
+   "lng": 127.035397
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 우이천로4길 24-5 육아종합지원센터(창동), 1층 (창동)",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.63354,
+   "lng": 127.04106
   },
   {
    "org": "yeyak",
    "name": "서울특별시 도봉구 시루봉로 31  (쌍문동)",
    "address": null,
    "area": "쌍문동",
-   "url": null
+   "url": null,
+   "lat": 37.653661,
+   "lng": 127.027198
   },
   {
    "org": "yeyak",
    "name": "서울로봇인공지능과학관",
    "address": null,
    "area": "창동",
-   "url": null
+   "url": null,
+   "lat": 37.655518,
+   "lng": 127.049494
   },
   {
    "org": "childcare",
    "name": "도봉구육아종합지원센터 방학센터",
    "address": "서울 도봉구 방학로 12길 28",
    "area": "방학동",
-   "url": "https://www.doccic.go.kr/center/location.html"
+   "url": "https://www.doccic.go.kr/center/location.html",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "childcare",
    "name": "도봉구육아종합지원센터 창동센터",
    "address": "서울 도봉구 우이천로 4길 24-5",
    "area": "창동",
-   "url": "https://www.doccic.go.kr/center/location.html"
+   "url": "https://www.doccic.go.kr/center/location.html",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "childcare",
    "name": "초안산근린공원 창골축구장",
    "address": "초안산근린공원 내 창골축구장 (창1동주민센터 인근)",
    "area": null,
-   "url": "https://www.doccic.go.kr/community/news.php?pagenumber=1&at=view&idx=578"
+   "url": "https://www.doccic.go.kr/community/news.php?pagenumber=1&at=view&idx=578",
+   "lat": null,
+   "lng": null,
+   "mapQuery": "도봉구 창골축구장"
   },
   {
    "org": "cdyouth",
    "name": "시립창동청소년센터",
    "address": "서울시 도봉구 노해로 69길 132",
    "area": "창동",
-   "url": "https://www.cdyouth.or.kr/sub01/sub07.php"
+   "url": "https://www.cdyouth.or.kr/sub01/sub07.php",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "smy",
    "name": "쌍문동청소년문화의집",
    "address": "서울 도봉구 시루봉로2길 34 (쌍문동, 쌍문동 청소년문화의집)",
    "area": "쌍문동",
-   "url": "https://www.smy.or.kr/"
+   "url": "https://www.smy.or.kr/",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dazzl",
    "name": "창동청소년문화의집",
    "address": "서울특별시 도봉구 덕릉로62길 89 (창동 462-2)",
    "area": "창동",
-   "url": "http://www.dazzl.org/default/menu1/menu1_5.php?menu=1&sub=5"
+   "url": "http://www.dazzl.org/default/menu1/menu1_5.php?menu=1&sub=5",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "dbase",
    "name": "도봉동청소년문화의집 D.Base",
    "address": "서울 도봉구 도봉로180나길 33-61 (도봉동)",
    "area": "도봉동",
-   "url": "https://dbase.or.kr/"
+   "url": "https://dbase.or.kr/",
+   "lat": null,
+   "lng": null
   },
   {
    "org": "youthland",
    "name": "쌍문동청소년랜드",
    "address": "서울특별시 도봉구 노해로 140 쌍문동청소년랜드",
    "area": "쌍문동",
-   "url": "http://www.youthland.net/index.php/page/directions/58"
+   "url": "http://www.youthland.net/index.php/page/directions/58",
+   "lat": null,
+   "lng": null
   }
  ],
  "programs": [
