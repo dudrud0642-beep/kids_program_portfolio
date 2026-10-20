@@ -1,15 +1,15 @@
 /* 자동 생성: scripts/update.js — 출처별 마지막 수집 결과 */
 window.KIDS_STATUS = {
- "updatedAt": "2026-10-20T09:03+09:00",
+ "updatedAt": "2026-10-21T08:34+09:00",
  "sources": {
   "seoul-api": {
    "name": "서울시 공공서비스예약",
    "schedule": "daily",
-   "ok": false,
-   "lastAttempt": "2026-10-20T09:03+09:00",
-   "lastSuccess": "2026-10-19T18:45+09:00",
-   "count": 776,
-   "error": "공공서비스예약 수집 실패: fetch failed"
+   "ok": true,
+   "lastAttempt": "2026-10-21T08:34+09:00",
+   "lastSuccess": "2026-10-21T08:34+09:00",
+   "count": 863,
+   "error": null
   },
   "11100/family": {
    "name": "도봉구 가족센터",
