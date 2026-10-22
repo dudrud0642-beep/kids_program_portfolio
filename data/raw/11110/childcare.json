@@ -3,7 +3,7 @@
  "sourceName": "노원구육아종합지원센터",
  "sourceUrl": "https://www.nwscc.or.kr",
  "listUrl": "https://www.nwscc.or.kr:46627/new/study/care.php",
- "collectedAt": "2026-10-19",
+ "collectedAt": "2026-10-22",
  "howToCollect": "Official site https://www.nwscc.or.kr redirects to https://www.nwscc.or.kr:46627/new/main/ (nginx/PHP, EUC-KR pages; on 2026-10-15 the target was port 46627). robots.txt on both origins = \"User-agent: * / Allow: /\" (checked every run). All dated programs of the center and its branches (놀이아띠 toy libraries, 도담도담나눔터 공동육아방) are on one calendar, 교육 및 행사 신청: GET /new/study/care.php?pno=050700&yy=YYYY&mm=M[&page3=N] (plain GET, no cookies). Each page has a month grid (table.__scheTbl, idx in modeChange('idx',...), no times) and a list table.__tblList (20 rows/page; columns 일정 \"YYYY-MM-DD (요일) HH:MM~HH:MM\" | 구분 | 제목 | 신청/정원/대기); pagination is page3=N (the page's goPage3() JS is missing, the GET param works). Empty month row: \"등록된 교육 및 행사 일정이 없습니다.\". We read the current and next month and check that every grid idx appears in the list. Detail (\"일정보기\") is filled by an iframe script: GET /new/study/schedule_proc.php?pno=050700&idx=N returns JS setting info0 구분, info1 일정 (\"YYYY.M.D (요일) ~ YYYY.M.D (요일) / HH:MM~HH:MM\"; 체험행사 uses \"YYYY-MM-DD (요일) HH:MM~HH:MM\"), info2 조회수 (our requests probably count as views), info3 제목, info3_max 교육정원 (\"12명\"), info3_fee 교육비 (\"무료\"), info3_2_1 신청기간 (\"YYYY-MM-DD HH:MM ~ YYYY-MM-DD HH:MM\"; applyStart/End keep only the dates as written, an end of \"00:00\" means the period closes at the start of that day), info4 body HTML (usually empty or a poster image; target/age/venue details are only in the images, not read), info5 신청인원. No login needed to view; applying (\"온라인 신청하기\") alerts \"회원만 신청할 수 있습니다.\" and 도담도담나눔터 예약 (/new/raise/time4.php) redirects to login, so neither is used. Stable public link per program: /new/study/care.php?main=Y&mainv={idx}&mainx=ok&yy=YYYY&mm=M (opens the detail view; used as url/ID). Dates on the site carry the year, no inference needed. Each session is its own row/idx (weekly series are separate rows); rows dated before today are still opened once to catch multi-day ranges. statusText is null: the 마감/대기 button label set by the detail script targets an element (btnOk02) that does not exist on the page, so no status is shown to users; applied/capacity come from 신청인원/교육정원 (list 신청/정원/대기 as fallback; 정원 0 → null). target is null unless the body text has a \"대상: ...\" line; ageTags only from explicit words (구분 부모교육 → parent; 부모-자녀/가족 → family; [영아]/[유아] or target wording → infant/preschool; parent-only lectures get no child-age tags). facility = branch named in the title prefix ([도담도담나눔터] / [놀이아띠] + 지점) else the center; the actual room is not stated, so plain \"도담도담나눔터\" has no address. Addresses are copied from the 오시는 길 pages (/new/center/location*.html). Excluded: 구분 교사교육 (보육교직원) and 평가제 (어린이집); 구분 도담도담나눔터 = \"(기관)\" 공동육아방 time slots for daycare centers; [공통부모교육] 부모-자녀체험활동/찾아가는 공통부모교육 whose body says daycare centers apply with a 기관아이디 (capacity 1 = one daycare); 체험행사 unless the text says (개인)/가족/부모/자녀 (e.g. \"[문화공연] 어린이 소방안전교육\" was booked by 어린이집); services [놀이아띠]장난감병원 (toy repair slots) and [백.돌.이] 백일 돌상 포토존 (photo-zone rental slots); 장난감 대여/토이붕붕 and the toy catalogue (/new/raise/dab3.php). Scope: programEnd >= collectedAt and programStart within 60 days.",
  "facilities": [
   {
@@ -20,75 +20,6 @@
   }
  ],
  "programs": [
-  {
-   "title": "[공통부모교육] 아동학대 예방 부모교육",
-   "facility": "노원구육아종합지원센터",
-   "category": "부모교육",
-   "target": null,
-   "ageTags": [
-    "parent"
-   ],
-   "programStart": "2026-10-21",
-   "programEnd": "2026-10-21",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-09-21",
-   "applyEnd": "2026-10-19",
-   "applyMethod": "온라인 신청하기 (회원만 신청할 수 있습니다)",
-   "capacity": 20,
-   "applied": 13,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": null,
-   "url": "https://www.nwscc.or.kr:46627/new/study/care.php?main=Y&mainv=20781&mainx=ok&yy=2026&mm=10",
-   "description": "2026년 9월 21일 14:00부터 신청가능합니다."
-  },
-  {
-   "title": "[도담도담나눔터]부모교육(영유아 부모를 위한 성교육)",
-   "facility": "도담도담나눔터",
-   "category": "부모교육",
-   "target": null,
-   "ageTags": [
-    "parent"
-   ],
-   "programStart": "2026-10-21",
-   "programEnd": "2026-10-21",
-   "schedule": "13:00~15:00",
-   "sessions": null,
-   "applyStart": "2026-09-28",
-   "applyEnd": "2026-10-21",
-   "applyMethod": "온라인 신청하기 (회원만 신청할 수 있습니다)",
-   "capacity": 15,
-   "applied": 15,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": null,
-   "url": "https://www.nwscc.or.kr:46627/new/study/care.php?main=Y&mainv=20831&mainx=ok&yy=2026&mm=10",
-   "description": null
-  },
-  {
-   "title": "[공통부모교육] 집에서도 놀면서 자란다! - 우리집 식생활 토크쇼, 부모 클라쓰 업!",
-   "facility": "노원구육아종합지원센터",
-   "category": "부모교육",
-   "target": null,
-   "ageTags": [
-    "parent"
-   ],
-   "programStart": "2026-10-21",
-   "programEnd": "2026-10-21",
-   "schedule": null,
-   "sessions": null,
-   "applyStart": "2026-10-21",
-   "applyEnd": "2026-10-28",
-   "applyMethod": "온라인 신청하기 (회원만 신청할 수 있습니다)",
-   "capacity": 115,
-   "applied": 0,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": null,
-   "url": "https://www.nwscc.or.kr:46627/new/study/care.php?main=Y&mainv=20833&mainx=ok&yy=2026&mm=10",
-   "description": "10월 21일 14시부터 신청가능합니다. 교육 신청 확정자에게 동영상 링크와 놀이키트 신청링크를 보내드립니다."
-  },
   {
    "title": "[영유아발달지원] 부모힐링프로그램 '숲에서 만난 쉼'",
    "facility": "노원구육아종합지원센터",
@@ -172,7 +103,7 @@
    "applyEnd": "2026-11-09",
    "applyMethod": "온라인 신청하기 (회원만 신청할 수 있습니다)",
    "capacity": 20,
-   "applied": 3,
+   "applied": 5,
    "fee": 0,
    "feeText": "무료",
    "statusText": null,
