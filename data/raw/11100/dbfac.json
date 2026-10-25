@@ -3,7 +3,7 @@
  "sourceName": "도봉문화재단",
  "sourceUrl": "https://www.dbfac.or.kr",
  "listUrl": "https://www.dbfac.or.kr/front/supportManageReq/supportManageListPage.do",
- "collectedAt": "2026-10-22",
+ "collectedAt": "2026-10-26",
  "howToCollect": "[1] 문화프로그램 목록(주 소스): GET https://www.dbfac.or.kr/front/supportManageReq/supportManageListPage.do?miv_pageNo={n}&miv_pageSize=200&mode=V&searchkey=NAME&search_gb=All&search_gb2=&searchType=title&searchtxt= (서버 렌더링 HTML, p.postNum \"TOTAL N건\"). miv_pageSize는 서버가 그대로 받아 200건을 한 번에 읽는다(정렬이 날짜순이 아니라 최근 글 200건 안에서 날짜로 거름, 200번째 글도 1년 안이면 다음 쪽까지). 항목: <a href=\"javascript:supportManageViewPage('{seq}','{gubun}')\"> + span.programType + span.programTit + span.programDate(\"기간 YYYY-MM-DD ~ YYYY-MM-DD\"). 목록 날짜가 접수기간인 글도 있어, 끝난 지 45일 안 된 글까지 상세를 읽고 상세의 기간으로 다시 거른다. [2] 시설 탭: search_gb2=09(둘리뮤지엄)·08(구립도서관) 목록을 따로 받아 그 글은 뺀다(둘리뮤지엄은 dooly.js, 도서관은 unilib.js가 맡음). 다른 탭 코드: 01 도봉문화재단, 06 평화문화진지, 11 서울청년센터 도봉, 03 김수영문학관, 04 함석헌기념관, 05 간송옛집, 12 마을극장 흰고무신, 13 청소년 예술공간 채움. [3] 상세: GET https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq={seq}&gubun={gubun} (gubun 01 공연, 02 전시, 03 행사, 04 체험, 05 교육). div.programInfo h4(제목), table.boardViewTable의 th/td: 구분(category), 장소(facility — \"함석헌기념관 유리온실\"처럼 아는 시설 이름으로 시작하면 그 이름), 기간(YYYY.MM.DD ~ YYYY.MM.DD), 시간(schedule 그대로), 대상(target), 모집인원(\"N 명\"→capacity), 접수기간, 기본비용(\"N 원\"; \"0 원\"은 0), 부가비용. 빈 칸은 \" 명\", \" ~ \", \" 원\"으로 나와 null. 본문 div.boardViewConP는 포스터 이미지만 있는 경우가 많다(예: seq=1360) — 글자가 있으면 \"신청방법:\"/\"접수:\" 줄을 applyMethod로, \"참가비:\"/\"수강료:\" 줄을 요금 칸이 비었을 때만 쓰고, 소개 문단을 description으로 쓴다. 이미지 속 글자(OCR)·이미지 파일 이름은 쓰지 않아 statusText·applied는 늘 null. [4] 평화문화진지(재단 운영, WordPress): 분류 목록 GET https://culturebunker.or.kr/archives/tax_program/{education|event|concert|exhibition} (쪽당 10건, 새 글부터; ul.program__list li a[href] + h2 제목). 상세 https://culturebunker.or.kr/archives/program/{slug} 의 div.view__detail--text (h2 제목 + 본문). REST API(/wp-json)는 보안 플러그인이 막아 쓰지 않는다. 분류마다 새 글부터 상세를 읽고, 지난(또는 날짜 없는) 글이 3개 이어지면 멈춘다. 본문의 항목 줄 중 처음 나오는 것만 쓴다: 일시/운영일시/일정/기간 → schedule·programStart/End, 대상/참여대상/관람대상/모집대상 → target, 신청방법/참여방법/접수 → applyMethod, 신청기간/접수기간 → applyStart/End, 참가비/참여비/관람료/수강료 또는 \"전석 무료\" 줄 → fee·feeText, 인원/모집인원 → capacity, \"총 N회\" → sessions. 여러 하위 프로그램을 나열한 글은 맨 앞(행사 전체) 항목만 쓴다. 연도 보정: \"2026. 10. 10.(토) ~ 10. 31.(토)\"처럼 끝 날짜에 연도가 없으면 앞 날짜의 연도를 이어받는다(끝이 앞보다 이르면 다음 해). 연도가 하나도 없는 일정(\"8/6 ~ 8/27\", \"10~11월\")은 날짜를 null로 두고 그 글은 뺀다. 같은 프로그램이 재단 목록(시설 탭 06)에도 있으면 평화문화진지 글을 남긴다. [5] 공지사항 게시판(GET /front/board/boardContentsListPage.do?board_id=1, 목록은 POST /front/board/boardContentsList.do)은 형식 없는 글·포스터라 자동 수집에서 뺀다(꿈의극단처럼 공지에만 올라오는 모집은 수동 확인 필요). [6] 고르는 기준: 대상 글자에 아이·가족 대상이 드러난 것만(어린이·아동·유아·초등·N세·N개월·가족 등). \"자유관람\", \"일반인 누구나\", \"주민\", \"방문객 누구나\", \"프로그램별 상이\", 성인·청년·55세 이상 대상은 뺀다. 기간 끝 ≥ 오늘, 시작 ≤ 오늘+90일. ageTags는 대상 글자에서만(unilib.js와 같은 규칙: \"36개월 이상\"은 preschool부터, \"N세 이상\"은 초등까지, 가족·보호자·동반 → family).",
  "facilities": [
   {
@@ -50,31 +50,6 @@
   }
  ],
  "programs": [
-  {
-   "title": "2026 10월 도봉아트극장 <동물원에 간 고양이>",
-   "facility": "도봉구민회관 소공연장",
-   "category": "공연",
-   "target": "도봉구주민누구나(권장연령 36개월이상)",
-   "ageTags": [
-    "preschool",
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-10-22",
-   "programEnd": "2026-10-22",
-   "schedule": "19:00",
-   "sessions": null,
-   "applyStart": null,
-   "applyEnd": null,
-   "applyMethod": null,
-   "capacity": 180,
-   "applied": null,
-   "fee": null,
-   "feeText": null,
-   "statusText": null,
-   "url": "https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq=1360&gubun=01",
-   "description": null
-  },
   {
    "title": "[교육] 평화로운 토요일 북아트 원데이 클래스 프로그램 사전예약 참여자 모집 및 안내",
    "facility": "평화문화진지",

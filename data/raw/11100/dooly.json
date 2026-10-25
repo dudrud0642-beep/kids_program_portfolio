@@ -3,7 +3,7 @@
  "sourceName": "둘리뮤지엄",
  "sourceUrl": "https://www.doolymuseum.or.kr",
  "listUrl": "https://www.doolymuseum.or.kr/html/sub05/sub05_0501.php",
- "collectedAt": "2026-10-22",
+ "collectedAt": "2026-10-26",
  "howToCollect": "[1] 교육·행사 목록: GET https://www.doolymuseum.or.kr/html/sub05/sub05_0501.php?cate2=&searchField=&searchText=&only_ing=&page={n} (서버 렌더링 HTML, 쪽당 9건, idx 내림차순). 카드 div.row.gallery_body > div.col-md-4: a[href=\"sub05_0501_view.php?idx={idx}\"], div.category(분류: 특강/교육/행사/전시연계/기타), p.subject(제목 — \"<호이 호이 ! …>\"처럼 꺾쇠 글자가 그대로 들어 있음), \"신청기간 : YYYY-MM-DD~YYYY-MM-DD\", \"교육기간 : …\", \"대상 : …\", \"선착순 : {신청} / {정원} ( 대기 : N명 )\", div.info-status(마감 등). 교육기간 끝 ≥ 오늘인 카드가 한 장도 없는 쪽에서 멈춘다(최대 5쪽). 전체 목록 첫 쪽에 카드가 하나도 없으면 구조가 바뀐 것으로 보고 실패 처리. only_ing=Y(모집 중만) 결과가 비어 있는 것은 정상. [2] 교육 상세: GET https://www.doolymuseum.or.kr/html/sub05/sub05_0501_view.php?idx={idx} — div.content-txt의 dl(교육명, 접수기간, 교육기간, 모집대상, 모집인원 \"선착순 70 / 70\", 교육장소, 참가비 \"무료\"), div.btn-status2(상태), 본문 div.bt-content(글자 줄만 소개글로; 포스터 이미지는 읽지 않음). 시간 칸이 없어 schedule은 null. applyMethod는 모집인원 칸의 방식 글자(선착순). sessions는 본문의 \"총 N회\"(여러 날에 걸친 교육만). [3] 기획전시·행사: 같은 전시가 도봉문화재단 문화프로그램의 둘리뮤지엄 탭에 표 형식으로 올라오므로 그쪽을 쓴다. 목록 GET https://www.dbfac.or.kr/front/supportManageReq/supportManageListPage.do?miv_pageNo=1&miv_pageSize=50&mode=V&searchkey=NAME&search_gb=All&search_gb2=09&searchType=title&searchtxt= , 상세 GET https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq={seq}&gubun={gubun} (table.boardViewTable: 구분, 장소, 기간, 시간, 대상, 모집인원, 접수기간, 기본비용). 장소에 \"둘리뮤지엄\"이 없는 글(익산·태백 순회전과 연계 교육·관광투어 등 도봉구 밖 행사)은 뺀다. 둘리뮤지엄은 어린이 박물관이라 자체 전시(구분=전시)는 대상 글자와 관계없이 넣고(ageTags는 대상 글자에서만 → \"둘리뮤지엄 관람객\"이면 빈 배열), 공연·행사·교육·체험은 대상에 아이·가족이 드러난 것만 넣는다. 교육 목록[1]과 같은 프로그램이면 [1]을 남긴다. 둘리뮤지엄 자체 기획전시 게시판(/html/sub06/sub06_0603.php?bbsCode=sub0603)은 같은 내용이라 읽지 않는다. [4] 공지사항(/html/sub04/sub04_0401.php?bbsCode=sub0401)은 형식 없는 글·포스터라 자동 수집에서 뺀다(예: \"찾아가는 둘리 인형탈\"처럼 공지에만 올라오는 행사는 수동 확인 필요). [5] 고르는 기준: 기간 끝 ≥ 오늘, 시작 ≤ 오늘+90일. 대상 \"누구나\"만 적힌 교육은 빼고, \"누구나 (13세 이하 보호자 동반 필수)\"처럼 아이·보호자가 드러나면 넣는다. ageTags 규칙은 unilib.js와 같다. 주소: https://www.doolymuseum.or.kr/html/sub01/sub01_0106.php (\"도로\" 줄).",
  "facilities": [
   {
@@ -13,27 +13,5 @@
    "url": "https://www.doolymuseum.or.kr/html/sub01/sub01_0106.php"
   }
  ],
- "programs": [
-  {
-   "title": "둘리와 함께 그린<소중한 약속> 순회전시 개최",
-   "facility": "둘리뮤지엄",
-   "category": "전시",
-   "target": "둘리뮤지엄 관람객",
-   "ageTags": [],
-   "programStart": "2026-05-02",
-   "programEnd": "2026-10-25",
-   "schedule": "10:00~18:00",
-   "sessions": null,
-   "applyStart": null,
-   "applyEnd": null,
-   "applyMethod": null,
-   "capacity": null,
-   "applied": null,
-   "fee": null,
-   "feeText": null,
-   "statusText": null,
-   "url": "https://www.dbfac.or.kr/front/supportManageReq/supportManageView.do?mode=V&seq=1312&gubun=02",
-   "description": "생명의 다양성과 환경 메시지가 담긴 둘리 만화 에피소드 소개와 함께 「바다와 약속해」,「정말 소중한 건」 환경 동화를 바탕으로 구성된 체혐형 전시 입니다. 이번 전시는 친환경 종이 소재를 활용해 전시 공간을 구성하여, 아이들이 자연스럽게 환경의 소증함을 느낄 수 있도록 기획되었습니다. 둘리뮤지엄에서 직접 보고, 만지고, 체험해보세요."
-  }
- ]
+ "programs": []
 }

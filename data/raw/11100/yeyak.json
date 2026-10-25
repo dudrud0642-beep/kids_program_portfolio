@@ -3,7 +3,7 @@
  "sourceName": "서울시 공공서비스예약 (도봉구)",
  "sourceUrl": "https://yeyak.seoul.go.kr",
  "listUrl": "https://data.seoul.go.kr/dataList/OA-20497/S/1/datasetView.do",
- "collectedAt": "2026-10-25",
+ "collectedAt": "2026-10-26",
  "howToCollect": "scripts/collect-seoul-api.js(서울 열린데이터광장 공공서비스예약 정보 API) → scripts/build-regions.js가 도봉구 몫만 이 파일로 씀. 장소의 동은 장소 좌표로 찾음.",
  "facilities": [
   {
@@ -119,12 +119,76 @@
    "lng": 127.05024
   },
   {
-   "name": "서울창포원 방문자센터",
+   "name": "서울특별시 도봉구 노해로 227 (쌍문동)",
+   "address": null,
+   "area": "쌍문동",
+   "url": null,
+   "lat": 37.65135,
+   "lng": 127.03349
+  },
+  {
+   "name": "서울특별시 도봉구 마들로 656 도봉구청사, 지하1층 (방학동)",
+   "address": null,
+   "area": "방학동",
+   "url": null,
+   "lat": 37.668775,
+   "lng": 127.047172
+  },
+  {
+   "name": "서울특별시 도봉구 해등로4길 38 초안산생태공원 내 위치 (창동)",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.64882,
+   "lng": 127.04554
+  },
+  {
+   "name": "서울특별시 도봉구 도봉로180나길 19 1층, (도봉동, 힐스테이트 도봉역 웰가)",
    "address": null,
    "area": "도봉동",
    "url": null,
-   "lat": 37.69155,
-   "lng": 127.04701
+   "lat": 37.68316,
+   "lng": 127.04793
+  },
+  {
+   "name": "서울특별시 도봉구 마들로 668  (도봉동)",
+   "address": null,
+   "area": "도봉동",
+   "url": null,
+   "lat": 37.66967,
+   "lng": 127.04653
+  },
+  {
+   "name": "서울특별시 도봉구 창포원로 45 다락원체육공원 평화울림터 옆 잔디마당 (도봉동)",
+   "address": null,
+   "area": "도봉동",
+   "url": null,
+   "lat": 37.691227,
+   "lng": 127.048858
+  },
+  {
+   "name": "서울특별시 도봉구 도당로 70  (방학동, 쏘네하임 103동 1층)",
+   "address": null,
+   "area": "방학동",
+   "url": null,
+   "lat": 37.664207,
+   "lng": 127.035397
+  },
+  {
+   "name": "서울특별시 도봉구 우이천로4길 24-5 육아종합지원센터(창동), 1층 (창동)",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.63354,
+   "lng": 127.04106
+  },
+  {
+   "name": "서울특별시 도봉구 시루봉로 31  (쌍문동)",
+   "address": null,
+   "area": "쌍문동",
+   "url": null,
+   "lat": 37.653661,
+   "lng": 127.027198
   },
   {
    "name": "서울로봇인공지능과학관",
@@ -970,30 +1034,220 @@
    "description": "시립창동인터넷중독예방상담센터에서는 가족과의 소통과 화합, 청소년의 스마트폰 과의존 예방을 위해 다양한 체험 프로그램을 준비했습니다. 많은 신청 부탁드립니다!!! 반드시 구글폼으로 신청바랍니다. 해당 예약서비스는 이용하지 않습니다. 1. 일시: 1차 - 11월 14일(토) 15:00~17:00 / 2차 - 11월 21일(토) 10:00~12:00 2. 장소: 1차 -시립강북청소년센터 인공암벽장 / 2차-메이커스쿨 도봉 *본 일정과 장소는 기관사정에 따라 변경 될 수 있습니다. 3. 대상: 청소년(07년생~17년생)이 포함된 가족 누구…"
   },
   {
-   "title": "[주말/가족프로그램] 9-10월 라임 위.크.앤.드.",
-   "facility": "서울로봇인공지능과학관",
-   "category": "교육강좌 > 자연/과학",
-   "target": "가족(7, 8세 이상 ~ )",
+   "title": "서울형 키즈카페 도봉구 쌍문2동점(쌍문별 탐험대)",
+   "facility": "서울특별시 도봉구 노해로 227 (쌍문동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
    "ageTags": [
-    "elem-low",
-    "elem-high",
-    "family"
+    "preschool"
    ],
-   "programStart": "2026-08-10",
-   "programEnd": "2026-10-25",
-   "schedule": "토·일요일 10:00~16:00",
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
    "sessions": null,
-   "applyStart": "2026-08-15",
-   "applyEnd": "2026-10-24",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 08/15 10:00부터",
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수종료",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S260809150617465736",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1786415413007A84SCQ32E2D6VNQSZNN4JEM68",
-   "description": "가족과 함께하는 주말 교육프로그램 라임 위 . 크 . 앤 . 드 . (We Create robot And Dream) - 서울로봇인공지능과학관 , a.k.a. RAIM 에서 초대장 이 도착했습니다📨 - 🎉여러분들을 주말가족 일일교육프로그램 '라임 위 . 크 . 앤 . 드 . ' 에 초대합니다 !🎉 🪄 가족 과 함께 주말 을 라임에서 신나게 보내볼까요 ?🏃 ♂️✨ 지금 바로 신청하러 GoGo~~🏃 ♂️ ➡️🏃 ➡️🏃 ♀️ ➡️ 💙 접 수 : 26. 8. 15. 10:00 ~ 서울시공공서비스예약 *참여자의 이름 과 나이…"
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241103",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/12/27/70005b44-28c2-41e2-af6d-848bf0a5c663.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 방학1동점1호점(오르봉내리봉)",
+   "facility": "서울특별시 도봉구 마들로 656 도봉구청사, 지하1층 (방학동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB231201",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/2/4/110cf71f-7052-4dc7-aef3-445b2e7fc6ac.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 창1동점(숲속유람선 뚜뚜)",
+   "facility": "서울특별시 도봉구 해등로4길 38 초안산생태공원 내 위치 (창동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB231202",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/11/25/d016fd6d-fd3c-487e-ace4-cb6124494d7c.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 도봉2동2호점(HOLA(올라) PLAY GROUND)",
+   "facility": "서울특별시 도봉구 도봉로180나길 19 1층, (도봉동, 힐스테이트 도봉역 웰가)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241102",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2024/12/24/c299684d-cd30-41e1-ae1e-484dadc404f1.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 도봉2동1호점(봉봉트레킹)",
+   "facility": "서울특별시 도봉구 마들로 668  (도봉동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB231001",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/8/28/636173db-3c38-4554-bf69-035fb5b290e9.jpg",
+   "description": null
+  },
+  {
+   "title": "도봉구 다락원체육공원",
+   "facility": "서울특별시 도봉구 창포원로 45 다락원체육공원 평화울림터 옆 잔디마당 (도봉동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB250801",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/4/1/b0ecfdd6-7688-41a6-b27b-085b37da460f.png",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 방학1동2호점(오밀조밀숲, 놀다람)",
+   "facility": "서울특별시 도봉구 도당로 70  (방학동, 쏘네하임 103동 1층)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB250401",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/7/13a84e08-c41b-455d-aafa-02e8540292b8.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 창3동점(우당탕탕 숲속대탐험)",
+   "facility": "서울특별시 도봉구 우이천로4길 24-5 육아종합지원센터(창동), 1층 (창동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB241101",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2025/5/15/988d7db5-851c-410f-8a64-822de7966eb2.jpg",
+   "description": null
+  },
+  {
+   "title": "서울형 키즈카페 도봉구 둘리쌍문근린공원점(호이호이 비밀의 숲)",
+   "facility": "서울특별시 도봉구 시루봉로 31  (쌍문동)",
+   "category": "문화체험 > 서울형키즈카페",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-10-25",
+   "programEnd": "2026-11-02",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-10-25",
+   "applyEnd": "2026-11-02",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://umppa.seoul.go.kr/icare/user/kidsCafeResve/BD_selectKidsCafeResveCal.do?q_fcltyId=DB260801",
+   "image": "https://umppa.seoul.go.kr/icare/upload/fcltyInfoManage/2026/10/8/10fc9ca6-0f3e-4bfa-ab06-bda732054b76.jpg",
+   "description": null
   },
   {
    "title": "[주말/8주 교육프로그램/초 3-6학년] 라임 아지트(RAIM AZIT)",
