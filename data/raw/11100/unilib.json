@@ -3,7 +3,7 @@
  "sourceName": "도봉구통합도서관",
  "sourceUrl": "https://www.unilib.dobong.kr",
  "listUrl": "https://www.unilib.dobong.kr/contents.do?idx=107",
- "collectedAt": "2026-10-26",
+ "collectedAt": "2026-10-29",
  "howToCollect": "[1] 독서문화프로그램: 목록 GET https://www.unilib.dobong.kr/edusat/list.do?v_page={n}&sh_ct_idx={도서관}&v_search=&v_keyword=&sh_edu_gubun=&sh_target_code=&sh_status= (서버 렌더링 HTML, UTF-8, 쪽당 20건, 대체로 등록 순 최신부터). sh_ct_idx: 2 도봉문화정보도서관, 3 도봉아이나라도서관, 4 학마을도서관, 5 도봉기적의도서관, 76 쌍문채움도서관, 84 원당마을한옥도서관, 7 둘리도서관, 83 김근태기념도서관, 8 공립작은도서관(목록 표기 \"공립작은도서관 > 작은도서관명\"), 77 통합사업(장소는 상세의 강의실 칸). sh_ct_idx를 비우면 2번과 같은 결과라 도서관마다 따로 읽는다. 목록 항목(div.lesson li): p.cate(도서관), p.tit a(제목, view.do?edu_idx=), div.sm_box의 dt/dd(접수기간·운영기간·수강대상·모집인원), div.btn_box의 a/span.btn_sm(상태, 상세가 없을 때만 씀). [2] 쪽 넘기기: 도서관마다 최소 2쪽, 그 뒤로는 운영 중인(운영기간 끝 ≥ 오늘) 항목이 하나도 없는 쪽이 나오면 멈춘다(최대 8쪽). 1년짜리 동아리처럼 오래전에 올린 장기 프로그램은 대개 다른 운영 중 항목들 사이에 있어 이 규칙으로 잡힌다. sh_target_code(대상 구분)는 도서관마다 다르게 붙여 믿을 수 없어 쓰지 않는다. [3] 상세: GET /edusat/view.do?edu_idx={id} — div.table_bview 안 div.title(제목 + a/span.btn_sm 상태: 접수준비/접수중/대기접수/접수마감/기간종료/확인불가/방문접수 등), dl의 dt/dd: 강좌기간(programStart~End), 강좌시간(schedule 그대로), 접수기간(applyStart~End, 시각은 버림), 수강대상(target), 모집인원(\"{신청} / {정원} (선착순)\" 또는 \"{정원} 명 (방문접수)\"; 괄호 안을 applyMethod로), 강의실, 참가비(\"무료\"→0, \"15,000원\"→15000, 빈칸→null), 강사. 본문 div.content는 포스터 이미지가 많아 글자 줄만 쓴다: \"[프로그램 소개]\" 같은 소개 머리가 있으면 그 아래 문단, 없으면 일시·장소·문의·신청 안내를 뺀 첫 문단(300자 이내). sessions는 본문의 \"총 N회/회차/차시\" 또는 \"N차시\"(여러 날짜에 걸친 프로그램만). [4] 문화교실(유료 강좌, 도봉문화정보도서관 2·도봉아이나라도서관 3만): 목록 /edusat2/list.do?v_page={n}&sh_ct_idx={2|3}, 상세 /edusat2/view.do?edu_idx={id}. 마크업은 같고 강좌기간 칸에 시간이 붙어 있으며 모집인원 dd가 닫히지 않는다(</dl>까지 읽음). [4-1] 요청 줄이기: 목록의 제목·운영기간·접수기간·수강대상·정원·방식이 지난 결과 파일과 같으면 상세에만 있는 값(참가비·소개·회차·강의실·강좌시간)은 지난 값을 쓰고, 신청 인원(모집인원의 앞 숫자)과 상태는 목록에서 새로 읽는다. 목록과 상세의 상태·인원 표기는 같다(2026-10-15에 50건 비교). 첫 후보 하나는 늘 상세를 읽어 상세 화면 구조를 확인한다. 첫 수집(지난 파일 없음) 때는 약 95회, 그 뒤로는 새 글 수만큼만 상세를 읽는다. [5] 고르는 기준: 수강대상 글자에 아이·가족 대상이 드러난 것만(어린이·아동·유아·초등·N세·N개월·가족·보호자 등). \"성인\", \"누구나\", \"12세 이상 관람가\", 청소년만 대상은 뺀다. 대상 칸이 비어 있으면(예: 북스타트 택배서비스) 뺀다. 운영기간 끝 ≥ 오늘이고 시작이 오늘+90일 이내인 것. 개수 제한 없음. 같은 행사가 회차별로 따로 올라오면 회차마다 한 건. [6] ageTags는 수강대상 글자에서만: 영아·N개월(36개월 미만)·0~2세 infant, 유아·미취학·3~7세·36개월 이상 preschool, 초등 1~3학년·8~10세 elem-low, 초등 4~6학년·11~13세 elem-high, \"초등학생\"은 둘 다, \"N세 이상\"은 위로 초등까지(12세 이상은 일반 관람 등급으로 보고 뺌), 범위(\"7세~초등 2학년\", \"19개월~초등 1학년\")는 사이 단계 모두, 출생연도(\"2020~2021년생\")는 다른 단서가 없을 때만 나이로 환산. 가족·보호자·양육자·부모 동반은 family. \"자녀를 둔 부모\", \"~양육자\"처럼 어른만 참여하는 것은 parent 하나만. \"어린이\"만 적힌 경우는 태그 없이 둔다. [7] facility: 목록 p.cate의 도서관 이름. 작은도서관은 \">\" 뒤 이름을 쓰고, 처음 보는 작은도서관이면 /contents.do?idx=394 메뉴에서 안내 페이지를 찾아 \"주소\" 칸을 읽는다. 통합사업은 강의실 칸(예: 도봉구청 야외도서관). 주소에 동 이름이 없어 area는 모두 null. 사이트 날짜는 모두 연도가 붙은 YYYY-MM-DD라 연도 보정 없음(없는 날짜 \"2026-04-31\" 같은 값은 null).",
  "facilities": [
   {
@@ -114,7 +114,7 @@
    "applyEnd": "2026-10-31",
    "applyMethod": "선착순",
    "capacity": 16,
-   "applied": 7,
+   "applied": 10,
    "fee": 20000,
    "feeText": "20,000원",
    "statusText": "접수중",
@@ -160,7 +160,7 @@
    "applyEnd": "2026-10-31",
    "applyMethod": "선착순",
    "capacity": 10,
-   "applied": 11,
+   "applied": 14,
    "fee": 0,
    "feeText": "무료",
    "statusText": "대기접수",
@@ -183,10 +183,10 @@
    "applyEnd": "2026-10-31",
    "applyMethod": "선착순",
    "capacity": 10,
-   "applied": 15,
+   "applied": 16,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "대기접수",
+   "statusText": "접수마감",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6293",
    "description": "영어 그림책을 읽고, 내 생각을 영어로 말해요!"
   },
@@ -229,10 +229,10 @@
    "applyEnd": "2026-10-30",
    "applyMethod": "선착순",
    "capacity": 25,
-   "applied": 37,
+   "applied": 34,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수마감",
+   "statusText": "대기접수",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6275",
    "description": "2,350여 종의 라면을 맛본 라면 평론가가 들려주는 꼬불꼬불 면발 속 숨은 역사와 과학 이야기! 옥상에서 직접 끓여 맛보는 금요일 밤의 맛있는 북토크!"
   },
@@ -352,29 +352,6 @@
    "statusText": "기간종료",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6239",
    "description": null
-  },
-  {
-   "title": "[2026년 도서관 동아리 문화예술 지원] 도봉아이나라도서관 영어 뮤지컬 어린이 단원 모집(추가모집 1명)",
-   "facility": "도봉아이나라도서관",
-   "category": "독서문화프로그램",
-   "target": "초등 4-5학년",
-   "ageTags": [
-    "elem-high"
-   ],
-   "programStart": "2026-04-20",
-   "programEnd": "2026-10-26",
-   "schedule": "16:00~18:00 (월 요일)",
-   "sessions": null,
-   "applyStart": "2026-04-08",
-   "applyEnd": "2026-05-17",
-   "applyMethod": "선착순",
-   "capacity": 12,
-   "applied": 14,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수마감",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5856",
-   "description": "영어로 노래하고, 춤추고, 무대에 서는 특별한 경험! 직접 뮤지컬 배우가 되어 공연까지 완성하는 영어 뮤지컬 동아리에 참여할 친구들을 모집합니다."
   },
   {
    "title": "[2026년 하반기] 레고코딩 B (매주 월 17:00~17:50 / 초등 3~5학년)",
@@ -564,6 +541,29 @@
    "description": null
   },
   {
+   "title": "[어린이] 두뇌 풀가동! 창의융합 보드게임 <오늘도 보드 한 판!>",
+   "facility": "학마을도서관",
+   "category": "독서문화프로그램",
+   "target": "초등 1~3학년",
+   "ageTags": [
+    "elem-low"
+   ],
+   "programStart": "2026-11-01",
+   "programEnd": "2026-11-22",
+   "schedule": "10:30~12:00 (일 요일)",
+   "sessions": 4,
+   "applyStart": "2026-10-28",
+   "applyEnd": "2026-10-31",
+   "applyMethod": "선착순",
+   "capacity": 8,
+   "applied": 14,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수마감",
+   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6312",
+   "description": "보드게임을 하기 위해서는 4명씩 짝이 맞아야 수업이 가능합니다!"
+  },
+  {
    "title": "[어린이] 내 그림이 AI를 만나면",
    "facility": "학마을도서관",
    "category": "독서문화프로그램",
@@ -580,7 +580,7 @@
    "applyEnd": "2026-11-05",
    "applyMethod": "선착순",
    "capacity": 12,
-   "applied": 12,
+   "applied": 14,
    "fee": null,
    "feeText": null,
    "statusText": "대기접수",
@@ -706,6 +706,30 @@
    "description": null
   },
   {
+   "title": "「도봉을 그린(Green) 기적」[ESG] 폐현수막으로 만드는 ESG",
+   "facility": "도봉기적의도서관",
+   "category": "독서문화프로그램",
+   "target": "초등학생",
+   "ageTags": [
+    "elem-low",
+    "elem-high"
+   ],
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-14",
+   "schedule": "14:00~16:00 (토 요일)",
+   "sessions": null,
+   "applyStart": "2026-10-28",
+   "applyEnd": "2026-11-13",
+   "applyMethod": "선착순",
+   "capacity": 15,
+   "applied": 20,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수마감",
+   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6308",
+   "description": null
+  },
+  {
    "title": "동화동무씨동무 8기 모집(초등2~5학년) ★5명 추가모집★",
    "facility": "도봉기적의도서관",
    "category": "독서문화프로그램",
@@ -722,7 +746,7 @@
    "applyEnd": "2026-10-31",
    "applyMethod": "선착순",
    "capacity": 5,
-   "applied": 2,
+   "applied": 4,
    "fee": 0,
    "feeText": "무료",
    "statusText": "접수중",
@@ -752,30 +776,6 @@
    "statusText": "기간종료",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6274",
    "description": "AI 시대의 진짜 역량 키우기: 정답만 빠르게 찾아내는 AI 시대에, 고전을 통해 인간다운 우정, 의리, 그리고 엉뚱한 상상력의 가치를 배웁니다. 스스로 생각하는 힘: 고전을 통해 편리함 속에서 기다림의 의미를 알고, 알고리즘에 끌려다니지 않는 주체적인 습관을 기릅니다. 나만의 언어로 정의하기: 6주간의 여정 동안 아이들은 고전 속 가치들을 스스로의 생생한 언어로 재정의하는 '나만의 인간다움 사전'을 완성합니다."
-  },
-  {
-   "title": "[문화가 있는 날] 2026년 10월 <이달 작가와의 만남>",
-   "facility": "도봉기적의도서관",
-   "category": "독서문화프로그램",
-   "target": "7세~초등 2학년",
-   "ageTags": [
-    "preschool",
-    "elem-low"
-   ],
-   "programStart": "2026-10-28",
-   "programEnd": "2026-10-28",
-   "schedule": "16:00~17:30 (수 요일)",
-   "sessions": null,
-   "applyStart": "2026-10-14",
-   "applyEnd": "2026-10-26",
-   "applyMethod": "선착순",
-   "capacity": 20,
-   "applied": 13,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6273",
-   "description": "작가와 함께 그림책을 읽고 제작 과정을 배우며, 직접 '세상에서 가장 힘이 센 말' 그림 전시를 만들어 보는 시간입니다."
   },
   {
    "title": "동화동무씨동무 8기 모집(초등2~5학년)",
@@ -875,75 +875,27 @@
    "description": "도봉기적의도서관에서 초등학생 친구들을 위한 장기 인문학 프로그램을 진행합니다. 빠르고 편리한 AI 시대일수록 아이들에게 필요한 것은 '인간적인 깊이'와 스스로 생각하는 힘입니다. 질문을 잊어가는 요즘, 동·서양 고전을 통해 효율 대신 마음을, 정답 대신 나만의 지혜를 찾아가는 기회를 열어주세요."
   },
   {
-   "title": "[2026 문화예술동아리 활동지원사업] K-POP 댄스 동아리 '꿈틀' 추가 모집(초등 3~6학년)",
-   "facility": "도봉기적의도서관",
+   "title": "[도서관은 핫하다!] 채움 손끝 공방(2기) 열세 살, 마음에도 향기가 필요해!",
+   "facility": "쌍문채움도서관",
    "category": "독서문화프로그램",
-   "target": "초등 3~6학년",
+   "target": "초등학교6학년 (양육자 동반 필수)",
    "ageTags": [
-    "elem-low",
-    "elem-high"
+    "elem-high",
+    "family"
    ],
-   "programStart": "2026-06-24",
-   "programEnd": "2026-10-28",
-   "schedule": "16:00~18:00 (수 요일)",
+   "programStart": "2026-12-12",
+   "programEnd": "2026-12-12",
+   "schedule": "14:00~16:00 (토 요일)",
    "sessions": null,
-   "applyStart": "2026-06-12",
-   "applyEnd": "2026-06-24",
+   "applyStart": "2026-11-24",
+   "applyEnd": "2026-12-08",
    "applyMethod": "선착순",
    "capacity": 6,
-   "applied": 3,
+   "applied": 0,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5968",
-   "description": "인기 K-POP 안무를 배우며 표현력을 기르고, 11월에 열리는 도서관 발표회 무대에서 성취감을 느낄 수 있는 기회입니다. 아이들에게 건강한 방과 후 활동과 소중한 추억을 선물해 주세요. 이런 친구들에게 추천합니다!"
-  },
-  {
-   "title": "[2026 문화예술동아리 활동지원사업] K-POP 댄스 동아리 '꿈틀' 추가 모집(초등 3~6학년)",
-   "facility": "도봉기적의도서관",
-   "category": "독서문화프로그램",
-   "target": "초등 3~6학년",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-04-22",
-   "programEnd": "2026-10-28",
-   "schedule": "16:00~18:00 (수 요일)",
-   "sessions": null,
-   "applyStart": "2026-04-13",
-   "applyEnd": "2026-04-21",
-   "applyMethod": "선착순",
-   "capacity": 5,
-   "applied": 1,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5867",
-   "description": "초등 K-POP 댄스 동아리에서 새로운 친구들을 기다립니다. 놀이 체육 시간을 통해 즐겁게 준비 운동과 스트레칭을 하며 몸을 풀고, 내가 좋아하는 K-POP 곡을 직접 선택해 안무를 배우는 특별한 경험을 할 수 있습니다. 친구들과 함께 무대를 완성해 나가는 과정 속에서 협동심과 자신감을 키우고, 음악과 춤을 통해 표현력과 성취감을 느낄 수 있는 시간입니다. 좋아하는 노래에 맞춰 춤추며 반짝이는 무대를 만들어가는 즐거움, 지금 함께 시작해 보세요!"
-  },
-  {
-   "title": "[2026 문화예술동아리 활동지원사업] K-POP 댄스 동아리 '꿈틀' 모집(초등 3~6학년)",
-   "facility": "도봉기적의도서관",
-   "category": "독서문화프로그램",
-   "target": "초등 3~6학년",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-04-08",
-   "programEnd": "2026-10-28",
-   "schedule": "16:00~18:00 (수 요일)",
-   "sessions": null,
-   "applyStart": "2026-03-30",
-   "applyEnd": "2026-04-08",
-   "applyMethod": "선착순",
-   "capacity": 12,
-   "applied": 10,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5825",
+   "statusText": "접수준비",
+   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6315",
    "description": null
   },
   {
@@ -1016,6 +968,29 @@
    "description": "책을 좋아하는 아이는 스스로 생각하고, 더 멀리 나아갑니다. 우리 아이의 \"독서 습관\"을 함께 응원해주세요!!"
   },
   {
+   "title": "[생애주기] 2026 아웃리치 프로그램 <꽃을 싣고 온 도서관>",
+   "facility": "원당마을한옥도서관",
+   "category": "독서문화프로그램",
+   "target": "유아",
+   "ageTags": [
+    "preschool"
+   ],
+   "programStart": "2026-11-16",
+   "programEnd": "2026-11-16",
+   "schedule": "9:30~11:00 (월 요일)",
+   "sessions": null,
+   "applyStart": "2026-11-16",
+   "applyEnd": "2026-11-16",
+   "applyMethod": "방문접수",
+   "capacity": 28,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수준비",
+   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6313",
+   "description": "따스한 이야기를 싣고, 원당마을한옥도서관이 아이들을 찾아갑니다. 도서관 사서가 전해주는 그림책을 함께 읽고 이야기를 나누며, 책 속에 담긴 자연의 아름다움과 계절의 변화를 느껴보는 특별한 시간을 마련했습니다. 이어서 크리스마스 꽃가방 만들기 체험 활동을 통해 아이들이 자신만의 작품을 완성하며 창의력과 표현력을 마음껏 펼쳐봅니다. 그림책과 꽃이 어우러진 따뜻한 시간을 통해 아이들의 마음속에 아름다운 추억을 선물합니다!♡"
+  },
+  {
    "title": "[특화] 출발! 토론 탐험대! : 한옥에서 떠나는 도봉 시간여행",
    "facility": "원당마을한옥도서관",
    "category": "독서문화프로그램",
@@ -1058,7 +1033,7 @@
    "applied": 0,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수준비",
+   "statusText": "접수중",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6279",
    "description": "책을 읽고 질문을 만들고, AI와 함께 생각을 확장하는 창의 독서 프로그램! 『갈매기에게 나는 법을 가르쳐준 고양이』를 읽고 약속과 책임, 공존의 의미를 탐색하며, AI 캐릭터 역할 토론과 이미지·웹툰 창작 활동을 통해 어린이들의 창의적 사고력과 디지털 리터러시 역량을 기르는 독서문화프로그램입니다."
   },
@@ -1087,27 +1062,27 @@
    "description": "소리로 이어지는 우리 음악의 멋과 흥, 경기민요와 서도민요가 어우러진 경서도민요 공연을 통해 우리 전통 소리의 아름다움과 다채로운 매력을 느끼고, 가을날의 특별한 국악공연을 만나보세요!"
   },
   {
-   "title": "[문화가 있는 날] 옛이야기로 만나는 인형극 <늑대와 일곱마리 염소>",
-   "facility": "원당마을한옥도서관",
+   "title": "[아이키우기 좋은 서울, 독서증진] 내 아이와 공감대화 (11/14~11/21, 2회차)",
+   "facility": "김근태기념도서관",
    "category": "독서문화프로그램",
-   "target": "15가족(어린이 1명+보호자 1명)",
+   "target": "영유아 ~ 초등 자녀를 둔 양육자 및 양육예정자",
    "ageTags": [
-    "family"
+    "parent"
    ],
-   "programStart": "2026-10-28",
-   "programEnd": "2026-10-28",
-   "schedule": "17:00~18:00 (수 요일)",
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-21",
+   "schedule": "오후 2시 ~ 4시 (토 요일)",
    "sessions": null,
-   "applyStart": "2026-10-14",
-   "applyEnd": "2026-10-25",
+   "applyStart": "2026-10-28",
+   "applyEnd": "2026-11-21",
    "applyMethod": "선착순",
-   "capacity": 15,
-   "applied": 20,
+   "capacity": 20,
+   "applied": 0,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6265",
-   "description": "문화가 있는 날, 한옥도서관에서 전래동화 인형극 「늑대와 일곱마리 염소」을 진행합니다~! 엄마 염소가 집을 비운 사이, 무서운 늑대가 일곱 마리 아기 염소를 찾아보며 벌어지는 아슬아슬하고 흥미진진한 이야기를 인형극으로 만나보세요! 아이들의 상상력을 키우고, 이야기 속에서 지혜와 용기의 의미를 자연스럽게 느껴볼 수 있는 시간이 될 거예요~~ 여러분, 신나는 전래동화 인형극 보러 원당마을한옥도서관으로 놀러오세요!"
+   "statusText": "접수중",
+   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6314",
+   "description": "양육자분들에게 '한국감정연구서' 임은주 소장이 전하는 내 아이와 하나 되는 공감 대화에 여러분을 초대합니다."
   },
   {
    "title": "[2026 민주야, 가치 걷자!] 어린이 현장체험 프로그램 <전태일기념관> (10.31.토)",
@@ -1133,54 +1108,6 @@
    "statusText": "접수중",
    "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6258",
    "description": "어린이 청소년들의 올바른 역사와 인권 의식을 함양하기 위해, 민주해설사와 함께 민주주의와 인권이 숨 쉬는 장소를 탐방하는 프로그램입니다. 많은 참여자의 관심과 참여를 바랍니다."
-  },
-  {
-   "title": "[김근태기념도서관] 2026년 북스타트 책꾸러미 배부",
-   "facility": "김근태기념도서관",
-   "category": "독서문화프로그램",
-   "target": "19개월~초등 1학년",
-   "ageTags": [
-    "infant",
-    "preschool",
-    "elem-low"
-   ],
-   "programStart": "2026-01-01",
-   "programEnd": "2026-12-31",
-   "schedule": "도서관 운영시간 내 (일,화,수,목,금,토 요일)",
-   "sessions": null,
-   "applyStart": "2026-07-16",
-   "applyEnd": "2026-12-31",
-   "applyMethod": "선착순",
-   "capacity": 50,
-   "applied": 24,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5910",
-   "description": "김근태기념도서관에서 북스타트 책꾸러미를 받아가세요!"
-  },
-  {
-   "title": "[동아리] 2026 어린이·청소년 독서동아리 <북Book띠부띠부> 모집",
-   "facility": "김근태기념도서관",
-   "category": "독서문화프로그램",
-   "target": "초등 4학년 ~6학년",
-   "ageTags": [
-    "elem-high"
-   ],
-   "programStart": "2026-02-15",
-   "programEnd": "2026-12-20",
-   "schedule": "오후 2시 ~ (일 요일)",
-   "sessions": null,
-   "applyStart": "2025-12-05",
-   "applyEnd": "2026-02-13",
-   "applyMethod": "선착순",
-   "capacity": 5,
-   "applied": 8,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=5721",
-   "description": null
   },
   {
    "title": "2026년 초등저학년 <그림책 놀이로 키우는 문해력 교실> 회원 모집",
