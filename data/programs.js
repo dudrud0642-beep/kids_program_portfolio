@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-03",
+ "collectedAt": "2026-11-04",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-03"
+   "collectedAt": "2026-11-04"
   },
   {
    "key": "childcare",
@@ -2189,7 +2189,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023100452828477",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927176098066H7DBAZEMH47U1ZLZ616SOV1P",
    "description": "■ 프로그램명: 창포원의 새 만나기 ■ 운영일시 : 11월 8, 15일(일) 오후 11:00~12:30 ■ 프로그램 내용: 자연관찰과 오감체험 , 놀이를 통해 계절을 온몸으로 느끼는 감수성을 키우는 프로그램 창포원에는 어떤 새가 살까 ? - 쌍안경 사용법 익히기 - 창포원 산책하며 새를 관찰하고 생태를 배워요 - 새가 좋아하는 열매 알아보기 - 겨울 준비하는 새 도와주기 ■ 참가대상: 20명/가족 ■ 준비물: 마실물, 쌍안경, 활동을 위한 편한 복장 (긴바지, 운동화), 모기기피제 (필요시) ■ 모이는곳: 서울창포원 방문자센터 1층…",
@@ -2336,7 +2336,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
    "description": null,
@@ -2675,11 +2675,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2703,11 +2703,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2731,11 +2731,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2759,11 +2759,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2787,11 +2787,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2815,11 +2815,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2843,11 +2843,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2871,11 +2871,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-03",
+   "programStart": "2026-11-04",
    "programEnd": "2026-11-16",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-03",
+   "applyStart": "2026-11-04",
    "applyEnd": "2026-11-16",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
