@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-10",
+ "collectedAt": "2026-11-11",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-10"
+   "collectedAt": "2026-11-11"
   },
   {
    "key": "childcare",
@@ -389,15 +389,6 @@ window.KIDS_DATA = {
   },
   {
    "org": "yeyak",
-   "name": "뚝딱뚝딱놀이터",
-   "address": null,
-   "area": "창동",
-   "url": null,
-   "lat": 37.642791,
-   "lng": 127.048569
-  },
-  {
-   "org": "yeyak",
    "name": "반딧불이유아숲체험원",
    "address": null,
    "area": "창동",
@@ -413,6 +404,15 @@ window.KIDS_DATA = {
    "url": null,
    "lat": 37.638552,
    "lng": 127.042962
+  },
+  {
+   "org": "yeyak",
+   "name": "뚝딱뚝딱놀이터",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.642791,
+   "lng": 127.048569
   },
   {
    "org": "yeyak",
@@ -2128,7 +2128,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020175342317264",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792486506832VTERGP8MZDICZY5RW2YNEKXLD",
    "description": null,
@@ -2246,42 +2246,12 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023100452828477",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927176098066H7DBAZEMH47U1ZLZ616SOV1P",
    "description": "■ 프로그램명: 창포원의 새 만나기 ■ 운영일시 : 11월 8, 15일(일) 오후 11:00~12:30 ■ 프로그램 내용: 자연관찰과 오감체험 , 놀이를 통해 계절을 온몸으로 느끼는 감수성을 키우는 프로그램 창포원에는 어떤 새가 살까 ? - 쌍안경 사용법 익히기 - 창포원 산책하며 새를 관찰하고 생태를 배워요 - 새가 좋아하는 열매 알아보기 - 겨울 준비하는 새 도와주기 ■ 참가대상: 20명/가족 ■ 준비물: 마실물, 쌍안경, 활동을 위한 편한 복장 (긴바지, 운동화), 모기기피제 (필요시) ■ 모이는곳: 서울창포원 방문자센터 1층…",
    "area": "도봉동",
    "firstSeen": "2026-10-24"
-  },
-  {
-   "id": "yeyak-1vyim6t",
-   "org": "yeyak",
-   "title": "[초안산가드닝센터][주말][토요일]11월/도예/패밀리데이(도예)",
-   "facility": "초안산가드닝센터 본관",
-   "category": "문화체험 > 교육체험",
-   "target": "가족(초등~성인)",
-   "ageTags": [
-    "elem-low",
-    "elem-high",
-    "family"
-   ],
-   "programStart": "2026-10-27",
-   "programEnd": "2026-11-28",
-   "schedule": "토·일요일 10:00~15:00",
-   "sessions": null,
-   "applyStart": "2026-10-27",
-   "applyEnd": "2026-11-27",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/27 10:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": null,
-   "feeText": "유료",
-   "statusText": "예약마감",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261021151845619783",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792563683911HI0XS68CQGDUVLVZ5UB8ZBVWM",
-   "description": null,
-   "area": "창동",
-   "firstSeen": "2026-10-22"
   },
   {
    "id": "yeyak-1dq9zv9",
@@ -2342,6 +2312,64 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-22"
   },
   {
+   "id": "yeyak-1f1jhzf",
+   "org": "yeyak",
+   "title": "(도봉구) 반딧불이 유아숲체험원 가족프로그램(토요일)",
+   "facility": "반딧불이유아숲체험원",
+   "category": "문화체험 > 산림여가",
+   "target": "유아(만3세이상 가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-21",
+   "programEnd": "2026-11-21",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-23",
+   "applyEnd": "2026-11-18",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103526829741",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792981069235J9K5OKJZWKP5PMPA4C0MW4HVT",
+   "description": null,
+   "area": "창동",
+   "firstSeen": "2026-10-24"
+  },
+  {
+   "id": "yeyak-1ul3s6y",
+   "org": "yeyak",
+   "title": "(도봉구) 꿈키움유아숲체험원 가족프로그램(토요일)",
+   "facility": "꿈키움유아숲체험원",
+   "category": "문화체험 > 산림여가",
+   "target": "유아(만3세이상 가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-21",
+   "schedule": "토요일 10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-23",
+   "applyEnd": "2026-11-18",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103741238882",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792980924942PNZ5VXHL5H7QITJM5RCZBA3VS",
+   "description": null,
+   "area": "창동",
+   "firstSeen": "2026-10-24"
+  },
+  {
    "id": "yeyak-1rdz9ep",
    "org": "yeyak",
    "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(초등생)",
@@ -2399,64 +2427,6 @@ window.KIDS_DATA = {
    "description": null,
    "area": "창동",
    "firstSeen": "2026-10-21"
-  },
-  {
-   "id": "yeyak-1f1jhzf",
-   "org": "yeyak",
-   "title": "(도봉구) 반딧불이 유아숲체험원 가족프로그램(토요일)",
-   "facility": "반딧불이유아숲체험원",
-   "category": "문화체험 > 산림여가",
-   "target": "유아(만3세이상 가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-21",
-   "programEnd": "2026-11-21",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-23",
-   "applyEnd": "2026-11-18",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103526829741",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792981069235J9K5OKJZWKP5PMPA4C0MW4HVT",
-   "description": null,
-   "area": "창동",
-   "firstSeen": "2026-10-24"
-  },
-  {
-   "id": "yeyak-1ul3s6y",
-   "org": "yeyak",
-   "title": "(도봉구) 꿈키움유아숲체험원 가족프로그램(토요일)",
-   "facility": "꿈키움유아숲체험원",
-   "category": "문화체험 > 산림여가",
-   "target": "유아(만3세이상 가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-14",
-   "programEnd": "2026-11-21",
-   "schedule": "토요일 10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-23",
-   "applyEnd": "2026-11-18",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103741238882",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792980924942PNZ5VXHL5H7QITJM5RCZBA3VS",
-   "description": null,
-   "area": "창동",
-   "firstSeen": "2026-10-24"
   },
   {
    "id": "yeyak-16j1cw6",
@@ -2605,35 +2575,6 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-21"
   },
   {
-   "id": "yeyak-ld1d9v",
-   "org": "yeyak",
-   "title": "(도봉구) 발바닥공원 유아가족프로그램(토요일)",
-   "facility": "발바닥공원 힐링센터",
-   "category": "문화체험 > 산림여가",
-   "target": "가족(만5세이상 유아포함가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-14",
-   "programEnd": "2026-11-14",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-23",
-   "applyEnd": "2026-11-11",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023093319836318",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927157198907LJHG5OBA5L8BE2RHF5BF25YW",
-   "description": null,
-   "area": "방학동",
-   "firstSeen": "2026-10-24"
-  },
-  {
    "id": "yeyak-1wcmma6",
    "org": "yeyak",
    "title": "(도봉구) 발바닥공원 힐링센터 평일프로그램(성인)",
@@ -2694,6 +2635,35 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-21"
   },
   {
+   "id": "yeyak-ld1d9v",
+   "org": "yeyak",
+   "title": "(도봉구) 발바닥공원 유아가족프로그램(토요일)",
+   "facility": "발바닥공원 힐링센터",
+   "category": "문화체험 > 산림여가",
+   "target": "가족(만5세이상 유아포함가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-14",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-23",
+   "applyEnd": "2026-11-11",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023093319836318",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927157198907LJHG5OBA5L8BE2RHF5BF25YW",
+   "description": null,
+   "area": "방학동",
+   "firstSeen": "2026-10-24"
+  },
+  {
    "id": "yeyak-19a88lf",
    "org": "yeyak",
    "title": "서울형 키즈카페 도봉구 쌍문2동점(쌍문별 탐험대)",
@@ -2703,11 +2673,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2731,11 +2701,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2759,11 +2729,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2787,11 +2757,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2815,11 +2785,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2843,11 +2813,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2871,11 +2841,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2899,11 +2869,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-10",
+   "programStart": "2026-11-11",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-10",
+   "applyStart": "2026-11-11",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
