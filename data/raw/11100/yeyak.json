@@ -3,7 +3,7 @@
  "sourceName": "서울시 공공서비스예약 (도봉구)",
  "sourceUrl": "https://yeyak.seoul.go.kr",
  "listUrl": "https://data.seoul.go.kr/dataList/OA-20497/S/1/datasetView.do",
- "collectedAt": "2026-11-13",
+ "collectedAt": "2026-11-14",
  "howToCollect": "scripts/collect-seoul-api.js(서울 열린데이터광장 공공서비스예약 정보 API) → scripts/build-regions.js가 도봉구 몫만 이 파일로 씀. 장소의 동은 장소 좌표로 찾음.",
  "facilities": [
   {
@@ -55,6 +55,14 @@
    "lng": 127.046599
   },
   {
+   "name": "초안산근린공원 입구",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.64478,
+   "lng": 127.04915
+  },
+  {
    "name": "뚝딱뚝딱놀이터",
    "address": null,
    "area": "창동",
@@ -85,14 +93,6 @@
    "url": null,
    "lat": 37.652703,
    "lng": 127.029282
-  },
-  {
-   "name": "초안산근린공원 입구",
-   "address": null,
-   "area": "창동",
-   "url": null,
-   "lat": 37.64478,
-   "lng": 127.04915
   },
   {
    "name": "하늘유아숲체험원",
@@ -405,29 +405,28 @@
    "description": null
   },
   {
-   "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(초등생)",
-   "facility": "뚝딱뚝딱놀이터",
+   "title": "(도봉구) 초안산 치유의숲길 가족프로그램(토요일)",
+   "facility": "초안산근린공원 입구",
    "category": "문화체험 > 산림여가",
-   "target": "어린이(초등생포함가족)",
+   "target": "유아(만3세이상 가족)",
    "ageTags": [
-    "elem-low",
-    "elem-high",
+    "preschool",
     "family"
    ],
-   "programStart": "2026-11-07",
-   "programEnd": "2026-11-21",
-   "schedule": "10:30~12:00",
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-28",
+   "schedule": "토요일 10:30~12:00",
    "sessions": null,
    "applyStart": "2026-10-20",
-   "applyEnd": "2026-11-18",
+   "applyEnd": "2026-11-25",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 13:00부터",
    "capacity": null,
    "applied": null,
    "fee": 0,
    "feeText": "무료",
    "statusText": "접수중",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174416258876",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485890802X9OFVO0MKAISLTQGKW7YXKZ18",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020173102441101",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485088229YQ7BL5RRGY2R9WAV3XR6ZYO0F",
    "description": null
   },
   {
@@ -453,6 +452,32 @@
    "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
+   "description": null
+  },
+  {
+   "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(초등생)",
+   "facility": "뚝딱뚝딱놀이터",
+   "category": "문화체험 > 산림여가",
+   "target": "어린이(초등생포함가족)",
+   "ageTags": [
+    "elem-low",
+    "elem-high",
+    "family"
+   ],
+   "programStart": "2026-11-07",
+   "programEnd": "2026-11-21",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-20",
+   "applyEnd": "2026-11-18",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 13:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174416258876",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485890802X9OFVO0MKAISLTQGKW7YXKZ18",
    "description": null
   },
   {
@@ -531,31 +556,6 @@
    "description": null
   },
   {
-   "title": "(도봉구) 초안산 치유의숲길 가족프로그램(토요일)",
-   "facility": "초안산근린공원 입구",
-   "category": "문화체험 > 산림여가",
-   "target": "유아(만3세이상 가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-14",
-   "programEnd": "2026-11-28",
-   "schedule": "토요일 10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-20",
-   "applyEnd": "2026-11-25",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 13:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수중",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020173102441101",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485088229YQ7BL5RRGY2R9WAV3XR6ZYO0F",
-   "description": null
-  },
-  {
    "title": "(도봉구) 하늘유아숲체험원 가족프로그램(토요일)",
    "facility": "하늘유아숲체험원",
    "category": "문화체험 > 산림여가",
@@ -626,9 +626,34 @@
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수종료",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020165900355967",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792483216410EEN6LQYXKZLO6QOJ14H11IC1K",
+   "description": null
+  },
+  {
+   "title": "(도봉구) 발바닥공원 유아가족프로그램(토요일)",
+   "facility": "발바닥공원 힐링센터",
+   "category": "문화체험 > 산림여가",
+   "target": "가족(만5세이상 유아포함가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-14",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-23",
+   "applyEnd": "2026-11-11",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수종료",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023093319836318",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927157198907LJHG5OBA5L8BE2RHF5BF25YW",
    "description": null
   },
   {
@@ -684,31 +709,6 @@
    "description": null
   },
   {
-   "title": "(도봉구) 발바닥공원 유아가족프로그램(토요일)",
-   "facility": "발바닥공원 힐링센터",
-   "category": "문화체험 > 산림여가",
-   "target": "가족(만5세이상 유아포함가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-14",
-   "programEnd": "2026-11-14",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-23",
-   "applyEnd": "2026-11-11",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수종료",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023093319836318",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17927157198907LJHG5OBA5L8BE2RHF5BF25YW",
-   "description": null
-  },
-  {
    "title": "(토) 시립인터넷중독예방상담센터 창동사무소 / 모험상담 / 우리 가족 마음 채움 : 기(氣)",
    "facility": "시립창동인터넷중독예방상담센터",
    "category": "문화체험 > 교육체험",
@@ -740,11 +740,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -764,11 +764,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -788,11 +788,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -812,11 +812,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -836,11 +836,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -860,11 +860,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -884,11 +884,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -908,11 +908,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-13",
+   "programStart": "2026-11-14",
    "programEnd": "2026-11-23",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-13",
+   "applyStart": "2026-11-14",
    "applyEnd": "2026-11-23",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
