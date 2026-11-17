@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-16",
+ "collectedAt": "2026-11-17",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-16"
+   "collectedAt": "2026-11-17"
   },
   {
    "key": "childcare",
@@ -1803,34 +1803,6 @@ window.KIDS_DATA = {
    "firstSeen": "2026-11-05"
   },
   {
-   "id": "unilib-vo0vt5",
-   "org": "unilib",
-   "title": "[생애주기] 2026 아웃리치 프로그램 <꽃을 싣고 온 도서관>",
-   "facility": "원당마을한옥도서관",
-   "category": "독서문화프로그램",
-   "target": "유아",
-   "ageTags": [
-    "preschool"
-   ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-16",
-   "schedule": "9:30~11:00 (월 요일)",
-   "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-16",
-   "applyMethod": "방문접수",
-   "capacity": 28,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "방문접수",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6313",
-   "image": null,
-   "description": "따스한 이야기를 싣고, 원당마을한옥도서관이 아이들을 찾아갑니다. 도서관 사서가 전해주는 그림책을 함께 읽고 이야기를 나누며, 책 속에 담긴 자연의 아름다움과 계절의 변화를 느껴보는 특별한 시간을 마련했습니다. 이어서 크리스마스 꽃가방 만들기 체험 활동을 통해 아이들이 자신만의 작품을 완성하며 창의력과 표현력을 마음껏 펼쳐봅니다. 그림책과 꽃이 어우러진 따뜻한 시간을 통해 아이들의 마음속에 아름다운 추억을 선물합니다!♡",
-   "area": "방학동",
-   "firstSeen": "2026-10-29"
-  },
-  {
    "id": "unilib-13w6u5t",
    "org": "unilib",
    "title": "[특화] 출발! 토론 탐험대! : 한옥에서 떠나는 도봉 시간여행",
@@ -2086,7 +2058,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
    "description": null,
@@ -2397,12 +2369,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2425,12 +2397,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2453,12 +2425,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2481,12 +2453,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2509,12 +2481,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2537,12 +2509,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2565,12 +2537,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
@@ -2593,12 +2565,12 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-16",
-   "programEnd": "2026-11-23",
+   "programStart": "2026-11-17",
+   "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-23",
+   "applyStart": "2026-11-17",
+   "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
    "applied": null,
