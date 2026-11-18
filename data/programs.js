@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-17",
+ "collectedAt": "2026-11-18",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-17"
+   "collectedAt": "2026-11-18"
   },
   {
    "key": "childcare",
@@ -2058,7 +2058,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
    "description": null,
@@ -2088,7 +2088,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174416258876",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485890802X9OFVO0MKAISLTQGKW7YXKZ18",
    "description": null,
@@ -2117,7 +2117,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103526829741",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792981069235J9K5OKJZWKP5PMPA4C0MW4HVT",
    "description": null,
@@ -2271,35 +2271,6 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-19"
   },
   {
-   "id": "yeyak-1lcezei",
-   "org": "yeyak",
-   "title": "(도봉구) 발바닥공원 힐링센터 원예치유프로그램(성인)",
-   "facility": "발바닥공원 힐링센터",
-   "category": "문화체험 > 산림여가",
-   "target": "성인( 19세이상(아동동반X))",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-11-03",
-   "programEnd": "2026-11-17",
-   "schedule": "13:30~15:00",
-   "sessions": null,
-   "applyStart": "2026-10-20",
-   "applyEnd": "2026-11-13",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 16:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수종료",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020165900355967",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792483216410EEN6LQYXKZLO6QOJ14H11IC1K",
-   "description": null,
-   "area": "방학동",
-   "firstSeen": "2026-10-21"
-  },
-  {
    "id": "yeyak-1wcmma6",
    "org": "yeyak",
    "title": "(도봉구) 발바닥공원 힐링센터 평일프로그램(성인)",
@@ -2369,11 +2340,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2397,11 +2368,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2425,11 +2396,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2453,11 +2424,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2481,11 +2452,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2509,11 +2480,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2537,11 +2508,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2565,11 +2536,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-17",
+   "programStart": "2026-11-18",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-17",
+   "applyStart": "2026-11-18",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2600,13 +2571,13 @@ window.KIDS_DATA = {
    "schedule": "토·일요일 14:00~17:00",
    "sessions": null,
    "applyStart": "2026-10-27",
-   "applyEnd": "2026-11-14",
+   "applyEnd": "2026-12-19",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/27 17:00부터",
    "capacity": null,
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수종료",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261027140829265399",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17930781999785J7WJET12KYRUUA07S4SJ1UIC",
    "description": "과학관에서 만나는 겨울 창작프로그램 라임 워크숍 ❄️ WINTER GIFT 🎁 (RAIM WORKSHOP) 🤖 서울로봇인공지능과학관(a.k.a. RAIM) 에서 🪄 겨울 을 맞아 특별한 워크숍 🪄 이 열립니다! 이번 겨울에는 목소리를 알아듣는 음성인식 로봇펫 을 직접 만들고 인공지능 기술을 체험해 보고, 생성형 AI로 나만의 겨울 풍경을 디자인해 프리즘을 활용한 홀로그램 큐브 도 만들어 봅니다. 가족과 함께 상상력을 펼치고 나만의 작품을 완성해 보세요! 특별한 겨울 선물이 될 거예요. 🎁 💡 잠깐! 신청 전 확인해 주세요…",
