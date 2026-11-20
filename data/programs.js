@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-19",
+ "collectedAt": "2026-11-20",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-19"
+   "collectedAt": "2026-11-20"
   },
   {
    "key": "childcare",
@@ -371,21 +371,21 @@ window.KIDS_DATA = {
   },
   {
    "org": "yeyak",
-   "name": "뚝딱뚝딱놀이터",
-   "address": null,
-   "area": "창동",
-   "url": null,
-   "lat": 37.642791,
-   "lng": 127.048569
-  },
-  {
-   "org": "yeyak",
    "name": "반딧불이유아숲체험원",
    "address": null,
    "area": "창동",
    "url": null,
    "lat": 37.649874,
    "lng": 127.039928
+  },
+  {
+   "org": "yeyak",
+   "name": "뚝딱뚝딱놀이터",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.642791,
+   "lng": 127.048569
   },
   {
    "org": "yeyak",
@@ -2010,6 +2010,35 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-22"
   },
   {
+   "id": "yeyak-1f1jhzf",
+   "org": "yeyak",
+   "title": "(도봉구) 반딧불이 유아숲체험원 가족프로그램(토요일)",
+   "facility": "반딧불이유아숲체험원",
+   "category": "문화체험 > 산림여가",
+   "target": "유아(만3세이상 가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-21",
+   "programEnd": "2026-11-21",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-23",
+   "applyEnd": "2026-11-18",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수종료",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103526829741",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792981069235J9K5OKJZWKP5PMPA4C0MW4HVT",
+   "description": null,
+   "area": "창동",
+   "firstSeen": "2026-10-24"
+  },
+  {
    "id": "yeyak-1rdz9ep",
    "org": "yeyak",
    "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(초등생)",
@@ -2067,35 +2096,6 @@ window.KIDS_DATA = {
    "description": null,
    "area": "창동",
    "firstSeen": "2026-10-21"
-  },
-  {
-   "id": "yeyak-1f1jhzf",
-   "org": "yeyak",
-   "title": "(도봉구) 반딧불이 유아숲체험원 가족프로그램(토요일)",
-   "facility": "반딧불이유아숲체험원",
-   "category": "문화체험 > 산림여가",
-   "target": "유아(만3세이상 가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-21",
-   "programEnd": "2026-11-21",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-23",
-   "applyEnd": "2026-11-18",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/23 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수종료",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261023103526829741",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792981069235J9K5OKJZWKP5PMPA4C0MW4HVT",
-   "description": null,
-   "area": "창동",
-   "firstSeen": "2026-10-24"
   },
   {
    "id": "yeyak-1ul3s6y",
@@ -2244,6 +2244,36 @@ window.KIDS_DATA = {
    "firstSeen": "2026-10-19"
   },
   {
+   "id": "yeyak-dkxil4",
+   "org": "yeyak",
+   "title": "[도봉구] 12월 무수골 녹색복지센터[산림치유센터] 아기자기 무수골(6~13세 가족)",
+   "facility": "무수골 녹색복지센터(산림치유센터)",
+   "category": "문화체험 > 산림여가",
+   "target": "가족(4~11세 가족)",
+   "ageTags": [
+    "elem-low",
+    "elem-high",
+    "family"
+   ],
+   "programStart": "2026-12-01",
+   "programEnd": "2026-12-31",
+   "schedule": "14:00~16:00",
+   "sessions": null,
+   "applyStart": "2026-11-20",
+   "applyEnd": "2026-12-30",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 11/20 10:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": null,
+   "feeText": "유료",
+   "statusText": "안내중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261119165555093165",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17950749909355E65O9RMIQEOJ384BHN4TOZMW",
+   "description": "무수골 녹색복지센터(산림치유센터)는 바쁜 일상에 지친 주민들 누구나 자연을 통해 몸과 마음을 치유하는 도심 속 힐링공간 입니다 . 역사와 자연이 어우러진 치유과 회복의 쉼터 , 무수골 녹색복지 숲에서 건강 돌봄 함께 해요 ! 문 의 : 무수골녹색복지센터(산림치유센터) / 02-2091-3463 결제는 현장에서 합니다!!(예약사이트 결제 불가) ※ 이용 료 감면 50% 감면 가 . 도봉구민 나 . 장애인 다 . 경로우대자 (65세 이상) 라. 다둥이행복카드소지 및 등재자 마. 다문화가정 바. 북한이탈주민 전액 감면 가 . 기초생활수급…",
+   "area": "도봉동",
+   "firstSeen": "2026-11-20"
+  },
+  {
    "id": "yeyak-1wcmma6",
    "org": "yeyak",
    "title": "(도봉구) 발바닥공원 힐링센터 평일프로그램(성인)",
@@ -2373,11 +2403,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2401,11 +2431,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2429,11 +2459,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2457,11 +2487,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2485,11 +2515,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2513,11 +2543,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2541,11 +2571,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2569,11 +2599,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-19",
+   "programStart": "2026-11-20",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-19",
+   "applyStart": "2026-11-20",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
