@@ -1,14 +1,14 @@
 /* 자동 생성: scripts/update.js — 출처별 마지막 수집 결과 */
 window.KIDS_STATUS = {
- "updatedAt": "2026-11-21T10:54+09:00",
+ "updatedAt": "2026-11-22T09:50+09:00",
  "sources": {
   "seoul-api": {
    "name": "서울시 공공서비스예약",
    "schedule": "daily",
    "ok": true,
-   "lastAttempt": "2026-11-21T10:54+09:00",
-   "lastSuccess": "2026-11-21T10:54+09:00",
-   "count": 620,
+   "lastAttempt": "2026-11-22T09:50+09:00",
+   "lastSuccess": "2026-11-22T09:50+09:00",
+   "count": 587,
    "error": null
   },
   "11100/family": {
