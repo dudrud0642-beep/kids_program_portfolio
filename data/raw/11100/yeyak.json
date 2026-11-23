@@ -3,9 +3,17 @@
  "sourceName": "서울시 공공서비스예약 (도봉구)",
  "sourceUrl": "https://yeyak.seoul.go.kr",
  "listUrl": "https://data.seoul.go.kr/dataList/OA-20497/S/1/datasetView.do",
- "collectedAt": "2026-11-22",
+ "collectedAt": "2026-11-23",
  "howToCollect": "scripts/collect-seoul-api.js(서울 열린데이터광장 공공서비스예약 정보 API) → scripts/build-regions.js가 도봉구 몫만 이 파일로 씀. 장소의 동은 장소 좌표로 찾음.",
  "facilities": [
+  {
+   "name": "김근태기념도서관",
+   "address": null,
+   "area": "도봉동",
+   "url": null,
+   "lat": 37.68767,
+   "lng": 127.04402
+  },
   {
    "name": "서울창포원",
    "address": null,
@@ -55,20 +63,20 @@
    "lng": 127.03228
   },
   {
-   "name": "시립창동인터넷중독예방상담센터",
-   "address": null,
-   "area": "창동",
-   "url": null,
-   "lat": 37.658035,
-   "lng": 127.05024
-  },
-  {
    "name": "발바닥공원 힐링센터",
    "address": null,
    "area": "방학동",
    "url": null,
    "lat": 37.65961,
    "lng": 127.02972
+  },
+  {
+   "name": "시립창동인터넷중독예방상담센터",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.658035,
+   "lng": 127.05024
   },
   {
    "name": "서울특별시 도봉구 노해로 227 (쌍문동)",
@@ -144,6 +152,31 @@
   }
  ],
  "programs": [
+  {
+   "title": "[도서관 개관 5주년 기념] 어린이 독서체험 프로그램 <따뜻한 손길, 그림으로 꽃 피우다>",
+   "facility": "김근태기념도서관",
+   "category": "문화체험 > 교육체험",
+   "target": "어린이",
+   "ageTags": [
+    "elem-low",
+    "elem-high"
+   ],
+   "programStart": "2026-12-04",
+   "programEnd": "2026-12-04",
+   "schedule": null,
+   "sessions": null,
+   "applyStart": "2026-11-22",
+   "applyEnd": "2026-12-04",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 11/22 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수중",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261122085406135970",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17953052459019T1UFHEFNYZD2ZABQ8TO6MFVA",
+   "description": "[도서관 개관 5주년 기념 어린이 독서체험 프로그램] 따뜻한 손길, 그림으로 꽃 피우다 그림책 작가 온화와 함께 그림책 속 민주주의를 만나고 나와 다른 사람을 소중히 여기는 마음을 배워요. 나의 생각과 경험을 그림으로 표현하고 함께 나누며 따뜻한 배려와 연대의 의미를 느껴봅니다. ○ 진행 : 그림책 작가 온화 ○ 활동도서 : <멋진 민주 단어> (서현·소복이·한정민, 사계절, 2024) ○ 대상 : 초등 저학년(1~3학년) 15명 ○ 일시 : 12월 4일(금) 16시~17시 (1시간) ○ 장소 : 김근태기념도서관 민주주의놀이터(어린…"
+  },
   {
    "title": "(토) 겨울을 준비 하는 숲",
    "facility": "서울창포원",
@@ -435,11 +468,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -459,11 +492,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -483,11 +516,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -507,11 +540,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -531,11 +564,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -555,11 +588,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -579,11 +612,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -603,11 +636,11 @@
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-22",
+   "programStart": "2026-11-23",
    "programEnd": "2026-11-30",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-22",
+   "applyStart": "2026-11-23",
    "applyEnd": "2026-11-30",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
