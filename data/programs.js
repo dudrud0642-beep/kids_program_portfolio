@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-24",
+ "collectedAt": "2026-11-25",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-24"
+   "collectedAt": "2026-11-25"
   },
   {
    "key": "childcare",
@@ -1877,7 +1877,7 @@ window.KIDS_DATA = {
    "feeText": "유료",
    "statusText": "안내중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261121170430684098",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1795248673421PDVOT5X6KPY8JL6UK0QFYIROS",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1795478583898RDBQJSWURORN35VS3FG7CP56A",
    "description": null,
    "area": "창동",
    "firstSeen": "2026-11-24"
@@ -1904,7 +1904,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261021140513578224",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792563047930A7LHDO40F6VLIS1PY1MFG1IJT",
    "description": null,
@@ -1933,7 +1933,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
    "description": null,
@@ -2022,7 +2022,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261119165555093165",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17950749909355E65O9RMIQEOJ384BHN4TOZMW",
    "description": "무수골 녹색복지센터(산림치유센터)는 바쁜 일상에 지친 주민들 누구나 자연을 통해 몸과 마음을 치유하는 도심 속 힐링공간 입니다 . 역사와 자연이 어우러진 치유과 회복의 쉼터 , 무수골 녹색복지 숲에서 건강 돌봄 함께 해요 ! 문 의 : 무수골녹색복지센터(산림치유센터) / 02-2091-3463 결제는 현장에서 합니다!!(예약사이트 결제 불가) ※ 이용 료 감면 50% 감면 가 . 도봉구민 나 . 장애인 다 . 경로우대자 (65세 이상) 라. 다둥이행복카드소지 및 등재자 마. 다문화가정 바. 북한이탈주민 전액 감면 가 . 기초생활수급…",
@@ -2052,7 +2052,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수종료",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020170605037261",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792483604874DW089YY941G83YN5VYQ5V6PA6",
    "description": null,
@@ -2082,7 +2082,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020171526836405",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17924841723722ECOH61GIGXM269F9S3OM78UG",
    "description": null,
@@ -2112,7 +2112,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": 0,
    "feeText": "무료",
-   "statusText": "예약마감",
+   "statusText": "접수중",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261118174230321375",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1794991374036I18WNCVZ8KJIHIX0YRPFS5JJB",
    "description": null,
@@ -2159,11 +2159,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2187,11 +2187,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2215,11 +2215,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2243,11 +2243,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2271,11 +2271,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2299,11 +2299,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2327,11 +2327,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2355,11 +2355,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-24",
+   "programStart": "2026-11-25",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-24",
+   "applyStart": "2026-11-25",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2636,35 +2636,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "cdyouth-168o5du",
-   "org": "cdyouth",
-   "title": "EBS수리셈주산암산",
-   "facility": "시립창동청소년센터",
-   "category": "교육문화프로그램",
-   "target": "만6세~12세",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-11-03",
-   "programEnd": "2026-11-24",
-   "schedule": "화 16:00~16:50, 17:00~17:50 (11/3개강~11/24종강 *4회)",
-   "sessions": 4,
-   "applyStart": "2026-10-16",
-   "applyEnd": "2026-10-31",
-   "applyMethod": "[온라인] 10/16(금) 09:00 ~ 10/31(토) 23:59 *일요일/공휴일은 온라인 접수만 가능 / [방문] 화~금 14:00~18:00 / 토 10:00~14:00 ([기존] 10/16(금)~10/23(금) [신규] 10/24(토)~10/31(토))",
-   "capacity": 12,
-   "applied": null,
-   "fee": 35000,
-   "feeText": "35,000원*교재비10,000원 (주판구입가능)",
-   "statusText": null,
-   "url": "https://www.cdyouth.or.kr/sub06/sub01.php?mode=read&id=5834",
-   "image": null,
-   "description": null,
-   "area": "창동",
-   "firstSeen": null
-  },
-  {
    "id": "cdyouth-d3jn8w",
    "org": "cdyouth",
    "title": "미술수행평가기초",
@@ -2694,36 +2665,7 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "smy-1cfqh6j",
-   "org": "smy",
-   "title": "통기타강좌",
-   "facility": "쌍문동청소년문화의집",
-   "category": "청소년강좌",
-   "target": "A반 초3~고3 청소년 / B반 초3 청소년~성인",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-09-01",
-   "programEnd": "2026-11-24",
-   "schedule": "9/1~11/24 매주 화요일 12회 / A반 17:00~18:00 (8명) / B반 18:10~19:10 (8명)",
-   "sessions": 12,
-   "applyStart": "2026-08-04",
-   "applyEnd": null,
-   "applyMethod": "접수방법: 방문접수 (매주 월요일 / 공휴일은 휴관으로 접수 불가) / 기존접수: 2026. 8. 4.(화) ~ 8. 16.(일) / 신규접수: 2026. 8. 18.(화) ~ 마감 시",
-   "capacity": 8,
-   "applied": null,
-   "fee": 120000,
-   "feeText": "120,000원 *통기타 무료대여",
-   "statusText": null,
-   "url": "https://www.smy.or.kr/notice01/?bmode=view&idx=173054335&t=board",
-   "image": null,
-   "description": "교육문화강좌 가을학기 수강생을 모집합니다",
-   "area": "쌍문동",
-   "firstSeen": null
-  },
-  {
-   "id": "smy-ki188n",
+   "id": "smy-1uwan1v",
    "org": "smy",
    "title": "청소년드럼",
    "facility": "쌍문동청소년문화의집",
@@ -2749,36 +2691,7 @@ window.KIDS_DATA = {
    "image": null,
    "description": "교육문화강좌 가을학기 수강생을 모집합니다",
    "area": "쌍문동",
-   "firstSeen": null
-  },
-  {
-   "id": "dbase-1pouvz8",
-   "org": "dbase",
-   "title": "나도 요리사",
-   "facility": "도봉동청소년문화의집 D.Base",
-   "category": "2026 가을학기 아카데미",
-   "target": "8세~13세 청소년 10명",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-09-01",
-   "programEnd": "2026-11-24",
-   "schedule": "매주 화요일 17:00~18:30 (화/12회)",
-   "sessions": 12,
-   "applyStart": "2026-10-20",
-   "applyEnd": "2026-10-31",
-   "applyMethod": "선착순 방문 접수 ( 카드결제만 가능 ) / 추가 접수기간 11월 / 10. 20.(화) ~ 10. 31.(토) / 아카데미 강좌는 3개월 단위로 접수됩니다.",
-   "capacity": 10,
-   "applied": null,
-   "fee": 45000,
-   "feeText": "45,000원 (1개월) / 재료비 9,000원 (재료비는 3개월분을 강사님에게 개별 납부합니다)",
-   "statusText": "마감",
-   "url": "https://dbase.or.kr/85",
-   "image": null,
-   "description": "제철 식재료를 활용해 매주 다양한 요리를 직접 만들기",
-   "area": "도봉동",
-   "firstSeen": null
+   "firstSeen": "2026-11-25"
   },
   {
    "id": "dbase-m24c8p",
