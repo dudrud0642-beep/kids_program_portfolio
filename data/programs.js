@@ -1,7 +1,7 @@
 /* 자동 생성: scripts/build-data.js — 직접 고치지 말고 data/raw/의 수집 결과를 고친 뒤 다시 실행하세요 */
 window.KIDS_DATA = {
  "region": "도봉구",
- "collectedAt": "2026-11-26",
+ "collectedAt": "2026-11-27",
  "types": [
   {
    "key": "library",
@@ -52,7 +52,7 @@ window.KIDS_DATA = {
    "note": null,
    "method": "public",
    "statusKey": "seoul-api",
-   "collectedAt": "2026-11-26"
+   "collectedAt": "2026-11-27"
   },
   {
    "key": "childcare",
@@ -371,21 +371,21 @@ window.KIDS_DATA = {
   },
   {
    "org": "yeyak",
-   "name": "뚝딱뚝딱놀이터",
-   "address": null,
-   "area": "창동",
-   "url": null,
-   "lat": 37.642791,
-   "lng": 127.048569
-  },
-  {
-   "org": "yeyak",
    "name": "초안산근린공원 입구",
    "address": null,
    "area": "창동",
    "url": null,
    "lat": 37.64478,
    "lng": 127.04915
+  },
+  {
+   "org": "yeyak",
+   "name": "뚝딱뚝딱놀이터",
+   "address": null,
+   "area": "창동",
+   "url": null,
+   "lat": 37.642791,
+   "lng": 127.048569
   },
   {
    "org": "yeyak",
@@ -601,34 +601,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "unilib-10o01al",
-   "org": "unilib",
-   "title": "[북스타트 후속활동 프로그램]<책 먹는 도깨비 얌얌이> (11/26)",
-   "facility": "도봉문화정보도서관",
-   "category": "독서문화프로그램",
-   "target": "36개월 이상 미취학 유아동",
-   "ageTags": [
-    "preschool"
-   ],
-   "programStart": "2026-11-26",
-   "programEnd": "2026-11-26",
-   "schedule": "16:30~17:20 (목 요일)",
-   "sessions": null,
-   "applyStart": "2026-11-16",
-   "applyEnd": "2026-11-25",
-   "applyMethod": "선착순",
-   "capacity": 10,
-   "applied": 8,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6339",
-   "image": null,
-   "description": "북스타트 후속활동 프로그램은 부모와 아이 동반 프로그램 입니다.",
-   "area": "창동",
-   "firstSeen": "2026-11-16"
-  },
-  {
    "id": "unilib-1h34vhp",
    "org": "unilib",
    "title": "[문화교실] 2026년 4기 보드게임(초등 저학년) - [매주 토요일 / 강사:최인영]",
@@ -770,34 +742,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "unilib-b6jf8z",
-   "org": "unilib",
-   "title": "[2026년 하반기] 리틀 리더스클럽 B (매주 목 17:30~18:20 / 초등 1~2학년)",
-   "facility": "도봉아이나라도서관",
-   "category": "문화교실",
-   "target": "초등 1~2학년 (2018년~2019년생)",
-   "ageTags": [
-    "elem-low"
-   ],
-   "programStart": "2026-09-06",
-   "programEnd": "2026-11-26",
-   "schedule": "17:30~18:20 (매주 목 요일)",
-   "sessions": 12,
-   "applyStart": "2026-08-06",
-   "applyEnd": "2026-08-31",
-   "applyMethod": "선착순",
-   "capacity": 12,
-   "applied": 10,
-   "fee": 15000,
-   "feeText": "15,000원",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat2/view.do?edu_idx=915",
-   "image": null,
-   "description": null,
-   "area": "창동",
-   "firstSeen": null
-  },
-  {
    "id": "unilib-bqimmx",
    "org": "unilib",
    "title": "[2026년 하반기] 프로젝트 잉글리시 B (매주 토 11:00~11:50 / 초등 3~5학년)",
@@ -850,34 +794,6 @@ window.KIDS_DATA = {
    "statusText": "기간종료",
    "url": "https://www.unilib.dobong.kr/edusat2/view.do?edu_idx=916",
    "image": "https://www.unilib.dobong.kr/data/userfiles/f7d72ddf-8a26-4826-af0a-061d06b8cb83.jpg",
-   "description": null,
-   "area": "창동",
-   "firstSeen": null
-  },
-  {
-   "id": "unilib-cuh1et",
-   "org": "unilib",
-   "title": "[2026년 하반기] 리틀 리더스클럽 A (매주 목 16:30~17:20 / 6~7세)",
-   "facility": "도봉아이나라도서관",
-   "category": "문화교실",
-   "target": "6~7세(2020~2021년생)",
-   "ageTags": [
-    "preschool"
-   ],
-   "programStart": "2026-09-03",
-   "programEnd": "2026-11-26",
-   "schedule": "16:30~17:20 (매주 목 요일)",
-   "sessions": 12,
-   "applyStart": "2026-08-06",
-   "applyEnd": "2026-08-20",
-   "applyMethod": "선착순",
-   "capacity": 12,
-   "applied": 16,
-   "fee": 15000,
-   "feeText": "15,000원",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat2/view.do?edu_idx=913",
-   "image": "https://www.unilib.dobong.kr/data/userfiles/4363e2a6-d5d4-4344-9f56-d4245d911d89.jpg",
    "description": null,
    "area": "창동",
    "firstSeen": null
@@ -937,35 +853,6 @@ window.KIDS_DATA = {
    "description": "발레로 시작해 현대무용을 전공하던 저자가 틀을 깨고 도전하는 과정을 소개합니다. '하나의 아프리카'라는 편견을 깨고 거대한 아프리카의 다양성을 자각하며 시행착오를 극복하는 과정을 소개합니다. 아프리카 전통춤이 무대에서 보여주는 화려한 기술이 전부가 아니라 살아있는 문화임을 인문학적인 시선으로 풀이합니다. 저자의 배우자이자 젬베 마스터인 코나테 이브라힘의 보조로 몰임감을 극대화 합니다.",
    "area": "방학동",
    "firstSeen": "2026-11-23"
-  },
-  {
-   "id": "unilib-ws5lkz",
-   "org": "unilib",
-   "title": "[북스타트] 후속 프로그램 (알사탕)",
-   "facility": "학마을도서관",
-   "category": "독서문화프로그램",
-   "target": "미취학 유아ㆍ아동 및 보호자(2 인 1팀)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-26",
-   "programEnd": "2026-11-26",
-   "schedule": "16:30~17:20 (목 요일)",
-   "sessions": null,
-   "applyStart": "2026-11-17",
-   "applyEnd": "2026-11-25",
-   "applyMethod": "선착순",
-   "capacity": 6,
-   "applied": 9,
-   "fee": null,
-   "feeText": null,
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6337",
-   "image": null,
-   "description": "이야기 선생님과 <알사탕>을 함께 읽고, <캔드머신 만들기> 놀이를 함께 해요!",
-   "area": "방학동",
-   "firstSeen": "2026-11-12"
   },
   {
    "id": "unilib-16e9kei",
@@ -1250,35 +1137,6 @@ window.KIDS_DATA = {
    "firstSeen": "2026-11-19"
   },
   {
-   "id": "unilib-y63m1u",
-   "org": "unilib",
-   "title": "[북스타트] 북스타트 후속활동 <우리 아기 그림책 놀이>",
-   "facility": "도봉기적의도서관",
-   "category": "독서문화프로그램",
-   "target": "미취학 어린이(+보호자)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-26",
-   "programEnd": "2026-11-26",
-   "schedule": "16:30~17:30 (목 요일)",
-   "sessions": null,
-   "applyStart": "2026-11-11",
-   "applyEnd": "2026-11-26",
-   "applyMethod": "선착순",
-   "capacity": 8,
-   "applied": 12,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "대기접수",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6330",
-   "image": null,
-   "description": "이야기 선생님과 함께 그림책을 읽고 후속활동을 해요",
-   "area": "도봉동",
-   "firstSeen": "2026-11-09"
-  },
-  {
    "id": "unilib-11ycrsz",
    "org": "unilib",
    "title": "동화동무씨동무 8기 모집(초등2~5학년) ★5명 추가모집★",
@@ -1422,34 +1280,6 @@ window.KIDS_DATA = {
    "description": null,
    "area": "쌍문동",
    "firstSeen": "2026-10-29"
-  },
-  {
-   "id": "unilib-xc1ngy",
-   "org": "unilib",
-   "title": "[북스타트 후속프로그램] 감정고양이:감정 표현 썬캐쳐 만들기 (11/26)",
-   "facility": "쌍문채움도서관",
-   "category": "독서문화프로그램",
-   "target": "36개월 이상 미취학 아동",
-   "ageTags": [
-    "preschool"
-   ],
-   "programStart": "2026-11-26",
-   "programEnd": "2026-11-26",
-   "schedule": "16:30~ (목 요일)",
-   "sessions": null,
-   "applyStart": "2026-11-13",
-   "applyEnd": "2026-11-25",
-   "applyMethod": "선착순",
-   "capacity": 6,
-   "applied": 7,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "기간종료",
-   "url": "https://www.unilib.dobong.kr/edusat/view.do?edu_idx=6305",
-   "image": null,
-   "description": null,
-   "area": "쌍문동",
-   "firstSeen": "2026-10-26"
   },
   {
    "id": "unilib-1fq6at",
@@ -1762,41 +1592,12 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261021140513578224",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792563047930A7LHDO40F6VLIS1PY1MFG1IJT",
    "description": null,
    "area": "창동",
    "firstSeen": "2026-10-22"
-  },
-  {
-   "id": "yeyak-1o07ogw",
-   "org": "yeyak",
-   "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(유아)",
-   "facility": "뚝딱뚝딱놀이터",
-   "category": "문화체험 > 산림여가",
-   "target": "유아(5세이상유아포함가족)",
-   "ageTags": [
-    "preschool",
-    "family"
-   ],
-   "programStart": "2026-11-14",
-   "programEnd": "2026-11-28",
-   "schedule": "10:30~12:00",
-   "sessions": null,
-   "applyStart": "2026-10-20",
-   "applyEnd": "2026-11-25",
-   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 09:00부터",
-   "capacity": null,
-   "applied": null,
-   "fee": 0,
-   "feeText": "무료",
-   "statusText": "접수종료",
-   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
-   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
-   "description": null,
-   "area": "창동",
-   "firstSeen": "2026-10-21"
   },
   {
    "id": "yeyak-l2c0xt",
@@ -1823,6 +1624,35 @@ window.KIDS_DATA = {
    "statusText": "접수종료",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020173102441101",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=1792485088229YQ7BL5RRGY2R9WAV3XR6ZYO0F",
+   "description": null,
+   "area": "창동",
+   "firstSeen": "2026-10-21"
+  },
+  {
+   "id": "yeyak-1o07ogw",
+   "org": "yeyak",
+   "title": "(도봉구)뚝딱뚝딱 놀이터 주말 가족 프로그램(유아)",
+   "facility": "뚝딱뚝딱놀이터",
+   "category": "문화체험 > 산림여가",
+   "target": "유아(5세이상유아포함가족)",
+   "ageTags": [
+    "preschool",
+    "family"
+   ],
+   "programStart": "2026-11-14",
+   "programEnd": "2026-11-28",
+   "schedule": "10:30~12:00",
+   "sessions": null,
+   "applyStart": "2026-10-20",
+   "applyEnd": "2026-11-25",
+   "applyMethod": "온라인 예약 (서울시 공공서비스예약) · 10/20 09:00부터",
+   "capacity": null,
+   "applied": null,
+   "fee": 0,
+   "feeText": "무료",
+   "statusText": "접수종료",
+   "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261020174628648040",
+   "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=179248601125672780AXAJE1RNNT3PK8ZWQN4Z",
    "description": null,
    "area": "창동",
    "firstSeen": "2026-10-21"
@@ -1880,7 +1710,7 @@ window.KIDS_DATA = {
    "applied": null,
    "fee": null,
    "feeText": "유료",
-   "statusText": "접수중",
+   "statusText": "예약마감",
    "url": "https://yeyak.seoul.go.kr/web/reservation/selectReservView.do?rsv_svc_id=S261119165555093165",
    "image": "https://yeyak.seoul.go.kr/web/common/file/FileDown.do?file_id=17950749909355E65O9RMIQEOJ384BHN4TOZMW",
    "description": "무수골 녹색복지센터(산림치유센터)는 바쁜 일상에 지친 주민들 누구나 자연을 통해 몸과 마음을 치유하는 도심 속 힐링공간 입니다 . 역사와 자연이 어우러진 치유과 회복의 쉼터 , 무수골 녹색복지 숲에서 건강 돌봄 함께 해요 ! 문 의 : 무수골녹색복지센터(산림치유센터) / 02-2091-3463 결제는 현장에서 합니다!!(예약사이트 결제 불가) ※ 이용 료 감면 50% 감면 가 . 도봉구민 나 . 장애인 다 . 경로우대자 (65세 이상) 라. 다둥이행복카드소지 및 등재자 마. 다문화가정 바. 북한이탈주민 전액 감면 가 . 기초생활수급…",
@@ -2017,11 +1847,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2045,11 +1875,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2073,11 +1903,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2101,11 +1931,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2129,11 +1959,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2157,11 +1987,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2185,11 +2015,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2213,11 +2043,11 @@ window.KIDS_DATA = {
    "ageTags": [
     "preschool"
    ],
-   "programStart": "2026-11-26",
+   "programStart": "2026-11-27",
    "programEnd": "2026-12-07",
    "schedule": null,
    "sessions": null,
-   "applyStart": "2026-11-26",
+   "applyStart": "2026-11-27",
    "applyEnd": "2026-12-07",
    "applyMethod": "온라인 예약 (서울시 공공서비스예약)",
    "capacity": null,
@@ -2436,35 +2266,6 @@ window.KIDS_DATA = {
    "firstSeen": null
   },
   {
-   "id": "cdyouth-1n57e7t",
-   "org": "cdyouth",
-   "title": "바둑체스",
-   "facility": "시립창동청소년센터",
-   "category": "교육문화프로그램",
-   "target": "만6세~12세",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-11-05",
-   "programEnd": "2026-11-26",
-   "schedule": "목 15:00~15:50, 16:00~16:50 (11/5개강~11/26종강 *4회)",
-   "sessions": 4,
-   "applyStart": "2026-10-16",
-   "applyEnd": "2026-10-31",
-   "applyMethod": "[온라인] 10/16(금) 09:00 ~ 10/31(토) 23:59 *일요일/공휴일은 온라인 접수만 가능 / [방문] 화~금 14:00~18:00 / 토 10:00~14:00 ([기존] 10/16(금)~10/23(금) [신규] 10/24(토)~10/31(토))",
-   "capacity": 15,
-   "applied": null,
-   "fee": 35000,
-   "feeText": "35,000원 *교재비 13,000원 *(준비) 연필, 지우개",
-   "statusText": null,
-   "url": "https://www.cdyouth.or.kr/sub06/sub01.php?mode=read&id=5834",
-   "image": null,
-   "description": null,
-   "area": "창동",
-   "firstSeen": null
-  },
-  {
    "id": "cdyouth-d3jn8w",
    "org": "cdyouth",
    "title": "미술수행평가기초",
@@ -2547,35 +2348,6 @@ window.KIDS_DATA = {
    "url": "https://dbase.or.kr/85",
    "image": null,
    "description": "매주 맛있는 빵과 디저트를 직접 구우며 오감으로 즐기는 베이킹 활동",
-   "area": "도봉동",
-   "firstSeen": null
-  },
-  {
-   "id": "dbase-eet2hw",
-   "org": "dbase",
-   "title": "로블록스 코딩",
-   "facility": "도봉동청소년문화의집 D.Base",
-   "category": "2026 가을학기 아카데미",
-   "target": "9세~16세 15명",
-   "ageTags": [
-    "elem-low",
-    "elem-high"
-   ],
-   "programStart": "2026-09-03",
-   "programEnd": "2026-11-26",
-   "schedule": "매주 목요일 17:00~17:50 (목/12회)",
-   "sessions": 12,
-   "applyStart": "2026-10-20",
-   "applyEnd": "2026-10-31",
-   "applyMethod": "선착순 방문 접수 ( 카드결제만 가능 ) / 추가 접수기간 11월 / 10. 20.(화) ~ 10. 31.(토) / 아카데미 강좌는 3개월 단위로 접수됩니다.",
-   "capacity": 15,
-   "applied": null,
-   "fee": 40000,
-   "feeText": "40,000원 (1개월) / 장비대여료 20,000원(1개월)",
-   "statusText": null,
-   "url": "https://dbase.or.kr/85",
-   "image": null,
-   "description": "게임 제작과 파이썬코딩을 통해 프로그래밍 원리를 배우는 실습형 코딩 수업",
    "area": "도봉동",
    "firstSeen": null
   },
